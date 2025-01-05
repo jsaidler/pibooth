@@ -72,7 +72,7 @@ class CameraPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_do(self, cfg, app):
-        # pygame.event.pump()  # Before blocking actions
+        pygame.event.pump()  # Before blocking actions
         # if cfg.getboolean('WINDOW', 'preview_countdown'):
         #     app.camera.preview_countdown(cfg.getint('WINDOW', 'preview_delay'))
         # else:
