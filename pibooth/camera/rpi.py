@@ -49,7 +49,7 @@ class RpiCamera(BaseCamera):
         """
         self._cam.framerate = 15  # Slower is necessary for high-resolution
         self._cam.video_stabilization = True
-        self._cam.vflip = False
+        self._cam.vflip = True
         self._cam.hflip = self.capture_flip
         self._cam.resolution = self.resolution
         self._cam.iso = self.preview_iso
