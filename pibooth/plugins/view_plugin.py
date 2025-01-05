@@ -125,8 +125,10 @@ class ViewPlugin(object):
         win.set_capture_number(self.count, app.capture_nbr)
 
     @pibooth.hookimpl
-    def state_preview_validate(self):
-        return 'capture'
+    def state_preview_validate(self, events):
+        event = app.find_capture_event(events)
+        if event:
+            return 'capture'
 
     @pibooth.hookimpl
     def state_capture_do(self, app, win):
