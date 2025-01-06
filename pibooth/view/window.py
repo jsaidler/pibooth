@@ -92,6 +92,8 @@ class PiWindow(object):
 
         if pos == self.FULLSCREEN:
             image_size_max = (self.surface.get_size()[0] * 0.9, self.surface.get_size()[1] * 0.9)
+        elif pos == self.CENTER:
+            image_size_max = (self.surface.get_size()[0] * 0.75, self.surface.get_size()[1])
         else:
             image_size_max = (self.surface.get_size()[0] * 0.48, self.surface.get_size()[1])
 
@@ -280,7 +282,7 @@ class PiWindow(object):
                 image.fill((0, 0, 0))
                 return self.surface.blit(image, self._pos_map[pos](image))
         else:
-            return self._update_foreground(pil_image, pos, True)
+            return self._update_foreground(pil_image, pos, False)
 
     def show_work_in_progress(self):
         """Show wait view.
