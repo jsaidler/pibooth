@@ -378,7 +378,7 @@ class ChooseBackground(Background):
         """
         rect = pygame.Rect(self._text_border, self._text_border,
                            self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
-        Background.resize_texts(self, rect)
+        # Background.resize_texts(self, rect)
 
     def paint(self, screen):
         Background.paint(self, screen)
