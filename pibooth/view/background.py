@@ -498,7 +498,7 @@ class PrintBackground(Background):
         Background.resize(self, screen)
         if self._need_update:
 
-            images_size = (self._rect.width // 5, self._rect.height // 5)
+            images_size = (self._rect.width * 0.1, self._rect.height * 0.1)
 
             # Left image forget/no print
             if self.can_forget:
