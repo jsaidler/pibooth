@@ -468,8 +468,7 @@ class CaptureBackground(Background):
 class ProcessingBackground(Background):
 
     def __init__(self):
-        Background.__init__(self)
-        # Background.__init__(self, "processing")
+        Background.__init__(self, "processing")
 
     def resize_texts(self):
         """Update text surfaces.
