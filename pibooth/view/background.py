@@ -210,8 +210,8 @@ class IntroBackground(Background):
 
                 self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
 
-                x = int(self._rect.width * 0.2)
-                y = int(self._rect.height // 2)
+                x = int(self._rect.width * 0.15)
+                y = int(self._rect.height // 3)
             else:
                 size = (self._rect.width * 0.3, self._rect.height * 0.3)
 
