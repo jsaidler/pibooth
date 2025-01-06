@@ -54,14 +54,14 @@ class CameraPlugin(object):
         else:
             app.capture_nbr = app.capture_choices[0]
 
-    @pibooth.hookimpl
-    def state_choose_do(self, app, events):
-        event = app.find_choice_event(events)
-        if event:
-            if event.key == pygame.K_LEFT:
-                app.capture_nbr = app.capture_choices[0]
-            elif event.key == pygame.K_RIGHT:
-                app.capture_nbr = app.capture_choices[1]
+    # @pibooth.hookimpl
+    # def state_choose_do(self, app, events):
+    #     event = app.find_choice_event(events)
+    #     if event:
+    #         if event.key == pygame.K_LEFT:
+    #             app.capture_nbr = app.capture_choices[0]
+    #         elif event.key == pygame.K_RIGHT:
+    #             app.capture_nbr = app.capture_choices[1]
 
     @pibooth.hookimpl
     def state_preview_enter(self, cfg, app, win):

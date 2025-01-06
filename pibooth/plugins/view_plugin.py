@@ -83,6 +83,7 @@ class ViewPlugin(object):
                 return 'choose'
             else:
                 return 'preview'
+            #A impressão é controlada pelo state_wait_do
 
     @pibooth.hookimpl
     def state_wait_exit(self, win):
@@ -94,17 +95,24 @@ class ViewPlugin(object):
         LOGGER.info("Show picture choice (nothing selected)")
         win.set_print_number(0, False)  # Hide printer status
         win.show_choice(app.capture_choices)
-        self.choose_timer.start()
+        # self.choose_timer.start()
+        
+    # @pibooth.hookimpl
+    # def state_choose_do(self, app, events):
 
+                
     @pibooth.hookimpl
-    def state_choose_validate(self, cfg, app):
-        if app.capture_nbr:
-            if cfg.getfloat('WINDOW', 'chosen_delay') > 0:
-                return 'chosen'
-            else:
+    def state_choose_validate(self, app, events):
+         touch_point = app.six_points_touch(events)
+         if touch_point:
+            if touch_point == 'CENTER-LEFT':
+                app.capture_nbr = app.capture_choices[0]
                 return 'preview'
-        elif self.choose_timer.is_timeout():
-            return 'wait'
+            elif touch_point == 'CENTER-RIGHT':
+                app.capture_nbr = app.capture_choices[1]
+                return 'preview'
+            elif touch_point == 'BOTTOM-RIGHT':
+                return 'wait'
 
     @pibooth.hookimpl
     def state_chosen_enter(self, cfg, app, win):
