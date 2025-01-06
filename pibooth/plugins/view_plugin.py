@@ -100,7 +100,7 @@ class ViewPlugin(object):
     def state_choose_validate(self, cfg, app):
         if app.capture_nbr:
             if cfg.getfloat('WINDOW', 'chosen_delay') > 0:
-                return 'chosen'
+                return 'choose'
             else:
                 return 'preview'
         elif self.choose_timer.is_timeout():
