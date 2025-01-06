@@ -100,7 +100,7 @@ class ViewPlugin(object):
     def state_choose_validate(self, cfg, app):
         if app.capture_nbr:
             if cfg.getfloat('WINDOW', 'chosen_delay') > 0:
-                return 'choose'
+                return 'chosen'
             else:
                 return 'preview'
         elif self.choose_timer.is_timeout():
@@ -133,7 +133,7 @@ class ViewPlugin(object):
         event = app.find_choice_event(events)
         if event:
             if event.key == pygame.K_LEFT:
-                return 'chosen'
+                return 'choose'
             elif event.key == pygame.K_RIGHT:
                 return 'capture'
 
