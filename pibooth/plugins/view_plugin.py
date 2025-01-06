@@ -133,9 +133,9 @@ class ViewPlugin(object):
         event = app.find_choice_event(events)
         if event:
             if event.key == pygame.K_LEFT:
-                'chosen'
+                return 'chosen'
             elif event.key == pygame.K_RIGHT:
-                'capture'
+                return 'capture'
 
     @pibooth.hookimpl
     def state_capture_do(self, app, win):
