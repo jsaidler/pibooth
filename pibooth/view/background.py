@@ -250,7 +250,7 @@ class IntroBackground(Background):
                                self._rect.width / 2 - 2 * self._text_border,
                                self._rect.height * 0.6 - self._text_border)
             align = 'top-center'
-        Background.resize_texts(self, rect, align)
+        # Background.resize_texts(self, rect, align)
 
     def paint(self, screen):
         Background.paint(self, screen)
