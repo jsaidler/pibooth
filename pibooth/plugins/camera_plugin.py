@@ -77,6 +77,17 @@ class CameraPlugin(object):
         #     app.camera.preview_countdown(cfg.getint('WINDOW', 'preview_delay'))
         # else:
         #     app.camera.preview_wait(cfg.getint('WINDOW', 'preview_delay'))
+    @pibooth.hookimpl
+    def state_preview_validate(self, app, events):
+        # event = app.find_capture_event(events)
+        # if event:
+        #     return 'capture'
+        event = app.find_choice_event(events)
+        if event:
+            if event.key == pygame.K_LEFT:
+                'chosen'
+            elif event.key == pygame.K_RIGHT:
+                'capture'
 
     @pibooth.hookimpl
     def state_preview_exit(self, cfg, app):
