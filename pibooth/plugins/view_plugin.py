@@ -111,7 +111,7 @@ class ViewPlugin(object):
             elif touch_point == 'CENTER-RIGHT':
                 app.capture_nbr = app.capture_choices[1]
                 return 'preview'
-            elif touch_point == 'BOTTOM-RIGHT':
+            elif touch_point == 'BOTTOM-LEFT':
                 return 'wait'
 
     @pibooth.hookimpl
