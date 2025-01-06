@@ -334,7 +334,7 @@ class ChooseBackground(Background):
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            size = (self._rect.width * 0.45, self._rect.height * 0.6)
+            size = (self._rect.width * 0.60, self._rect.height * 0.75)
             self.layout0 = pictures.get_pygame_layout_image(
                 self._text_color, self._background_color, self.choices[0], size)
             self.layout1 = pictures.get_pygame_layout_image(
@@ -344,7 +344,7 @@ class ChooseBackground(Background):
 
             x0 = int(self._rect.left + inter)
             x1 = int(self._rect.left + 2 * inter + self.layout0.get_rect().width)
-            y = int(self._rect.top + self._rect.height * 0.3)
+            y = int(self._rect.top + self._rect.height * 0.15)
 
             self.layout0_pos = (x0, y)
             self.layout1_pos = (x1, y)
