@@ -210,7 +210,7 @@ class IntroBackground(Background):
 
                 self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
 
-                x = int(self._rect.width * 0.1)
+                x = int(self._rect.width * 0.03)
                 y = int(self._rect.height // 4)
             else:
                 size = (self._rect.width * 0.3, self._rect.height * 0.3)
@@ -468,12 +468,13 @@ class CaptureBackground(Background):
 class ProcessingBackground(Background):
 
     def __init__(self):
-        Background.__init__(self, "processing")
+        Background.__init__(self)
+        # Background.__init__(self, "processing")
 
     def resize_texts(self):
         """Update text surfaces.
         """
-        rect = pygame.Rect(self._text_border, self._rect.height * 0.8 - self._text_border,
+        rect = pygame.Rect(self._text_border, self._rect.height * 0.5 - self._text_border,
                            self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
         Background.resize_texts(self, rect)
 
