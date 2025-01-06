@@ -206,12 +206,12 @@ class IntroBackground(Background):
         Background.resize(self, screen)
         if self._need_update and self.arrow_location != ARROW_HIDDEN:
             if self.arrow_location == ARROW_TOUCH:
-                size = (self._rect.width * 0.2, self._rect.height * 0.2)
+                size = (self._rect.width * 0.5, self._rect.height * 0.5)
 
                 self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
 
-                x = int(self._rect.width * 0.2)
-                y = int(self._rect.height // 2)
+                x = int(self._rect.width * 0.25)
+                y = int(self._rect.height // 5)
             else:
                 size = (self._rect.width * 0.3, self._rect.height * 0.3)
 
