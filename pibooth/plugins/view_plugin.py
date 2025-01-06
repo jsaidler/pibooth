@@ -126,9 +126,15 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):
-        event = app.find_capture_event(events)
+        # event = app.find_capture_event(events)
+        # if event:
+        #     return 'capture'
+        event = app.find_choice_event(events)
         if event:
-            return 'capture'
+            if event.key == pygame.K_LEFT:
+                'chosen'
+            elif event.key == pygame.K_RIGHT:
+                'capture'
 
     @pibooth.hookimpl
     def state_capture_do(self, app, win):
