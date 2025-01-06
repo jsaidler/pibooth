@@ -206,12 +206,12 @@ class IntroBackground(Background):
         Background.resize(self, screen)
         if self._need_update and self.arrow_location != ARROW_HIDDEN:
             if self.arrow_location == ARROW_TOUCH:
-                size = (self._rect.width * 0.5, self._rect.height * 0.5)
+                size = (self._rect.width * 0.65, self._rect.height * 0.65)
 
                 self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
 
                 x = int(self._rect.width * 0.15)
-                y = int(self._rect.height // 3)
+                y = int(self._rect.height // 4)
             else:
                 size = (self._rect.width * 0.3, self._rect.height * 0.3)
 
@@ -344,7 +344,7 @@ class ChooseBackground(Background):
 
             x0 = int(self._rect.left + inter)
             x1 = int(self._rect.left + 2 * inter + self.layout0.get_rect().width)
-            y = int(self._rect.top + self._rect.height * 0.15)
+            y = int(self._rect.top + self._rect.height * 0.10)
 
             self.layout0_pos = (x0, y)
             self.layout1_pos = (x1, y)
