@@ -280,7 +280,7 @@ class PiWindow(object):
                 image.fill((0, 0, 0))
                 return self.surface.blit(image, self._pos_map[pos](image))
         else:
-            return self._update_foreground(pil_image, pos, False)
+            return self._update_foreground(pil_image, pos, True)
 
     def show_work_in_progress(self):
         """Show wait view.
