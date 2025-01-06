@@ -509,7 +509,7 @@ class PrintBackground(Background):
                 no_print_image = "no_print_touch.png" if self.arrow_location == ARROW_TOUCH else "printer_failure.png"
                 self.left_image = pictures.get_pygame_image(
                     no_print_image, images_size, hflip=False, vflip=False, color=self._text_color)
-            x = int(self._rect.left + self._rect.width * 0.05)
+            x = int(self._rect.left + self._rect.width * 0.02)
             y = int(self._rect.top + self._rect.height // 2 - self.left_image.get_rect().height // 2)
             self.left_image_pos = (x, y)
 
@@ -517,7 +517,7 @@ class PrintBackground(Background):
             print_image = "printer_touch.png" if self.arrow_location == ARROW_TOUCH else "printer.png"
             self.right_image = pictures.get_pygame_image(
                 print_image, images_size, hflip=False, vflip=False, color=self._text_color)
-            x = int(self._rect.left + self._rect.width * 0.95 - self.right_image.get_rect().width)
+            x = int(self._rect.left + self._rect.width * 0.97 - self.right_image.get_rect().width)
             y = int(self._rect.top + self._rect.height // 2 - self.right_image.get_rect().height // 2)
             self.right_image_pos = (x, y)
 
