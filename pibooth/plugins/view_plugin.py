@@ -133,7 +133,7 @@ class ViewPlugin(object):
         event = app.find_choice_event(events)
         if event:
             if event.key == pygame.K_LEFT:
-                return 'choose'
+                return 'wait'
             elif event.key == pygame.K_RIGHT:
                 return 'capture'
 
