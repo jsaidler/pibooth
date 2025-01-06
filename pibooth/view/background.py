@@ -461,8 +461,8 @@ class CaptureBackground(Background):
 
     def paint(self, screen):
         Background.paint(self, screen)
-        screen.blit(self.left_people, self.left_people_pos)
-        screen.blit(self.right_people, self.right_people_pos)
+        # screen.blit(self.left_people, self.left_people_pos)
+        # screen.blit(self.right_people, self.right_people_pos)
 
 
 class ProcessingBackground(Background):
