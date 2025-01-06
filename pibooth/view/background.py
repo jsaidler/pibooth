@@ -210,7 +210,7 @@ class IntroBackground(Background):
 
                 self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
 
-                x = int(self._rect.width * 0.15)
+                x = int(self._rect.width * 0.1)
                 y = int(self._rect.height // 4)
             else:
                 size = (self._rect.width * 0.3, self._rect.height * 0.3)
@@ -344,7 +344,7 @@ class ChooseBackground(Background):
 
             x0 = int(self._rect.left + inter)
             x1 = int(self._rect.left + 2 * inter + self.layout0.get_rect().width)
-            y = int(self._rect.top + self._rect.height * 0.10)
+            y = int(self._rect.top + self._rect.height * 0.125)
 
             self.layout0_pos = (x0, y)
             self.layout1_pos = (x1, y)
