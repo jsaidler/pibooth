@@ -77,12 +77,12 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_validate(self, cfg, app, events):
-        if app.find_capture_event(events):
+        touch_point = app.six_points_touch(events)
+        if touch_point == 'CENTER-LEFT':
             if len(app.capture_choices) > 1:
                 return 'choose'
-            if cfg.getfloat('WINDOW', 'chosen_delay') > 0:
-                return 'chosen'
-            return 'preview'
+            else:
+                return 'preview'
 
     @pibooth.hookimpl
     def state_wait_exit(self, win):

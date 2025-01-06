@@ -364,6 +364,62 @@ class PiApplication(object):
                     event.key = pygame.K_RIGHT
                 return event
         return None
+    
+    def seven_points_touch(self, events):
+        window_area = self._window.get_rect()
+        top_left = pygame.Rect(0, 0, window_area.width * 0.25, window_area.height * 0.25)
+        top_right = pygame.Rect(window_area.width * 0.75, 0, window_area.width * 0.25, window_area.height * 0.25)        
+        center_left = pygame.Rect(0, window_area.height * 0.25, window_area.width * 0.25, window_area.height * 0.5)
+        center = pygame.Rect(window_area.width * 0.25, 0, window_area.width * 0.5, window_area.height)
+        center_right = pygame.Rect(window_area.width * 0.75, window_area.height * 0.25, window_area.width * 0.25, window_area.height * 0.5)
+        bottom_left = pygame.Rect(0, window_area.height * 0.75, window_area.width * 0.25, window_area.height * 0.25)
+        bottom_right = pygame.Rect(window_area.width * 0.75, window_area.height * 0.75, window_area.width * 0.25, window_area.height * 0.25)     
+        
+        for event in events:
+            if event.type == pygame.FINGERUP:
+                pos = get_event_pos(self._window.display_size, event)
+                if top_left.collidepoint(pos):
+                    return 'TOP-LEFT'
+                elif top_right.collidepoint(pos):
+                    return 'TOP-RIGHT'
+                elif center_left.collidepoint(pos):
+                    return 'CENTER-LEFT'
+                elif center.collidepoint(pos):
+                    return 'CENTER'
+                elif center_right.collidepoint(pos):
+                    return 'CENTER-RIGHT'
+                elif bottom_left.collidepoint(pos):
+                    return 'BOTTOM-LEFT'
+                elif bottom_right.collidepoint(pos):
+                    return 'BOTTOM-RIGHT'
+        return None
+    
+    def six_points_touch(self, events):
+        window_area = self._window.get_rect()
+        top_left = pygame.Rect(0, 0, window_area.width * 0.5, window_area.height * 0.25)
+        top_right = pygame.Rect(window_area.width * 0.5, 0, window_area.width * 0.5, window_area.height * 0.25)        
+        center_left = pygame.Rect(0, window_area.height * 0.25, window_area.width * 0.5, window_area.height * 0.5)
+        center_right = pygame.Rect(window_area.width * 0.5, window_area.height * 0.25, window_area.width * 0.5, window_area.height * 0.5)
+        bottom_left = pygame.Rect(0, window_area.height * 0.75, window_area.width * 0.5, window_area.height * 0.25)
+        bottom_right = pygame.Rect(window_area.width * 0.5, window_area.height * 0.75, window_area.width * 0.5, window_area.height * 0.25)     
+        
+        for event in events:
+            if event.type == pygame.FINGERUP:
+                pos = get_event_pos(self._window.display_size, event)
+                if top_left.collidepoint(pos):
+                    return 'TOP-LEFT'
+                elif top_right.collidepoint(pos):
+                    return 'TOP-RIGHT'
+                elif center_left.collidepoint(pos):
+                    return 'CENTER-LEFT'
+                elif center_right.collidepoint(pos):
+                    return 'CENTER-RIGHT'
+                elif bottom_left.collidepoint(pos):
+                    return 'BOTTOM-LEFT'
+                elif bottom_right.collidepoint(pos):
+                    return 'BOTTOM-RIGHT'
+        return None
+        
 
     def main_loop(self):
         try:
