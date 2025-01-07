@@ -68,6 +68,7 @@ class Background(object):
         self._background = None
         self._background_color = color
         self._background_image = None
+        self._logo_backgrounf_image = None
 
         self._overlay = None
 
@@ -190,6 +191,10 @@ class Background(object):
             screen.blit(text_surface, pos)
         for outline_surface, pos in self._outlines:
             screen.blit(outline_surface, pos)
+        if self._logo_backgrounf_image:
+            logo_file = pictures.get_pygame_image(self._logo_backgrounf_image, (self._rect.width * 0.70, self._rect.height * 1.07), vflip=False, color=None, crop=True)
+            screen.blit(logo_file, (int(self._rect.width * 0.45), int(self._rect.height * -0.07)))
+            
         self._need_update = False
 
 
@@ -202,15 +207,11 @@ class IntroBackground(Background):
 
     def resize(self, screen):
         Background.resize(self, screen)
+        self._logo_backgrounf_image = "logo.png"
         if self._need_update:
             self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
             self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
             self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
-            
-            self.logo_size = (self._rect.width * 0.70, self._rect.height * 1.07)
-            self.logo = pictures.get_pygame_image("logo.png",  self.logo_size, vflip=False, color=None, crop=True)    
-            self.logo_pos = (int(self._rect.width * 0.45), int(self._rect.height * -0.07))
-
             
             self.exit_icon_size = (self._rect.width * 0.1, self._rect.height * 0.1)
             self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
@@ -222,7 +223,6 @@ class IntroBackground(Background):
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.camera_icon, self.camera_icon_pos)
-        screen.blit(self.logo, self.logo_pos)
         screen.blit(self.exit_icon, self.exit_icon_pos)
 
 
@@ -300,6 +300,7 @@ class ChooseBackground(Background):
         self.left_arrow_pos = None
         self.right_arrow = None
         self.right_arrow_pos = None
+        self._logo_backgrounf_image = "logo_alpha_15.png"
 
     def resize(self, screen):
         Background.resize(self, screen)
