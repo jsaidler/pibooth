@@ -186,7 +186,7 @@ class Background(object):
             screen.fill(self._background_color)
             background_logo_size = (self._rect.width * 0.65, self._rect.height * 0.65)
             background_logo_image = pictures.get_pygame_image("logo_fundo.png",  background_logo_size)    
-            background_logo_pos= (int(self._rect.width * 0.25), int(self._rect.height * -0.3))
+            background_logo_pos= (int(self._rect.width * 0.25), int(self._rect.height * 0.01))
             screen.blit(background_logo_image, background_logo_pos)
         if self._overlay:
             screen.blit(self._overlay, self._overlay.get_rect(center=self._rect.center))
@@ -226,6 +226,7 @@ class IntroBackground(Background):
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.camera_icon, self.camera_icon_pos)
+        screen.blit(self.logo, self.logo_pos)
         screen.blit(self.exit_icon, self.exit_icon_pos)
 
 
