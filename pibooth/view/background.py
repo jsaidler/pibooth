@@ -213,6 +213,9 @@ class IntroBackground(Background):
             self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
             self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.01))
 
+    def resize_texts(self):
+        return None
+
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.camera_icon, self.camera_icon_pos)
