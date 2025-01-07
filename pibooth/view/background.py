@@ -204,28 +204,14 @@ class IntroBackground(Background):
 
     def resize(self, screen):
         Background.resize(self, screen)
-        if self._need_update and self.arrow_location != ARROW_HIDDEN:
-            if self.arrow_location == ARROW_TOUCH:
-                size = (self._rect.width * 0.65, self._rect.height * 0.65)
-
-                self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
-
-                x = int(self._rect.width * 0.03)
-                y = int(self._rect.height * 0.2)
-            else:
-                size = (self._rect.width * 0.3, self._rect.height * 0.3)
-
-                vflip = True if self.arrow_location == ARROW_TOP else False
-                self.left_arrow = pictures.get_pygame_image("arrow.png", size, vflip=vflip, color=self._text_color)
-
-                x = int(self._rect.left + self._rect.width // 4
-                        - self.left_arrow.get_rect().width // 2)
-                if self.arrow_location == ARROW_TOP:
-                    y = self._rect.top + 10
-                else:
-                    y = int(self._rect.top + 2 * self._rect.height // 3)
-
-            self.left_arrow_pos = (x - self.arrow_offset, y)
+        if self._need_update:
+            self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
+            self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
+            self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
+            
+            self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
+            self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
+            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.1))        
 
     def resize_texts(self):
         """Update text surfaces.
@@ -251,14 +237,6 @@ class IntroBackground(Background):
                                self._rect.height * 0.6 - self._text_border)
             align = 'top-center'
         # Background.resize_texts(self, rect, align)
-        if self._need_update:
-            self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
-            self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
-            self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
-            
-            self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
-            self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
-            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.1))
 
     def paint(self, screen):
         Background.paint(self, screen)
