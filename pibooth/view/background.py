@@ -202,7 +202,7 @@ class Background(object):
             screen.blit(exit_icon, (int(self._rect.width * 0.01), int(self._rect.width * 0.01)))
         if self._show_back:
             back_icon = pictures.get_pygame_image("back.png",  (self._rect.width * 0.1, self._rect.height * 0.1), vflip=False, color=self._text_color)
-            screen.blit(back_icon, (int(self._rect.width * 0.01), int(self._rect.width * 0.01)))
+            screen.blit(back_icon, (int(self._rect.width * 0.01), int((self._rect.width * 0.99) - self._rect.height)))
             
         self._need_update = False
 
