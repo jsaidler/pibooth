@@ -211,7 +211,7 @@ class IntroBackground(Background):
             self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
             self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
             
-            self.logo_size = (self._rect.width * 0.85, self._rect.height * 0.85)
+            self.logo_size = (self._rect.width * 0.75, self._rect.height)
             self.logo = pictures.get_pygame_image("logo.png",  self.logo_size, vflip=False, color=None, crop=True)    
             self.logo_pos = (int(self._rect.width * 0.53), 0)
 
