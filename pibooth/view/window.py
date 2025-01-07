@@ -240,7 +240,7 @@ class PiWindow(object):
         """Show failure view in case of exception.
         """
         self._capture_number = (0, self._capture_number[1])
-        self._update_background(background.OopsBackground())
+        self._update_background(background.OopsBackground)
 
     def show_intro(self, pil_image=None, with_print=True):
         """Show introduction view.
