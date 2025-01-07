@@ -185,7 +185,7 @@ class Background(object):
         else:
             screen.fill(self._background_color)
             background_logo_size = (self._rect.width * 0.65, self._rect.height * 0.65)
-            background_logo_image = pictures.get_pygame_image("logo_fundo.png",  background_logo_size)    
+            background_logo_image = pictures.get_pygame_image("logo_fundo.png",  background_logo_size, crop=True, color=None)    
             background_logo_pos= (int(self._rect.width * 0.25), int(self._rect.height * 0.01))
             screen.blit(background_logo_image, background_logo_pos)
         if self._overlay:
@@ -212,8 +212,8 @@ class IntroBackground(Background):
             self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
             
             self.logo_size = (self._rect.width * 0.65, self._rect.height * 0.65)
-            self.logo = pictures.get_pygame_image("logo.png",  self.logo_size)    
-            self.logo_pos = (int(self._rect.width * 0.53), int(self._rect.width *0.2))
+            self.logo = pictures.get_pygame_image("logo.png",  self.logo_size, vflip=False, color=None)    
+            self.logo_pos = (int(self._rect.width * 0.53), int(self._rect.height *0.2))
 
             
             self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
