@@ -241,8 +241,6 @@ class IntroBackground(Background):
 
     def paint(self, screen):
         Background.paint(self, screen)
-        if self.arrow_location != ARROW_HIDDEN:
-            screen.blit(self.left_arrow, self.left_arrow_pos)
         screen.blit(self.camera_icon, self.camera_icon_pos)
         screen.blit(self.exit_icon, self.exit_icon_pos)
 
