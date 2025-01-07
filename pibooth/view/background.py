@@ -248,39 +248,8 @@ class IntroWithPrintBackground(IntroBackground):
 
     def resize(self, screen):
         IntroBackground.resize(self, screen)
-        if self._need_update and self.arrow_location != ARROW_HIDDEN:
-            size = (self._rect.width * 0.1, self._rect.height * 0.1)
-            if self.arrow_location == ARROW_TOUCH:
-                self.right_arrow = pictures.get_pygame_image("hand.png", size, hflip=False,
-                                                             vflip=False, angle=-70, color=self._text_color)
-            else:
-                vflip = True if self.arrow_location == ARROW_TOP else False
-                angle = -70 if self.arrow_location == ARROW_TOP else 70
-                self.right_arrow = pictures.get_pygame_image("arrow.png", size, hflip=False,
-                                                             vflip=vflip, angle=angle, color=self._text_color)
-
-            x = int(self._rect.left + self._rect.width // 2
-                    - self.right_arrow.get_rect().width // 2)
-            if self.arrow_location == ARROW_TOP:
-                y = self._rect.top + 10
-            else:
-                y = int(self._rect.bottom - self.right_arrow.get_rect().height * 1.1)
-            self.right_arrow_pos = (x - self.arrow_offset, y)
-
     def resize_texts(self):
-        """Update text surfaces.
-        """
-        IntroBackground.resize_texts(self)
-        text = get_translated_text("intro_print")
-        if text:
-            rect = pygame.Rect(self._rect.width * 0.30 + self._text_border, 0,
-                               self._rect.width * 0.20 - 2 * self._text_border,
-                               self._rect.height * 0.3 - 2 * self._text_border)
-            if self.arrow_location == ARROW_TOP:
-                rect.top = self._rect.height * 0.08
-            else:
-                rect.bottom = self._rect.height - self._rect.height * 0.08
-            self._write_text(text, rect)
+        return None
 
     def paint(self, screen):
         IntroBackground.paint(self, screen)
