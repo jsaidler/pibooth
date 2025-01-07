@@ -53,7 +53,7 @@ def get_pygame_main_color(surface):
 
 
 def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=False,
-                     crop=False, angle=0, color=(255, 255, 255), bg_color=None):
+                     crop=False, angle=0, color=(255, 255, 255), bg_color=None, alpha=255):
     """Return a Pygame image. If a size is given, the image is
     resized keeping the original image's aspect ratio.
 
@@ -82,6 +82,7 @@ def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=Fals
     path = get_filename(name)
     if not size and not color:
         image = pygame.image.load(path).convert()
+        image.set_alpha = alpha
     else:
         if osp.isfile(path):
             pil_image = Image.open(path)
