@@ -249,7 +249,7 @@ class PiWindow(object):
         if with_print and pil_image:
             self._update_background(background.IntroWithPrintBackground())
         else:
-            self._update_background(background.IntroBackground())
+            self._update_background(background.IntroBackground)
 
         if pil_image:
             self._update_foreground(pil_image, self.RIGHT)
