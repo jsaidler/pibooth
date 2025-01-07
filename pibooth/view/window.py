@@ -6,9 +6,9 @@
 import os
 import time
 import contextlib
-import pygame # type: ignore
-from pygame import gfxdraw # type: ignore
-from PIL import Image # type: ignore
+import pygame
+from pygame import gfxdraw
+from PIL import Image
 from pibooth import pictures, fonts
 from pibooth.view import background
 from pibooth.utils import LOGGER
@@ -37,12 +37,16 @@ class PiWindow(object):
                  size=(800, 480),
                  color=(0, 0, 0),
                  text_color=(255, 255, 255),
+                 arrow_location=None,
+                 arrow_offset=0,
                  can_forget=True,
                  debug=False):
         self.__size = size
         self.debug = debug
         self.bg_color = color
         self.text_color = text_color
+        self.arrow_location = arrow_location
+        self.arrow_offset = arrow_offset
         self.can_forget = can_forget
 
         # Prepare the pygame module for use
@@ -240,16 +244,16 @@ class PiWindow(object):
         """Show failure view in case of exception.
         """
         self._capture_number = (0, self._capture_number[1])
-        self._update_background(background.OopsBackground)
+        self._update_background(background.OopsBackground())
 
     def show_intro(self, pil_image=None, with_print=True):
         """Show introduction view.
         """
         self._capture_number = (0, self._capture_number[1])
         if with_print and pil_image:
-            self._update_background(background.IntroWithPrintBackground())
+            self._update_background(background.IntroWithPrintBackground(self.arrow_location, self.arrow_offset))
         else:
-            self._update_background(background.IntroBackground)
+            self._update_background(background.IntroBackground(self.arrow_location, self.arrow_offset))
 
         if pil_image:
             self._update_foreground(pil_image, self.RIGHT)
@@ -262,7 +266,7 @@ class PiWindow(object):
         """
         self._capture_number = (0, self._capture_number[1])
         if not selected:
-            self._update_background(background.ChooseBackground(choices, ))
+            self._update_background(background.ChooseBackground(choices, self.arrow_location, self.arrow_offset))
         else:
             self._update_background(background.ChosenBackground(choices, selected))
 
@@ -290,7 +294,9 @@ class PiWindow(object):
         """Show print view (image resized on the left).
         """
         self._capture_number = (0, self._capture_number[1])
-        self._update_background(background.PrintBackground(self.can_forget))
+        self._update_background(background.PrintBackground(self.arrow_location,
+                                                           self.arrow_offset,
+                                                           self.can_forget))
         if pil_image:
             self._update_foreground(pil_image, self.CENTER)
 
