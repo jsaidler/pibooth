@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pibooth
-import pygame
+import pygame # type: ignore
 from pibooth.utils import LOGGER, get_crash_message, PoolingTimer
 
 
@@ -173,12 +173,11 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
-        printed = app.find_print_event(events)
-        capture_pressed = app.find_capture_event(events)
-        self.forgotten = capture_pressed and app.can_forget
-        if self.print_view_timer.is_timeout() or printed or capture_pressed:
-            if printed:
-                win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
+        touch_point = app.seven_points_touch(events)
+        if touch_point == 'CENTER-LEFT':
+            return 'wait'
+        elif touch_point == 'CENTER-RIGHT':
+            win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
             return 'wait'
 
     @pibooth.hookimpl

@@ -13,9 +13,9 @@ import argparse
 import multiprocessing
 from warnings import filterwarnings
 
-import pygame
-from gpiozero import Device, ButtonBoard, LEDBoard, pi_info
-from gpiozero.exc import BadPinFactory, PinFactoryFallback
+import pygame # type: ignore
+from gpiozero import Device, ButtonBoard, LEDBoard, pi_info # type: ignore
+from gpiozero.exc import BadPinFactory, PinFactoryFallback # type: ignore
 
 import pibooth
 from pibooth import fonts
@@ -35,7 +35,7 @@ try:
     filterwarnings("ignore", category=PinFactoryFallback)
     GPIO_INFO = "on Raspberry pi {0}".format(pi_info().model)
 except BadPinFactory:
-    from gpiozero.pins.mock import MockFactory
+    from gpiozero.pins.mock import MockFactory # type: ignore
     Device.pin_factory = MockFactory()
     GPIO_INFO = "without physical GPIO, fallback to GPIO mock"
 
