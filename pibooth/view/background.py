@@ -211,11 +211,11 @@ class IntroBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "intro")
+        self._logo_backgrounf_image = "logo.png"
         self.show_exit = True
 
     def resize(self, screen):
         Background.resize(self, screen)
-        self._logo_backgrounf_image = "logo.png"
         if self._need_update:
             camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
             self.camera_icon = pictures.get_pygame_image("camera.png",  camera_icon_size, vflip=False, color=self._text_color)    
