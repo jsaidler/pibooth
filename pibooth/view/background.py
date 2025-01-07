@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path as osp
-import pygame
+import pygame # type: ignore
 
 from pibooth import fonts, pictures
 from pibooth.language import get_translated_text

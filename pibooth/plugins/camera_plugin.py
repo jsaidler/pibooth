@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
-import pygame
+import pygame # type: ignore
 import pibooth
 from pibooth import camera
 from pibooth.utils import LOGGER
@@ -98,11 +98,11 @@ class CameraPlugin(object):
                 app.capture_nbr, effects))
 
         LOGGER.info("Take a capture")
-        if cfg.getboolean('WINDOW', 'flash'):
-            with win.flash(2):  # Manage the window here, have no choice
-                app.camera.capture(effect)
-        else:
-            app.camera.capture(effect)
+        # if cfg.getboolean('WINDOW', 'flash'):
+        #     with win.flash(2):  # Manage the window here, have no choice
+        #         app.camera.capture(effect)
+        # else:
+        app.camera.capture(effect)
 
         self.count += 1
 
