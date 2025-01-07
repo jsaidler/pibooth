@@ -251,9 +251,9 @@ class PiWindow(object):
         """
         self._capture_number = (0, self._capture_number[1])
         if with_print and pil_image:
-            self._update_background(background.IntroWithPrintBackground(self.arrow_location, self.arrow_offset))
+            self._update_background(background.IntroWithPrintBackground())
         else:
-            self._update_background(background.IntroBackground(self.arrow_location, self.arrow_offset))
+            self._update_background(background.IntroBackground())
 
         if pil_image:
             self._update_foreground(pil_image, self.RIGHT)
