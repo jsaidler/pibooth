@@ -300,7 +300,7 @@ class ChooseBackground(Background):
         self.left_arrow_pos = None
         self.right_arrow = None
         self.right_arrow_pos = None
-        self._logo_backgrounf_image = "logo_alpha_15.png"
+        self._logo_backgrounf_image = "logo_alpha.png"
 
     def resize(self, screen):
         Background.resize(self, screen)
