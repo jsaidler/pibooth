@@ -53,7 +53,7 @@ def get_pygame_main_color(surface):
 
 
 def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=False,
-                     crop=False, angle=0, color=(255, 255, 255), bg_color=None, alpha=255):
+                     crop=False, angle=0, color=(255, 255, 255), bg_color=None):
     """Return a Pygame image. If a size is given, the image is
     resized keeping the original image's aspect ratio.
 
@@ -102,8 +102,6 @@ def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=Fals
         image = pygame.transform.flip(image, hflip, vflip)
     if angle != 0:
         image = pygame.transform.rotate(image, angle)
-    
-    image.set_alpha = alpha
     return image
 
 
