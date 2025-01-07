@@ -6,9 +6,9 @@
 import os
 import time
 import contextlib
-import pygame
-from pygame import gfxdraw
-from PIL import Image
+import pygame # type: ignore
+from pygame import gfxdraw # type: ignore
+from PIL import Image # type: ignore
 from pibooth import pictures, fonts
 from pibooth.view import background
 from pibooth.utils import LOGGER
