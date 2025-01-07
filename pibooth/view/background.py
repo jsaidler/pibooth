@@ -205,11 +205,11 @@ class IntroBackground(Background):
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
+            self.camera_icon_size = (self._rect.width * 0.65, self._rect.height)
             self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
             self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
             
-            self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
+            self.exit_icon_size = (self._rect.width * 0.15, self._rect.height)
             self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
             self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.01))
 
