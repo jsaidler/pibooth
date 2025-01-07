@@ -54,8 +54,8 @@ class RpiCamera(BaseCamera):
         self._cam.resolution = self.resolution
         self._cam.iso = self.preview_iso
         self._cam.rotation = self.preview_rotation
-        self._cam.drc_strength = 'low'
-        self._cam.meter_mode = 'backlit'
+        self._cam.drc_strength = 'medium'
+        self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
 
