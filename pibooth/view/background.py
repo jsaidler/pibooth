@@ -195,7 +195,7 @@ class Background(object):
 
 class IntroBackground(Background):
 
-    def __init__(self):
+    def __init__(self, arrow_location=ARROW_BOTTOM, arrow_offset=0):
         Background.__init__(self, "intro")
         self.camera_icon = None
         self.camera_icon_pos = None
@@ -221,7 +221,7 @@ class IntroBackground(Background):
 class IntroWithPrintBackground(IntroBackground):
 
     def __init__(self):
-        IntroBackground.__init__(self)
+        IntroBackground.__init__(self, arrow_location=ARROW_BOTTOM, arrow_offset=0)
         self.right_arrow = None
         self.right_arrow_pos = None
 
