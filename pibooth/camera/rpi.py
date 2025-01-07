@@ -54,6 +54,10 @@ class RpiCamera(BaseCamera):
         self._cam.resolution = self.resolution
         self._cam.iso = self.preview_iso
         self._cam.rotation = self.preview_rotation
+        self._cam.dc_strength = 'low'
+        self._cam.meter_mode = 'matrix'
+        self._cam.sharpness = 33
+        self._cam.still_stats = True
 
     def _show_overlay(self, text, alpha):
         """Add an image as an overlay.
@@ -150,7 +154,7 @@ class RpiCamera(BaseCamera):
 
             stream = BytesIO()
             self._cam.image_effect = effect
-            self._cam.capture(stream, format='jpeg')
+            self._cam.capture(stream, format='jpeg', quality=100)
 
             if self.capture_iso != self.preview_iso:
                 self._cam.iso = self.preview_iso
