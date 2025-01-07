@@ -37,7 +37,7 @@ class PiWindow(object):
                  size=(800, 480),
                  color=(0, 0, 0),
                  text_color=(255, 255, 255),
-                 arrow_location=background.ARROW_BOTTOM,
+                 arrow_location=None,
                  arrow_offset=0,
                  can_forget=True,
                  debug=False):
