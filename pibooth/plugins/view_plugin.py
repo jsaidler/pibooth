@@ -103,16 +103,15 @@ class ViewPlugin(object):
                 
     @pibooth.hookimpl
     def state_choose_validate(self, app, events):
-         touch_point = app.six_points_touch(events)
-         if touch_point:
-            if touch_point == 'CENTER-LEFT':
-                app.capture_nbr = app.capture_choices[0]
-                return 'preview'
-            elif touch_point == 'CENTER-RIGHT':
-                app.capture_nbr = app.capture_choices[1]
-                return 'preview'
-            elif touch_point == 'BOTTOM-LEFT':
-                return 'wait'
+        touch_point = app.six_points_touch(events)
+        if touch_point == 'CENTER-LEFT':
+            app.capture_nbr = app.capture_choices[0]
+            return 'preview'
+        elif touch_point == 'CENTER-RIGHT':
+            app.capture_nbr = app.capture_choices[1]
+            return 'preview'
+        elif touch_point == 'BOTTOM-LEFT':
+            return 'wait'
 
     @pibooth.hookimpl
     def state_chosen_enter(self, cfg, app, win):
@@ -135,15 +134,11 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):
-        # event = app.find_capture_event(events)
-        # if event:
-        #     return 'capture'
-        event = app.find_choice_event(events)
-        if event:
-            if event.key == pygame.K_LEFT:
-                return 'wait'
-            elif event.key == pygame.K_RIGHT:
-                return 'capture'
+        touch_point = app.seven_points_touch(events)
+        if touch_point == 'BOTTOM-LEFT':
+            return 'wait'
+        elif touch_point == 'CENTER':
+            return 'capture'
 
     @pibooth.hookimpl
     def state_capture_do(self, app, win):

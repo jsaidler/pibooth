@@ -3,9 +3,9 @@
 import time
 import subprocess
 from io import BytesIO
-from PIL import Image
+from PIL import Image # type: ignore
 try:
-    import picamera
+    import picamera # type: ignore
 except ImportError:
     picamera = None  # picamera is optional
 from pibooth.language import get_translated_text
