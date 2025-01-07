@@ -197,13 +197,60 @@ class IntroBackground(Background):
 
     def __init__(self, arrow_location=ARROW_BOTTOM, arrow_offset=0):
         Background.__init__(self, "intro")
-        self.camera_icon = None
-        self.camera_icon_pos = None
-        self.close_icon = None
-        self.close_icon_pos = None
+        self.arrow_location = arrow_location
+        self.arrow_offset = arrow_offset
+        self.left_arrow = None
+        self.left_arrow_pos = None
 
     def resize(self, screen):
         Background.resize(self, screen)
+        if self._need_update and self.arrow_location != ARROW_HIDDEN:
+            if self.arrow_location == ARROW_TOUCH:
+                size = (self._rect.width * 0.65, self._rect.height * 0.65)
+
+                self.left_arrow = pictures.get_pygame_image("camera.png", size, vflip=False, color=self._text_color)
+
+                x = int(self._rect.width * 0.03)
+                y = int(self._rect.height * 0.2)
+            else:
+                size = (self._rect.width * 0.3, self._rect.height * 0.3)
+
+                vflip = True if self.arrow_location == ARROW_TOP else False
+                self.left_arrow = pictures.get_pygame_image("arrow.png", size, vflip=vflip, color=self._text_color)
+
+                x = int(self._rect.left + self._rect.width // 4
+                        - self.left_arrow.get_rect().width // 2)
+                if self.arrow_location == ARROW_TOP:
+                    y = self._rect.top + 10
+                else:
+                    y = int(self._rect.top + 2 * self._rect.height // 3)
+
+            self.left_arrow_pos = (x - self.arrow_offset, y)
+
+    def resize_texts(self):
+        """Update text surfaces.
+        """
+        if self.arrow_location == ARROW_HIDDEN:
+            rect = pygame.Rect(self._text_border, self._text_border,
+                               self._rect.width / 2 - 2 * self._text_border,
+                               self._rect.height - 2 * self._text_border)
+            align = 'center'
+        elif self.arrow_location == ARROW_BOTTOM:
+            rect = pygame.Rect(self._text_border, self._text_border,
+                               self._rect.width / 2 - 2 * self._text_border,
+                               self._rect.height * 0.6 - self._text_border)
+            align = 'bottom-center'
+        elif self.arrow_location == ARROW_TOUCH:
+            rect = pygame.Rect(self._text_border, self._text_border,
+                               self._rect.width / 2 - 2 * self._text_border,
+                               self._rect.height * 0.4 - self._text_border)
+            align = 'bottom-center'
+        else:
+            rect = pygame.Rect(self._text_border, self._rect.height * 0.4,
+                               self._rect.width / 2 - 2 * self._text_border,
+                               self._rect.height * 0.6 - self._text_border)
+            align = 'top-center'
+        # Background.resize_texts(self, rect, align)
         if self._need_update:
             self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
             self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
@@ -215,12 +262,16 @@ class IntroBackground(Background):
 
     def paint(self, screen):
         Background.paint(self, screen)
+        if self.arrow_location != ARROW_HIDDEN:
+            screen.blit(self.left_arrow, self.left_arrow_pos)
         screen.blit(self.camera_icon, self.camera_icon_pos)
         screen.blit(self.exit_icon, self.exit_icon_pos)
 
 
 class IntroWithPrintBackground(IntroBackground):
 
+    def __init__(self, arrow_location=ARROW_BOTTOM, arrow_offset=0):
+        IntroBackground.__init__(self, arrow_location, arrow_offset)
     def __init__(self):
         IntroBackground.__init__(self, arrow_location=ARROW_BOTTOM, arrow_offset=0)
         self.right_arrow = None
