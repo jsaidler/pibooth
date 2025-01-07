@@ -82,7 +82,6 @@ def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=Fals
     path = get_filename(name)
     if not size and not color:
         image = pygame.image.load(path).convert()
-        image.set_alpha = alpha
     else:
         if osp.isfile(path):
             pil_image = Image.open(path)
@@ -103,6 +102,8 @@ def get_pygame_image(name, size=None, antialiasing=True, hflip=False, vflip=Fals
         image = pygame.transform.flip(image, hflip, vflip)
     if angle != 0:
         image = pygame.transform.rotate(image, angle)
+    
+    image.set_alpha = alpha
     return image
 
 
