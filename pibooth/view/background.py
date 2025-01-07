@@ -211,7 +211,7 @@ class IntroBackground(Background):
             
             self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
             self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
-            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.1))        
+            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.1))
 
     def resize_texts(self):
         """Update text surfaces.
@@ -237,6 +237,7 @@ class IntroBackground(Background):
                                self._rect.height * 0.6 - self._text_border)
             align = 'top-center'
         # Background.resize_texts(self, rect, align)
+        
 
     def paint(self, screen):
         Background.paint(self, screen)
