@@ -69,6 +69,9 @@ class Background(object):
         self._background_color = color
         self._background_image = None
         self._logo_backgrounf_image = None
+        
+        self._show_exit = False
+        self._show_back = False
 
         self._overlay = None
 
@@ -194,6 +197,12 @@ class Background(object):
         if self._logo_backgrounf_image:
             logo_file = pictures.get_pygame_image(self._logo_backgrounf_image, (self._rect.width * 0.70, self._rect.height * 1.07), vflip=False, color=None, crop=True)
             screen.blit(logo_file, (int(self._rect.width * 0.45), int(self._rect.height * -0.07)))
+        if self._show_exit:
+            exit_icon = pictures.get_pygame_image("exit.png",  (self._rect.width * 0.1, self._rect.height * 0.1), vflip=False, color=self._text_color)
+            screen.blit(exit_icon, (int(self._rect.width * 0.01), int(self._rect.width * 0.01)))
+        if self._show_back:
+            back_icon = pictures.get_pygame_image("back.png",  (self._rect.width * 0.1, self._rect.height * 0.1), vflip=False, color=self._text_color)
+            screen.blit(back_icon, (int(self._rect.width * 0.01), int(self._rect.width * 0.01)))
             
         self._need_update = False
 
@@ -202,28 +211,22 @@ class IntroBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "intro")
-        self.left_arrow = None
-        self.left_arrow_pos = None
+        self.show_exit = True
 
     def resize(self, screen):
         Background.resize(self, screen)
         self._logo_backgrounf_image = "logo.png"
         if self._need_update:
-            self.camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
-            self.camera_icon = pictures.get_pygame_image("camera.png",  self.camera_icon_size, vflip=False, color=self._text_color)    
+            camera_icon_size = (self._rect.width * 0.65, self._rect.height * 0.65)
+            self.camera_icon = pictures.get_pygame_image("camera.png",  camera_icon_size, vflip=False, color=self._text_color)    
             self.camera_icon_pos = (int(self._rect.width * 0.03), int(self._rect.height *0.2))
             
-            self.exit_icon_size = (self._rect.width * 0.1, self._rect.height * 0.1)
-            self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
-            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width * 0.01))
-
     def resize_texts(self):
         return None
 
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.camera_icon, self.camera_icon_pos)
-        screen.blit(self.exit_icon, self.exit_icon_pos)
 
 
 class IntroWithPrintBackground(IntroBackground):
@@ -301,6 +304,7 @@ class ChooseBackground(Background):
         self.right_arrow = None
         self.right_arrow_pos = None
         self._logo_backgrounf_image = "logo_alpha.png"
+        self._show_back = True
 
     def resize(self, screen):
         Background.resize(self, screen)
