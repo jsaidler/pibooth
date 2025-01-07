@@ -211,33 +211,7 @@ class IntroBackground(Background):
             
             self.exit_icon_size = (self._rect.width * 0.15, self._rect.height * 0.15)
             self.exit_icon = pictures.get_pygame_image("exit.png",  self.exit_icon_size, vflip=False, color=self._text_color)    
-            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.1))
-
-    def resize_texts(self):
-        """Update text surfaces.
-        """
-        if self.arrow_location == ARROW_HIDDEN:
-            rect = pygame.Rect(self._text_border, self._text_border,
-                               self._rect.width / 2 - 2 * self._text_border,
-                               self._rect.height - 2 * self._text_border)
-            align = 'center'
-        elif self.arrow_location == ARROW_BOTTOM:
-            rect = pygame.Rect(self._text_border, self._text_border,
-                               self._rect.width / 2 - 2 * self._text_border,
-                               self._rect.height * 0.6 - self._text_border)
-            align = 'bottom-center'
-        elif self.arrow_location == ARROW_TOUCH:
-            rect = pygame.Rect(self._text_border, self._text_border,
-                               self._rect.width / 2 - 2 * self._text_border,
-                               self._rect.height * 0.4 - self._text_border)
-            align = 'bottom-center'
-        else:
-            rect = pygame.Rect(self._text_border, self._rect.height * 0.4,
-                               self._rect.width / 2 - 2 * self._text_border,
-                               self._rect.height * 0.6 - self._text_border)
-            align = 'top-center'
-        # Background.resize_texts(self, rect, align)
-        
+            self.exit_icon_pos = (int(self._rect.width * 0.01), int(self._rect.width *0.01))
 
     def paint(self, screen):
         Background.paint(self, screen)
