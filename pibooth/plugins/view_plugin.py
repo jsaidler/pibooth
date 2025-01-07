@@ -84,6 +84,8 @@ class ViewPlugin(object):
             else:
                 return 'preview'
             #A impressão é controlada pelo state_wait_do
+        elif touch_point == 'TOP-LEFT':
+            exit(0)
 
     @pibooth.hookimpl
     def state_wait_exit(self, win):
