@@ -233,10 +233,8 @@ class IntroWithPrintBackground(IntroBackground):
 
     def __init__(self):
         IntroBackground.__init__(self)
-    def __init__(self):
-        IntroBackground.__init__(self)
-        self.right_arrow = None
-        self.right_arrow_pos = None
+        self._logo_backgrounf_image = "logo_alpha.png"
+        self._show_exit = True
 
     def __str__(self):
         """Return background final name.
