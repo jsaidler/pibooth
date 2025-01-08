@@ -294,44 +294,44 @@ class ChooseBackground(Background):
         screen.blit(self.layout1, self.layout1_pos)
 
 
-class ChosenBackground(Background):
+# class ChosenBackground(Background):
 
-    def __init__(self, choices, selected):
-        Background.__init__(self, "chosen")
-        self.choices = choices
-        self.selected = selected
-        self.layout = None
-        self.layout_pos = None
+#     def __init__(self, choices, selected):
+#         Background.__init__(self, "chosen")
+#         self.choices = choices
+#         self.selected = selected
+#         self.layout = None
+#         self.layout_pos = None
 
-    def __str__(self):
-        """Return background final name.
-        It is used in the main window to distinguish background in the cache.
-        """
-        return "{}({}{})".format(self.__class__.__name__, self._name, self.selected)
+#     def __str__(self):
+#         """Return background final name.
+#         It is used in the main window to distinguish background in the cache.
+#         """
+#         return "{}({}{})".format(self.__class__.__name__, self._name, self.selected)
 
-    def resize(self, screen):
-        Background.resize(self, screen)
-        if self._need_update:
-            size = (self._rect.width * 0.6, self._rect.height * 0.6)
+#     def resize(self, screen):
+#         Background.resize(self, screen)
+#         if self._need_update:
+#             size = (self._rect.width * 0.6, self._rect.height * 0.6)
 
-            self.layout = pictures.get_pygame_layout_image(
-                self._text_color, self._background_color, self.selected, size)
+#             self.layout = pictures.get_pygame_layout_image(
+#                 self._text_color, self._background_color, self.selected, size)
 
-            x = self.layout.get_rect(center=self._rect.center).left
-            y = int(self._rect.top + self._rect.height * 0.3)
+#             x = self.layout.get_rect(center=self._rect.center).left
+#             y = int(self._rect.top + self._rect.height * 0.3)
 
-            self.layout_pos = (x, y)
+#             self.layout_pos = (x, y)
 
-    def resize_texts(self):
-        """Update text surfaces.
-        """
-        rect = pygame.Rect(self._text_border, self._text_border,
-                           self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
-        Background.resize_texts(self, rect)
+#     def resize_texts(self):
+#         """Update text surfaces.
+#         """
+#         rect = pygame.Rect(self._text_border, self._text_border,
+#                            self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
+#         Background.resize_texts(self, rect)
 
-    def paint(self, screen):
-        Background.paint(self, screen)
-        screen.blit(self.layout, self.layout_pos)
+#     def paint(self, screen):
+#         Background.paint(self, screen)
+#         screen.blit(self.layout, self.layout_pos)
 
 
 class CaptureBackground(Background):

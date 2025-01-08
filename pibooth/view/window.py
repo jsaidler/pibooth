@@ -265,10 +265,7 @@ class PiWindow(object):
         """Show the choice view.
         """
         self._capture_number = (0, self._capture_number[1])
-        if not selected:
-            self._update_background(background.ChooseBackground(choices))
-        else:
-            self._update_background(background.ChosenBackground(choices, selected))
+        self._update_background(background.ChooseBackground(choices))
 
     def show_image(self, pil_image=None, pos=CENTER):
         """Show PIL image as it (no resize).
