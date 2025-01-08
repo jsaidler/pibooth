@@ -247,7 +247,7 @@ class IntroWithPrintBackground(IntroBackground):
     def resize(self, screen):
         IntroBackground.resize(self, screen)
         if self._need_update:
-            print_icon_size = (self._rect.width * 0.20, self._rect.height * 0.20)
+            print_icon_size = (self._rect.width * 0.18, self._rect.height * 0.18)
             self.print_icon = pictures.get_pygame_image("print.png",  print_icon_size, vflip=False, color=self._text_color)    
             self.print_icon_pos = (int((self._rect.width * 0.99) - self.print_icon.get_rect().width),
                                    int(self._rect.height - (self._rect.width * 0.01) - self.print_icon.get_rect().height))
@@ -416,12 +416,15 @@ class ProcessingBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "processing")
+        self._logo_backgrounf_image = "logo.png"
 
     def resize_texts(self):
         """Update text surfaces.
         """
-        rect = pygame.Rect(self._text_border, self._rect.height * 0.5 - self._text_border,
-                           self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
+        rect = pygame.Rect(int(self._rect.width * 0.01), 
+                           int(self._rect.height * 0.82 - self._rect.width * 0.01),
+                           int(self._rect.width * 0.5),
+                           int(self._rect.height * 0.18))
         Background.resize_texts(self, rect)
 
 
@@ -601,3 +604,5 @@ class OopsBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "oops")
+        self._logo_backgrounf_image = "logo_alpha.png"
+        self._show_exit = True
