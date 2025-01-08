@@ -425,7 +425,7 @@ class ProcessingBackground(Background):
                            int(self._rect.height * 0.82 - self._rect.width * 0.01),
                            int(self._rect.width * 0.5),
                            int(self._rect.height * 0.18))
-        Background.resize_texts(self, rect)
+        Background.resize_texts(self, rect, align='left')
 
 
 class PrintBackground(Background):
