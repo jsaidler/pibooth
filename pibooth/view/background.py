@@ -321,11 +321,7 @@ class ChooseBackground(Background):
                 self.right_arrow_pos = (x1 + self.arrow_offset, y)
 
     def resize_texts(self):
-        """Update text surfaces.
-        """
-        rect = pygame.Rect(self._text_border, self._text_border,
-                           self._rect.width - 2 * self._text_border, self._rect.height * 0.2)
-        # Background.resize_texts(self, rect)
+        return None
 
     def paint(self, screen):
         Background.paint(self, screen)
