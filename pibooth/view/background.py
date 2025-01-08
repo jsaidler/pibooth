@@ -283,7 +283,7 @@ class ChooseBackground(Background):
             self.layout0  = pictures.get_pygame_image("layout{0}.png".format( self.choices[0]),  size, vflip=False, color=self._text_color)    
             self.layout0_pos = (int(self._rect.width * 0.03), self._rect.height)
             self.layout1  = pictures.get_pygame_image("layout{0}.png".format( self.choices[1]),  size, vflip=False, color=self._text_color)    
-            self.layout1_pos = (int(self._rect.width * 0.03), self._rect.height)
+            self.layout1_pos = (int(self._rect.width * 0.53), self._rect.height)
             
     def resize_texts(self):
         return None
