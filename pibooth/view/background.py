@@ -251,8 +251,6 @@ class IntroWithPrintBackground(IntroBackground):
 
     def paint(self, screen):
         IntroBackground.paint(self, screen)
-        if self.arrow_location != ARROW_HIDDEN:
-            screen.blit(self.right_arrow, self.right_arrow_pos)
 
 
 class ChooseBackground(Background):
