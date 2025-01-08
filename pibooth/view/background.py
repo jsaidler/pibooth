@@ -337,37 +337,16 @@ class ChooseBackground(Background):
 class CaptureBackground(Background):
 
     def __init__(self):
-        Background.__init__(self, "capture")
-        self.left_people = None
-        self.left_people_pos = None
-        self.right_people = None
-        self.right_people_pos = None
+        Background.__init__(self, "capture")      
+        self._logo_backgrounf_image = "logo_alpha.png"
+        self._show_back = True
 
     def resize(self, screen):
         Background.resize(self, screen)
-        if self._need_update:
-            images_height = self._rect.height / 4
-            size = (images_height * 2, images_height)
-
-            self.left_people = pictures.get_pygame_image("capture_left.png", size=size,
-                                                         color=self._text_color)
-            self.right_people = pictures.get_pygame_image("capture_right.png", size=size,
-                                                          color=self._text_color)
-
-            x = int(self._rect.right - size[0])
-            y = int(self._rect.bottom - images_height)
-
-            self.left_people_pos = (0, y)
-            self.right_people_pos = (x + size[0] - 1.5 * self.right_people.get_rect().width, y)
-
-            if self._show_outlines:
-                self._outlines.append((self._make_outlines(size), (0, y)))
-                self._outlines.append((self._make_outlines(size), (x, y)))
-
+    def resize_texts(self):
+        return None  
     def paint(self, screen):
         Background.paint(self, screen)
-        # screen.blit(self.left_people, self.left_people_pos)
-        # screen.blit(self.right_people, self.right_people_pos)
 
 
 class ProcessingBackground(Background):
