@@ -211,6 +211,8 @@ class IntroBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "intro")
+        self.camera_icon = None
+        self.camera_icon_pos = None
         self._logo_backgrounf_image = "logo.png"
         self._show_exit = True
 
@@ -233,6 +235,8 @@ class IntroWithPrintBackground(IntroBackground):
 
     def __init__(self):
         IntroBackground.__init__(self)
+        self.print_icon = None
+        self.print_icon_pos = None
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_exit = True
 
@@ -262,64 +266,25 @@ class IntroWithPrintBackground(IntroBackground):
 
 class ChooseBackground(Background):
 
-    def __init__(self, choices, arrow_location=ARROW_BOTTOM, arrow_offset=0):
+    def __init__(self, choices):
         Background.__init__(self, "choose")
-        self.arrow_location = arrow_location
-        self.arrow_offset = arrow_offset
         self.choices = choices
         self.layout0 = None
         self.layout0_pos = None
         self.layout1 = None
         self.layout1_pos = None
-        self.left_arrow = None
-        self.left_arrow_pos = None
-        self.right_arrow = None
-        self.right_arrow_pos = None
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_back = True
 
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            size = (self._rect.width * 0.60, self._rect.height * 0.6)
-            self.layout0 = pictures.get_pygame_layout_image(
-                self._text_color, self._background_color, self.choices[0], size)
-            self.layout1 = pictures.get_pygame_layout_image(
-                self._text_color, self._background_color, self.choices[1], size)
-
-            inter = (self._rect.width - 2 * self.layout0.get_rect().width) // 3
-
-            x0 = int(self._rect.left + inter)
-            x1 = int(self._rect.left + 2 * inter + self.layout0.get_rect().width)
-            y = int(self._rect.top + self._rect.height * 0.125)
-
-            self.layout0_pos = (x0, y)
-            self.layout1_pos = (x1, y)
-
-            if self.arrow_location in [ARROW_TOP, ARROW_BOTTOM]:
-                if self.arrow_location == ARROW_TOP:
-                    y = 5
-                    x_offset = 30
-                    size = (self._rect.width * 0.1, self._rect.top + y + 30)
-                else:
-                    x_offset = 0
-                    y = self.layout0_pos[1] + self.layout0.get_rect().height + 5
-                    size = (self._rect.width * 0.1, self._rect.bottom - y - 5)
-
-                vflip = True if self.arrow_location == ARROW_TOP else False
-                self.left_arrow = pictures.get_pygame_image("arrow.png", size, vflip=vflip,
-                                                            color=self._text_color)
-                self.right_arrow = pictures.get_pygame_image("arrow.png", size, hflip=True,
-                                                             vflip=vflip, color=self._text_color)
-
-                inter = (self._rect.width - 2 * self.left_arrow.get_rect().width) // 4
-
-                x0 = int(self._rect.left + inter) - x_offset
-                x1 = int(self._rect.left + 3 * inter + self.left_arrow.get_rect().width) + x_offset
-
-                self.left_arrow_pos = (x0 - self.arrow_offset, y)
-                self.right_arrow_pos = (x1 + self.arrow_offset, y)
-
+            size = (self._rect.width * 0.44, self._rect.height)
+            self.layout0  = pictures.get_pygame_image("layout{0}.png".format( self.choices[0]),  size, vflip=False, color=self._text_color)    
+            self.layout0_pos = (int(self._rect.width * 0.03), self._rect.height)
+            self.layout1  = pictures.get_pygame_image("layout{0}.png".format( self.choices[1]),  size, vflip=False, color=self._text_color)    
+            self.layout1_pos = (int(self._rect.width * 0.03), self._rect.height)
+            
     def resize_texts(self):
         return None
 
@@ -327,9 +292,6 @@ class ChooseBackground(Background):
         Background.paint(self, screen)
         screen.blit(self.layout0, self.layout0_pos)
         screen.blit(self.layout1, self.layout1_pos)
-        if self.arrow_location in [ARROW_TOP, ARROW_BOTTOM]:
-            screen.blit(self.left_arrow, self.left_arrow_pos)
-            screen.blit(self.right_arrow, self.right_arrow_pos)
 
 
 class ChosenBackground(Background):

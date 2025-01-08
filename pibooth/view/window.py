@@ -266,7 +266,7 @@ class PiWindow(object):
         """
         self._capture_number = (0, self._capture_number[1])
         if not selected:
-            self._update_background(background.ChooseBackground(choices, self.arrow_location, self.arrow_offset))
+            self._update_background(background.ChooseBackground(choices))
         else:
             self._update_background(background.ChosenBackground(choices, selected))
 
