@@ -249,7 +249,7 @@ class IntroWithPrintBackground(IntroBackground):
         if self._need_update:
             print_icon_size = (self._rect.width * 0.25, self._rect.height * 0.25)
             self.print_icon = pictures.get_pygame_image("print.png",  print_icon_size, vflip=False, color=self._text_color)    
-            self.print_icon_pos = (int((self._rect.width * 0.01) - self.print_icon.get_rect().width),
+            self.print_icon_pos = (int((self._rect.width * 0.99) - self.print_icon.get_rect().width),
                                    int(self._rect.height - (self._rect.width * 0.01) - self.print_icon.get_rect().height))
             
     def resize_texts(self):
