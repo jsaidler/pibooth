@@ -257,7 +257,7 @@ class IntroWithPrintBackground(IntroBackground):
 
     def paint(self, screen):
         IntroBackground.paint(self, screen)
-        screen.blit(self.camera_icon, self.camera_icon_pos)
+        screen.blit(self.print_icon, self.print_icon_pos)
 
 
 class ChooseBackground(Background):
