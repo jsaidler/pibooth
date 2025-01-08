@@ -422,7 +422,7 @@ class ProcessingBackground(Background):
         """Update text surfaces.
         """
         rect = pygame.Rect(int(self._rect.width * 0.01), 
-                           int(self._rect.height * 0.82 - self._rect.width * 0.01),
+                           int(self._rect.height * 0.82),
                            int(self._rect.width * 0.5),
                            int(self._rect.height * 0.18))
         Background.resize_texts(self, rect, align='bottom-left')
