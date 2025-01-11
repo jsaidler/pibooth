@@ -101,8 +101,7 @@ class ViewPlugin(object):
         
     # @pibooth.hookimpl
     # def state_choose_do(self, app, events):
-
-                
+               
     @pibooth.hookimpl
     def state_choose_validate(self, app, events):
         touch_point = app.six_points_touch(events)
