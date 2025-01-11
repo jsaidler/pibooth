@@ -59,7 +59,7 @@ class RpiCamera(BaseCamera):
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
-        self._cam.zoom = (0.05,0.05,0.95,0.95)
+        self._cam.zoom = (0,0.0556,1,0.9443)
 
     def _show_overlay(self, text, alpha):
         """Add an image as an overlay.
