@@ -291,9 +291,7 @@ class PiWindow(object):
         """Show print view (image resized on the left).
         """
         self._capture_number = (0, self._capture_number[1])
-        self._update_background(background.PrintBackground(self.arrow_location,
-                                                           self.arrow_offset,
-                                                           self.can_forget))
+        self._update_background(background.PrintBackground())
         if pil_image:
             self._update_foreground(pil_image, self.CENTER)
 
