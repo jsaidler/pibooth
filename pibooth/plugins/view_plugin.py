@@ -31,24 +31,22 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_enter(self, app, win):
-        win.show_intro(app.previous_picture, app.printer.is_ready()
-                       and app.count.remaining_duplicates > 0)
-        if app.printer.is_installed():
-            win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
+        win.show_intro(app.previous_picture, app.printer.is_ready())
+        # if app.printer.is_installed():
+        #     win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
 
     @pibooth.hookimpl
     def state_wait_do(self, app, win, events):
         if not app.printer.is_installed():
             return None
         
-        previous_picture = app.previous_picture
-        event = app.find_print_status_event(events)
-        
-        if event:
+        # previous_picture = app.previous_picture
+        touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
+        if touch_point:
             win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
 
-        if app.find_print_event(events) or (win.get_image() and not previous_picture):
-            win.show_intro(previous_picture, app.printer.is_ready() and app.count.remaining_duplicates > 0)
+        # if touch_point or (win.get_image() and not previous_picture):
+        #     win.show_intro(previous_picture, app.printer.is_ready() and app.count.remaining_duplicates > 0)
 
     @pibooth.hookimpl
     def state_wait_validate(self, cfg, app, events):
