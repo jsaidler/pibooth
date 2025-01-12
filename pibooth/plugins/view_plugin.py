@@ -174,9 +174,9 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
         touch_point = app.touch_screen_points(events)
-        if touch_point == 'CENTER-LEFT':
+        if touch_point == 'MIDDLE-TOP-RIGHT':
             return 'wait'
-        elif touch_point == 'CENTER-RIGHT':
+        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
             return 'wait'
 

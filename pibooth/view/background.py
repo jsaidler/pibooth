@@ -338,7 +338,7 @@ class PrintBackground(Background):
                                    int((self._rect.height * 0.45 - self.print_icon.get_rect().height)))
             self.no_print_icon  = pictures.get_pygame_image('no_print.png',  size, vflip=False, color=self._text_color)    
             self.no_print_icon_pos = (int((self._rect.width * 0.99) - self.no_print_icon.get_rect().width),
-                                   int((self._rect.height * 0.55 + self.no_print_icon.get_rect().height)))
+                                      int(self._rect.height * 0.55))
 
     def paint(self, screen):
         Background.paint(self, screen)
