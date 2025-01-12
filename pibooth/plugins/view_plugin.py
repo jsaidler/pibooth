@@ -32,8 +32,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_wait_enter(self, app, win):
         win.show_intro(app.previous_picture, app.printer.is_ready())
-        # if app.printer.is_installed():
-        #     win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
+        win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
 
     @pibooth.hookimpl
     def state_wait_do(self, app, win, events):
@@ -43,7 +42,7 @@ class ViewPlugin(object):
         # previous_picture = app.previous_picture
         touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
         if touch_point:
-            win.set_print_number(len(app.printer.get_all_tasks()), not app.printer.is_ready())
+            win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
 
         # if touch_point or (win.get_image() and not previous_picture):
         #     win.show_intro(previous_picture, app.printer.is_ready() and app.count.remaining_duplicates > 0)

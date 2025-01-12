@@ -346,7 +346,7 @@ class PiWindow(object):
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
 
-    def set_print_number(self, current_nbr=None, failure=None):
+    def set_print_number(self, current_nbr=None, ready=None):
         """Set the current number of tasks in the printer queue.
         """
         update = False
@@ -355,8 +355,8 @@ class PiWindow(object):
             self._print_number = current_nbr
             update = True
 
-        if failure is not None and self._print_failure != failure:
-            self._print_failure = failure
+        if ready is not None and self._print_failure != (not ready):
+            self._print_failure = not ready
             update = True
 
         if update:
