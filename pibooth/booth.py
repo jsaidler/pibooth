@@ -406,9 +406,9 @@ class PiApplication(object):
                 elif center_bottom_right.collidepoint(pos):
                     return 'CENTER-BOTTOM-RIGHT'
                 elif middle_top_right.collidepoint(pos):
-                    return 'MIDLE-TOP-RIGHT'
+                    return 'MIDDLE-TOP-RIGHT'
                 elif middle_bottom_right.collidepoint(pos):
-                    return 'MIDLE-BOTTOM-RIGHT'
+                    return 'MIDDLE-BOTTOM-RIGHT'
                 elif bottom_left.collidepoint(pos):
                     return 'BOTTOM-LEFT'
                 elif bottom_right.collidepoint(pos):
