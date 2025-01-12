@@ -77,8 +77,8 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_validate(self, cfg, app, events):
-        touch_point = app.six_points_touch(events)
-        if touch_point == 'CENTER-LEFT':
+        touch_point = app.touch_screen_points(events)
+        if touch_point == 'CENTER-LEFT' or touch_point == 'MIDDLE-TOP-LEFT' or touch_point == 'MIDDLE-BOTTOM-LEFT':
             if len(app.capture_choices) > 1:
                 return 'choose'
             else:
@@ -97,18 +97,17 @@ class ViewPlugin(object):
         LOGGER.info("Show picture choice (nothing selected)")
         win.set_print_number(0, False)  # Hide printer status
         win.show_choice(app.capture_choices)
-        # self.choose_timer.start()
         
     # @pibooth.hookimpl
     # def state_choose_do(self, app, events):
                
     @pibooth.hookimpl
     def state_choose_validate(self, app, events):
-        touch_point = app.six_points_touch(events)
-        if touch_point == 'CENTER-LEFT':
+        touch_point = app.touch_screen_points(events)
+        if touch_point == 'CENTER-LEFT' or touch_point == 'MIDDLE-TOP-LEFT' or touch_point == 'MIDDLE-BOTTOM-LEFT':
             app.capture_nbr = app.capture_choices[0]
             return 'preview'
-        elif touch_point == 'CENTER-RIGHT':
+        elif touch_point == 'CENTER-RIGHT'or touch_point == 'MIDDLE-TOP-RIGHT' or touch_point == 'MIDDLE-BOTTOM-RIGHT':
             app.capture_nbr = app.capture_choices[1]
             return 'preview'
         elif touch_point == 'BOTTOM-LEFT':
@@ -135,10 +134,10 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):
-        touch_point = app.seven_points_touch(events)
+        touch_point = app.touch_screen_points(events)
         if touch_point == 'BOTTOM-LEFT':
             return 'wait'
-        elif touch_point == 'CENTER':
+        elif touch_point == 'CENTER-LEFT' or  touch_point == 'CENTER-RIGHT':
             return 'capture'
 
     @pibooth.hookimpl
@@ -174,7 +173,7 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
-        touch_point = app.seven_points_touch(events)
+        touch_point = app.touch_screen_points(events)
         if touch_point == 'CENTER-LEFT':
             return 'wait'
         elif touch_point == 'CENTER-RIGHT':
