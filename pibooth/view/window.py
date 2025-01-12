@@ -267,7 +267,7 @@ class PiWindow(object):
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.ChooseBackground(choices))
 
-    def show_image(self, pil_image=None, pos=CENTER):
+    def show_image(self, pil_image=None, pos=FULLSCREEN):
         """Show PIL image as it (no resize).
         """
         if not pil_image:
@@ -279,7 +279,7 @@ class PiWindow(object):
                 image.fill((0, 0, 0))
                 return self.surface.blit(image, self._pos_map[pos](image))
         else:
-            return self._update_foreground(pil_image, pos, False)
+            return self._update_foreground(pil_image, pos)
 
     def show_work_in_progress(self):
         """Show wait view.
