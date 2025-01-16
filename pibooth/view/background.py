@@ -11,7 +11,6 @@ ARROW_BOTTOM = 'bottom'
 ARROW_HIDDEN = 'hidden'
 ARROW_TOUCH = 'touchscreen'
 
-
 def multiline_text_to_surfaces(text, color, rect, align='center'):
     """Return a list of surfaces corresponding to each line of the text.
     The surfaces are next to each others in order to fit the given rect.
@@ -56,7 +55,6 @@ def multiline_text_to_surfaces(text, color, rect, align='center'):
 
         surfaces.append((surface, surface.get_rect(x=x, y=y)))
     return surfaces
-
 
 class Background(object):
 
@@ -206,7 +204,6 @@ class Background(object):
             
         self._need_update = False
 
-
 class IntroBackground(Background):
 
     def __init__(self):
@@ -229,7 +226,6 @@ class IntroBackground(Background):
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.camera_icon, self.camera_icon_pos)
-
 
 class IntroWithPrintBackground(IntroBackground):
 
@@ -262,7 +258,6 @@ class IntroWithPrintBackground(IntroBackground):
     def paint(self, screen):
         IntroBackground.paint(self, screen)
         screen.blit(self.print_icon, self.print_icon_pos)
-
 
 class ChooseBackground(Background):
 
@@ -322,7 +317,6 @@ class ProcessingBackground(Background):
                            int(self._rect.height * 0.18))
         Background.resize_texts(self, rect, align='bottom-left')
 
-
 class PrintBackground(Background):
 
     def __init__(self):
@@ -344,96 +338,6 @@ class PrintBackground(Background):
         Background.paint(self, screen)
         screen.blit(self.print_icon, self.print_icon_pos)
         screen.blit(self.no_print_icon, self.no_print_icon_pos)
-
-class FinishedBackground(Background):
-
-    def __init__(self):
-        Background.__init__(self, "finished")
-        self.left_people = None
-        self.left_people_pos = None
-        self.right_people = None
-        self.right_people_pos = None
-
-    def resize(self, screen):
-        Background.resize(self, screen)
-        if self._need_update:
-            left_rect = pygame.Rect(10, 0, self._rect.width * 0.4, self._rect.height * 0.5)
-            left_rect.top = self._rect.centery - left_rect.centery
-            right_rect = pygame.Rect(0, 0, self._rect.width * 0.3, self._rect.height * 0.5)
-            right_rect.top = self._rect.centery - right_rect.centery
-            right_rect.right = self._rect.right - 10
-
-            self.left_people = pictures.get_pygame_image("finished_left.png", size=left_rect.size,
-                                                         color=self._text_color)
-            self.right_people = pictures.get_pygame_image("finished_right.png", size=right_rect.size,
-                                                          color=self._text_color)
-
-            self.left_people_pos = self.left_people.get_rect(center=left_rect.center).topleft
-            self.right_people_pos = self.right_people.get_rect(center=right_rect.center).topleft
-
-            if self._show_outlines:
-                self._outlines.append((self._make_outlines(left_rect.size), left_rect.topleft))
-                self._outlines.append((self._make_outlines(right_rect.size), right_rect.topleft))
-
-    def resize_texts(self):
-        """Update text surfaces.
-        """
-        rect = pygame.Rect(0, 0, self._rect.width * 0.35, self._rect.height * 0.4)
-        rect.center = self._rect.center
-        rect.bottom = self._rect.bottom - 10
-        Background.resize_texts(self, rect)
-
-    def paint(self, screen):
-        Background.paint(self, screen)
-        if self.left_people:
-            screen.blit(self.left_people, self.left_people_pos)
-        if self.right_people:
-            screen.blit(self.right_people, self.right_people_pos)
-
-
-class FinishedWithImageBackground(FinishedBackground):
-
-    def __init__(self, foreground_size):
-        FinishedBackground.__init__(self)
-        self._name = "finishedwithimage"
-        self.foreground_size = foreground_size
-
-    def resize(self, screen):
-        Background.resize(self, screen)
-        if self._need_update:
-            # Note: '0.9' ratio comes from PiWindow._update_foreground() method which
-            # lets a margin between window borders and fullscreen foreground picture
-            frgnd_rect = pygame.Rect(0, 0, *pictures.sizing.new_size_keep_aspect_ratio(
-                self.foreground_size, (self._rect.size[0] * 0.9, self._rect.size[1]*0.9)))
-            xmargin = abs(self._rect.width - frgnd_rect.width) // 2
-            ymargin = abs(self._rect.height - frgnd_rect.height) // 2
-
-            if xmargin > 50:
-                margin = min(xmargin, self._rect.height // 3)
-            elif ymargin > 50:
-                margin = min(ymargin, self._rect.width // 3)
-            else:  # Too small
-                self.left_people = None
-                self.right_people = None
-                return
-
-            left_rect = pygame.Rect(0, 0, margin, margin)
-            right_rect = pygame.Rect(0, 0, margin, margin)
-            left_rect.bottom = self._rect.bottom
-            right_rect.right = self._rect.right
-
-            self.left_people = pictures.get_pygame_image("finished_left.png", size=left_rect.size,
-                                                         color=self._text_color)
-            self.right_people = pictures.get_pygame_image("finished_right.png", size=right_rect.size,
-                                                          color=self._text_color)
-
-            self.left_people_pos = self.left_people.get_rect(center=left_rect.center).topleft
-            self.right_people_pos = self.right_people.get_rect(center=right_rect.center).topleft
-
-            if self._show_outlines and left_rect and right_rect:
-                self._outlines.append((self._make_outlines(left_rect.size), left_rect.topleft))
-                self._outlines.append((self._make_outlines(right_rect.size), right_rect.topleft))
-
 
 class OopsBackground(Background):
 

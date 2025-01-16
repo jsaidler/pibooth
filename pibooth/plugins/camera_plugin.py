@@ -17,6 +17,7 @@ class CameraPlugin(object):
     def __init__(self, plugin_manager):
         self._pm = plugin_manager
         self.count = 0
+        self._iso = 0
 
     @pibooth.hookimpl(hookwrapper=True)
     def pibooth_setup_camera(self, cfg):
@@ -45,6 +46,7 @@ class CameraPlugin(object):
         app.capture_date = None
         app.capture_nbr = None
         app.camera.drop_captures()  # Flush previous captures
+        self._shutter = app.camera.set_shutter()[0]
 
     @pibooth.hookimpl
     def state_wait_enter(self, app):
@@ -54,15 +56,6 @@ class CameraPlugin(object):
         else:
             app.capture_nbr = app.capture_choices[0]
 
-    # @pibooth.hookimpl
-    # def state_choose_do(self, app, events):
-    #     event = app.find_choice_event(events)
-    #     if event:
-    #         if event.key == pygame.K_LEFT:
-    #             app.capture_nbr = app.capture_choices[0]
-    #         elif event.key == pygame.K_RIGHT:
-    #             app.capture_nbr = app.capture_choices[1]
-
     @pibooth.hookimpl
     def state_preview_enter(self, cfg, app, win):
         LOGGER.info("Show preview before next capture")
@@ -71,12 +64,21 @@ class CameraPlugin(object):
         app.camera.preview(win)
 
     @pibooth.hookimpl
-    def state_preview_do(self, cfg, app):
+    def state_preview_do(self, app, events):
         pygame.event.pump()  # Before blocking actions
-        # if cfg.getboolean('WINDOW', 'preview_countdown'):
-        #     app.camera.preview_countdown(cfg.getint('WINDOW', 'preview_delay'))
-        # else:
-        #     app.camera.preview_wait(cfg.getint('WINDOW', 'preview_delay'))
+        touch_point = app.touch_screen_points(events)
+        if touch_point == 'MIDDLE-LEFT-TOP':
+            self._shutter += 1
+            app.camera.set_shutter(self._shutter)
+        elif touch_point == 'MIDDLE-LEFT-BOTTOM':
+            self._shutter -= 1
+            app.camera.set_shutter(self._shutter)
+        elif touch_point == 'MIDDLE-RIGHT-TOP':
+            self._iso += 1
+            app.camera.set_iso(self._iso)
+        elif touch_point == 'MIDDLE-RIGHT-BOTTOM':
+            self._iso -= 1
+            app.camera.set_iso(self._iso)
 
     @pibooth.hookimpl
     def state_preview_exit(self, cfg, app):
@@ -98,12 +100,7 @@ class CameraPlugin(object):
                 app.capture_nbr, effects))
 
         LOGGER.info("Take a capture")
-        # if cfg.getboolean('WINDOW', 'flash'):
-        #     with win.flash(2):  # Manage the window here, have no choice
-        #         app.camera.capture(effect)
-        # else:
         app.camera.capture(effect)
-
         self.count += 1
 
     @pibooth.hookimpl

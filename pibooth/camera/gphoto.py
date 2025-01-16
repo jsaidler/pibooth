@@ -103,13 +103,6 @@ class GpCamera(BaseCamera):
         self.set_config_value('imgsettings', 'iso', self.preview_iso)
         self.set_config_value('settings', 'capturetarget', 'Memory card')
 
-    def _show_overlay(self, text, alpha):
-        """Add an image as an overlay.
-        """
-        if self._window:  # No window means no preview displayed
-            rect = self.get_rect()
-            self._overlay = self.build_overlay((rect.width, rect.height), str(text), alpha)
-
     def _rotate_image(self, image, rotation):
         """Rotate a PIL image, same direction than RpiCamera.
         """
@@ -219,67 +212,9 @@ class GpCamera(BaseCamera):
                 self.set_config_value('actions', 'viewfinder', 1)
             self._window.show_image(self._get_preview_image())
 
-    def preview_countdown(self, timeout, alpha=80):
-        """Show a countdown of `timeout` seconds on the preview.
-        Returns when the countdown is finished.
-        """
-        timeout = int(timeout)
-        if timeout < 1:
-            raise ValueError("Start time shall be greater than 0")
-
-        shown = False
-        first_loop = True
-        timer = PoolingTimer(timeout)
-        while not timer.is_timeout():
-            remaining = int(timer.remaining() + 1)
-            if not self._overlay or remaining != timeout:
-                # Rebluid overlay only if remaining number has changed
-                self._show_overlay(str(remaining), alpha)
-                timeout = remaining
-                shown = False
-
-            updated_rect = None
-            if self._preview_compatible:
-                updated_rect = self._window.show_image(self._get_preview_image())
-            elif not shown:
-                updated_rect = self._window.show_image(self._get_preview_image())
-                shown = True  # Do not update dummy preview until next overlay update
-
-            if first_loop:
-                timer.start()  # Because first preview capture is longer than others
-                first_loop = False
-
-            pygame.event.pump()
-            if updated_rect:
-                pygame.display.update(updated_rect)
-
-        self._show_overlay(get_translated_text('smile'), alpha)
-        self._window.show_image(self._get_preview_image())
-
-    def preview_wait(self, timeout, alpha=80):
-        """Wait the given time.
-        """
-        timeout = int(timeout)
-        if timeout < 1:
-            raise ValueError("Start time shall be greater than 0")
-
-        timer = PoolingTimer(timeout)
-        if self._preview_compatible:
-            while not timer.is_timeout():
-                updated_rect = self._window.show_image(self._get_preview_image())
-                pygame.event.pump()
-                if updated_rect:
-                    pygame.display.update(updated_rect)
-        else:
-            time.sleep(timer.remaining())
-
-        self._show_overlay(get_translated_text('smile'), alpha)
-        self._window.show_image(self._get_preview_image())
-
     def stop_preview(self):
         """Stop the preview.
         """
-        self._hide_overlay()
         self._window = None
 
     def capture(self, effect=None):
@@ -300,8 +235,6 @@ class GpCamera(BaseCamera):
 
         if self.capture_iso != self.preview_iso:
             self.set_config_value('imgsettings', 'iso', self.preview_iso)
-
-        self._hide_overlay()  # If stop_preview() has not been called
 
     def quit(self):
         """Close the camera driver, it's definitive.

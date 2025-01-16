@@ -295,19 +295,6 @@ class PiWindow(object):
         if pil_image:
             self._update_foreground(pil_image, self.CENTER)
 
-    def show_finished(self, pil_image=None):
-        """Show finished view (image resized fullscreen).
-        """
-        self._capture_number = (0, self._capture_number[1])
-        if pil_image:
-            bg = background.FinishedWithImageBackground(pil_image.size)
-            if self._buffered_images.get(str(bg), bg).foreground_size != pil_image.size:
-                self._buffered_images.pop(str(bg))  # Drop cache, foreground size ratio has changed
-            self._update_background(background.FinishedWithImageBackground(pil_image.size))
-            self._update_foreground(pil_image, self.FULLSCREEN)
-        else:
-            self._update_background(background.FinishedBackground())
-
     @contextlib.contextmanager
     def flash(self, count):
         """Flash the window content.

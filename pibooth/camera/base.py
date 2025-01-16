@@ -46,17 +46,6 @@ class BaseCamera(object):
         """
         pass
 
-    def _show_overlay(self, text, alpha):
-        """Add an image as an overlay.
-        """
-        self._overlay = text
-
-    def _hide_overlay(self):
-        """Remove any existing overlay.
-        """
-        if self._overlay is not None:
-            self._overlay = None
-
     def _post_process_capture(self, capture_data):
         """Rework and return a PIL Image object from capture data.
         """
@@ -86,21 +75,18 @@ class BaseCamera(object):
         position = ((size[0] - txt_width) // 2, (size[1] - txt_height) // 2 - size[1] // 10)
         draw.text(position, text, (255, 255, 255, alpha), font=font)
         return image
+    
+    def set_shutter(self, speed):
+        raise NotImplementedError
+    
+    def set_auto_shutter(self):
+        raise NotImplementedError
+    
+    def set_iso(self, value):
+        raise NotImplementedError
 
     def preview(self, window, flip=True):
         """Setup the preview.
-        """
-        raise NotImplementedError
-
-    def preview_countdown(self, timeout, alpha=60):
-        """Show a countdown of `timeout` seconds on the preview.
-        Returns when the countdown is finished.
-        """
-        raise NotImplementedError
-
-    def preview_wait(self, timeout, alpha=60):
-        """Wait the given time and let doing the job.
-        Returns when the timeout is reached.
         """
         raise NotImplementedError
 

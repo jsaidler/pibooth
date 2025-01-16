@@ -39,16 +39,12 @@ class ViewPlugin(object):
         if not app.printer.is_installed():
             return None
         
-        # previous_picture = app.previous_picture
         touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
         if touch_point:
             win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
 
-        # if touch_point or (win.get_image() and not previous_picture):
-        #     win.show_intro(previous_picture, app.printer.is_ready() and app.count.remaining_duplicates > 0)
-
     @pibooth.hookimpl
-    def state_wait_validate(self, cfg, app, events):
+    def state_wait_validate(self, app, events):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'CENTER-LEFT' or touch_point == 'MIDDLE-TOP-LEFT' or touch_point == 'MIDDLE-BOTTOM-LEFT':
             if len(app.capture_choices) > 1:
@@ -117,7 +113,7 @@ class ViewPlugin(object):
         return 'wait'  # Can not print
 
     @pibooth.hookimpl
-    def state_print_enter(self, cfg, app, win):
+    def state_print_enter(self, app, win):
         LOGGER.info("Display the final picture")
         win.show_print(app.previous_picture)
         win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())

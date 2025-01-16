@@ -68,16 +68,6 @@ class CvCamera(BaseCamera):
         LOGGER.debug("Preview resolution is %s", self._preview_resolution)
         self._cam.set(cv2.CAP_PROP_ISO_SPEED, self.preview_iso)
 
-    def _show_overlay(self, text, alpha):
-        """Add an image as an overlay.
-        """
-        if self._window:  # No window means no preview displayed
-            rect = self.get_rect()
-            self._overlay_alpha = alpha
-            pil_image = self.build_overlay((rect.width, rect.height), str(text), 255)
-            # Remove alpha from overlay
-            self._overlay = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGBA2RGB)
-
     def _rotate_image(self, image, rotation):
         """Rotate an OpenCV image, same direction than RpiCamera.
         """
@@ -154,51 +144,9 @@ class CvCamera(BaseCamera):
         self.preview_flip = flip
         self._window.show_image(self._get_preview_image())
 
-    def preview_countdown(self, timeout, alpha=80):
-        """Show a countdown of `timeout` seconds on the preview.
-        Returns when the countdown is finished.
-        """
-        timeout = int(timeout)
-        if timeout < 1:
-            raise ValueError("Start time shall be greater than 0")
-
-        timer = PoolingTimer(timeout)
-        while not timer.is_timeout():
-            remaining = int(timer.remaining() + 1)
-            if self._overlay is None or remaining != timeout:
-                # Rebluid overlay only if remaining number has changed
-                self._show_overlay(str(remaining), alpha)
-                timeout = remaining
-
-            updated_rect = self._window.show_image(self._get_preview_image())
-            pygame.event.pump()
-            if updated_rect:
-                pygame.display.update(updated_rect)
-
-        self._show_overlay(get_translated_text('smile'), alpha)
-        self._window.show_image(self._get_preview_image())
-
-    def preview_wait(self, timeout, alpha=80):
-        """Wait the given time.
-        """
-        timeout = int(timeout)
-        if timeout < 1:
-            raise ValueError("Start time shall be greater than 0")
-
-        timer = PoolingTimer(timeout)
-        while not timer.is_timeout():
-            updated_rect = self._window.show_image(self._get_preview_image())
-            pygame.event.pump()
-            if updated_rect:
-                pygame.display.update(updated_rect)
-
-        self._show_overlay(get_translated_text('smile'), alpha)
-        self._window.show_image(self._get_preview_image())
-
     def stop_preview(self):
         """Stop the preview.
         """
-        self._hide_overlay()
         self._window = None
 
     def capture(self, effect=None):
@@ -229,8 +177,6 @@ class CvCamera(BaseCamera):
 
         self._captures.append((image, effect))
         time.sleep(0.5)  # To let time to see "Smile"
-
-        self._hide_overlay()  # If stop_preview() has not been called
 
     def quit(self):
         """Close the camera driver, it's definitive.

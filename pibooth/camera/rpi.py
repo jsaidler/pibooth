@@ -2,6 +2,7 @@
 
 import time
 import subprocess
+import numpy as np  # type: ignore
 from io import BytesIO
 from PIL import Image # type: ignore
 try:
@@ -60,26 +61,8 @@ class RpiCamera(BaseCamera):
         self._cam.sharpness = 33
         self._cam.still_stats = True
         self._cam.zoom = (0.0,0.0556,1.0,0.9443) #proporção 4x6
-
-    def _show_overlay(self, text, alpha):
-        """Add an image as an overlay.
-        """
-        if self._window:  # No window means no preview displayed
-            rect = self.get_rect(self._cam.MAX_RESOLUTION)
-
-            # Create an image padded to the required size (required by picamera)
-            size = (((rect.width + 31) // 32) * 32, ((rect.height + 15) // 16) * 16)
-
-            image = self.build_overlay(size, str(text), alpha)
-            self._overlay = self._cam.add_overlay(image.tobytes(), image.size, layer=3,
-                                                  window=tuple(rect), fullscreen=False)
-
-    def _hide_overlay(self):
-        """Remove any existing overlay.
-        """
-        if self._overlay:
-            self._cam.remove_overlay(self._overlay)
-            self._overlay = None
+        self._shutter_values = np.array([15, 20, 25, 30, 40, 50, 60, 80, 100, 125, 180, 200, 250, 500])
+        self._iso_values = np.array([0, 100, 200, 320, 400, 640, 800 ])
 
     def _post_process_capture(self, capture_data):
         """Rework capture data.
@@ -90,6 +73,32 @@ class RpiCamera(BaseCamera):
         # "Rewind" the stream to the beginning so we can read its content
         capture_data.seek(0)
         return Image.open(capture_data)
+    
+    def set_shutter(self, index):
+        max_shutter_index = len(self._shutter_values) - 1
+        if speed is not None:
+            if index < 0:
+                index = 0
+            elif index > max_shutter_index:
+                index = max_shutter_index
+            if self._cam.shutter_speed == 0:
+                index = np.absolute(self._shutter_values - self.cam.exposure_speed).argmin()
+            speed = self._shutter_values[index]
+            self._cam.shutter_speed = 1000//speed
+        return (index, self._cam.shutter_speed)
+    
+    def set_auto_shutter(self):
+        self._cam.shutter_speed = 0
+    
+    def set_iso(self, index):
+        max_iso_index = len(self._iso_values) - 1
+        if index is not None:
+            if index < 0:
+                index = 0
+            elif index > max_iso_index:
+                index = max_iso_index
+            self._cam.iso = self._iso_values[index]
+        return (index, self._cam.iso)   
 
     def preview(self, window, flip=True):
         """Display a preview on the given Rect (flip if necessary).
@@ -110,34 +119,9 @@ class RpiCamera(BaseCamera):
         self._cam.start_preview(resolution=(rect.width, rect.height), hflip=flip,
                                 fullscreen=False, window=tuple(rect))
 
-    def preview_countdown(self, timeout, alpha=60):
-        """Show a countdown of `timeout` seconds on the preview.
-        Returns when the countdown is finished.
-        """
-        timeout = int(timeout)
-        if timeout < 1:
-            raise ValueError("Start time shall be greater than 0")
-        if not self._cam.preview:
-            raise EnvironmentError("Preview shall be started first")
-
-        while timeout > 0:
-            self._show_overlay(timeout, alpha)
-            time.sleep(1)
-            timeout -= 1
-            self._hide_overlay()
-
-        self._show_overlay(get_translated_text('smile'), alpha)
-
-    def preview_wait(self, timeout, alpha=60):
-        """Wait the given time.
-        """
-        time.sleep(timeout)
-        self._show_overlay(get_translated_text('smile'), alpha)
-
     def stop_preview(self):
         """Stop the preview.
         """
-        self._hide_overlay()
         self._cam.stop_preview()
         self._window = None
 
@@ -147,27 +131,13 @@ class RpiCamera(BaseCamera):
         effect = str(effect).lower()
         if effect not in self.IMAGE_EFFECTS:
             raise ValueError("Invalid capture effect '{}' (choose among {})".format(effect, self.IMAGE_EFFECTS))
-
         try:
-            if self.capture_iso != self.preview_iso:
-                self._cam.iso = self.capture_iso
-            if self.capture_rotation != self.preview_rotation:
-                self._cam.rotation = self.capture_rotation
-
             stream = BytesIO()
             self._cam.image_effect = effect
             self._cam.capture(stream, format='jpeg', quality=100)
-
-            if self.capture_iso != self.preview_iso:
-                self._cam.iso = self.preview_iso
-            if self.capture_rotation != self.preview_rotation:
-                self._cam.rotation = self.preview_rotation
-
             self._captures.append(stream)
         finally:
             self._cam.image_effect = 'none'
-
-        self._hide_overlay()  # If stop_preview() has not been called
 
     def quit(self):
         """Close the camera driver, it's definitive.

@@ -38,8 +38,6 @@ class HybridRpiCamera(RpiCamera):
         """
         self._gp_cam.capture(effect)
 
-        self._hide_overlay()  # If stop_preview() has not been called
-
     def quit(self):
         """Close the camera driver, it's definitive.
         """
@@ -79,8 +77,6 @@ class HybridCvCamera(CvCamera):
         """Capture a picture in a file.
         """
         self._gp_cam.capture(effect)
-
-        self._hide_overlay()  # If stop_preview() has not been called
 
     def quit(self):
         """Close the camera driver, it's definitive.

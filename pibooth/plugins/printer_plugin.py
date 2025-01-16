@@ -33,7 +33,8 @@ class PrinterPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_do(self, cfg, app, events):
-        if app.find_print_event(events) and app.previous_picture_file and app.printer.is_installed():
+        touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
+        if touch_point and app.previous_picture_file and app.printer.is_installed():
 
             if app.count.remaining_duplicates <= 0:
                 LOGGER.warning("Too many duplicates sent to the printer (%s max)",
@@ -63,5 +64,6 @@ class PrinterPlugin(object):
 
     @pibooth.hookimpl
     def state_print_do(self, cfg, app, events):
-        if app.find_print_event(events) and app.previous_picture_file:
+        touch_point = app.touch_screen_points(events) == 'MIDDLE-TOP-RIGHT'
+        if touch_point and app.previous_picture_file:
             self.print_picture(cfg, app)
