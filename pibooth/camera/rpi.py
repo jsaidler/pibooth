@@ -62,7 +62,7 @@ class RpiCamera(BaseCamera):
         self._cam.sharpness = 33
         self._cam.still_stats = True
         self._cam.zoom = (0.0,0.0556,1.0,0.9443) #proporção 4x6
-        self._shutter_values = np.array([15, 30, 60, 120, 240, 480, 960])
+        self._shutter_values = np.array([14.975, 29.95, 59.9, 119.8, 179.7, 239.6, 299.5, 359.4, 419.3, 479.2, 539.1, 599, 658.9, 718.8])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800 ])
 
     def _post_process_capture(self, capture_data):
