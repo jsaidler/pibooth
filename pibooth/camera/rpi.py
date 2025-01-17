@@ -62,8 +62,8 @@ class RpiCamera(BaseCamera):
         self._cam.sharpness = 33
         self._cam.still_stats = True
         self._cam.zoom = (0.0,0.0556,1.0,0.9443) #proporção 4x6
-        self._shutter_values = np.array([15, 20, 25, 30, 40, 50, 60, 80, 100, 125, 180, 200, 250, 500])
-        self._iso_values = np.array([0, 100, 200, 320, 400, 640, 800 ])
+        self._shutter_values = np.array([15, 30, 60, 120, 240, 480, 960])
+        self._iso_values = np.array([100, 200, 320, 400, 640, 800 ])
 
     def _post_process_capture(self, capture_data):
         """Rework capture data.
@@ -101,7 +101,10 @@ class RpiCamera(BaseCamera):
                 index = max_iso_index
             self._cam.iso = self._iso_values[index]
         LOGGER.info("Current ISO value is %s", self._cam.iso)
-        return (index, self._cam.iso)   
+        return (index, self._cam.iso)
+    
+    def set_auto_iso(self):
+        self._cam.iso = 0
 
     def preview(self, window, flip=True):
         """Display a preview on the given Rect (flip if necessary).

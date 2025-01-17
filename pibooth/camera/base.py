@@ -84,6 +84,9 @@ class BaseCamera(object):
     
     def set_iso(self, value):
         raise NotImplementedError
+    
+    def set_auto_iso(self):
+        raise NotImplementedError
 
     def preview(self, window, flip=True):
         """Setup the preview.
