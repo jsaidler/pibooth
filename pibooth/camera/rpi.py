@@ -85,8 +85,8 @@ class RpiCamera(BaseCamera):
             if self._cam.shutter_speed == 0:
                 index = np.absolute(self._shutter_values - self._cam.exposure_speed).argmin()
             speed = self._shutter_values[index]
-            self._cam.shutter_speed = 1000//speed
-        LOGGER.info("Current shutter speed is 1/%s", 1000//speed)
+            self._cam.shutter_speed = 1/speed
+        LOGGER.info("Current shutter speed is 1/%s", 1//speed)
         return (index, self._cam.shutter_speed)
     
     def set_auto_shutter(self):
