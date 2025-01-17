@@ -86,7 +86,7 @@ class RpiCamera(BaseCamera):
                 index = np.absolute(self._shutter_values - self._cam.exposure_speed).argmin()
             speed = self._shutter_values[index]
             self._cam.shutter_speed = 1000//speed
-        LOGGER.info("Current shutter speed is 1/%s", speed//1000)
+        LOGGER.info("Current shutter speed is 1/%s", 1000//speed)
         return (index, self._cam.shutter_speed)
     
     def set_auto_shutter(self):
@@ -100,7 +100,7 @@ class RpiCamera(BaseCamera):
             elif index > max_iso_index:
                 index = max_iso_index
             self._cam.iso = self._iso_values[index]
-        LOGGER.info("ISO Changed or calculated")
+        LOGGER.info("Current ISO value is %s", self._cam.iso)
         return (index, self._cam.iso)   
 
     def preview(self, window, flip=True):
