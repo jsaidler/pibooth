@@ -11,6 +11,7 @@ except ImportError:
     picamera = None  # picamera is optional
 from pibooth.language import get_translated_text
 from pibooth.camera.base import BaseCamera
+from pibooth.utils import LOGGER
 
 
 def get_rpi_camera_proxy(port=None):
@@ -85,6 +86,7 @@ class RpiCamera(BaseCamera):
                 index = np.absolute(self._shutter_values - self.cam.exposure_speed).argmin()
             speed = self._shutter_values[index]
             self._cam.shutter_speed = 1000//speed
+        LOGGER.info("Shutter speed change or calculated")
         return (index, self._cam.shutter_speed)
     
     def set_auto_shutter(self):
@@ -98,6 +100,7 @@ class RpiCamera(BaseCamera):
             elif index > max_iso_index:
                 index = max_iso_index
             self._cam.iso = self._iso_values[index]
+        LOGGER.info("ISO Changed or calculated")
         return (index, self._cam.iso)   
 
     def preview(self, window, flip=True):
