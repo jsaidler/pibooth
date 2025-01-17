@@ -67,16 +67,16 @@ class CameraPlugin(object):
     def state_preview_do(self, app, events):
         pygame.event.pump()  # Before blocking actions
         touch_point = app.touch_screen_points(events)
-        if touch_point == 'MIDDLE-LEFT-TOP':
+        if touch_point == 'MIDDLE-TOP-LEFT':
             self._shutter += 1
             app.camera.set_shutter(self._shutter)
-        elif touch_point == 'MIDDLE-LEFT-BOTTOM':
+        elif touch_point == 'MIDDLE-BOTTOM-LEFT':
             self._shutter -= 1
             app.camera.set_shutter(self._shutter)
-        elif touch_point == 'MIDDLE-RIGHT-TOP':
+        elif touch_point == 'MIDDLE-TOP-RIGHT':
             self._iso += 1
             app.camera.set_iso(self._iso)
-        elif touch_point == 'MIDDLE-RIGHT-BOTTOM':
+        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             self._iso -= 1
             app.camera.set_iso(self._iso)
 
