@@ -76,7 +76,7 @@ class RpiCamera(BaseCamera):
     
     def set_shutter(self, index = None):
         max_shutter_index = len(self._shutter_values) - 1
-        if speed is not None:
+        if index is not None:
             if index < 0:
                 index = 0
             elif index > max_shutter_index:
