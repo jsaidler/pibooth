@@ -18,6 +18,7 @@ class CameraPlugin(object):
         self._pm = plugin_manager
         self.count = 0
         self._iso = 0
+        self._shutter = 0
 
     @pibooth.hookimpl(hookwrapper=True)
     def pibooth_setup_camera(self, cfg):
