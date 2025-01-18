@@ -81,7 +81,7 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_enter(self, app, win):
-        win.show_capture(self)
+        win.show_capture()
         self.count += 1
         win.set_capture_number(self.count, app.capture_nbr)
 
