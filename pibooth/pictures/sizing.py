@@ -12,7 +12,7 @@ def new_size_keep_aspect_ratio(original_size, target_size, resize_type='inner'):
     ox, oy = original_size
     tx, ty = target_size
 
-    if ratio > img_ratio:
+    if ratio < img_ratio:
         # fit to width
         scale_factor = target_size[0] / float(ox)
         ty = scale_factor * oy
@@ -20,7 +20,7 @@ def new_size_keep_aspect_ratio(original_size, target_size, resize_type='inner'):
             scale_factor = target_size[1] / float(oy)
             tx = scale_factor * ox
             ty = target_size[1]
-    elif ratio < img_ratio:
+    else:
         # fit to height
         scale_factor = target_size[1] / float(oy)
         tx = scale_factor * ox
