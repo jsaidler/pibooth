@@ -298,7 +298,7 @@ class PiWindow(object):
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.PrintBackground())
         if pil_image:
-            self._update_foreground(pil_image, self.CENTER, x_offset=50)
+            self._update_foreground(pil_image, self.CENTER, x_offset=-50)
 
     def set_capture_number(self, current_nbr, total_nbr):
         """Set the current number of captures taken.
