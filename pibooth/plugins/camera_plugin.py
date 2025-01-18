@@ -86,7 +86,7 @@ class CameraPlugin(object):
     #         app.camera.stop_preview()
 
     @pibooth.hookimpl
-    def state_capture_do(self, cfg, app):
+    def state_capture_do(self, cfg, app, win):
         effects = cfg.gettyped('PICTURE', 'captures_effects')
         if not isinstance(effects, (list, tuple)):
             # Same effect for all captures
@@ -100,7 +100,8 @@ class CameraPlugin(object):
                 app.capture_nbr, effects))
 
         LOGGER.info("Take a capture")
-        app.camera.capture(effect)
+        with win.flash(2):
+            app.camera.capture(effect)
         self.count += 1
 
     # @pibooth.hookimpl
