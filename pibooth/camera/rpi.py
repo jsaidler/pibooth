@@ -85,7 +85,7 @@ class RpiCamera(BaseCamera):
         size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
-        res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size)
+        res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size, "outer")
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
     def set_shutter(self, index = None):
@@ -129,7 +129,6 @@ class RpiCamera(BaseCamera):
 
         self._window = window
         rect = self.get_rect(self._cam.MAX_RESOLUTION)
-        LOGGER.info("a resolução do preview é %s", self._cam.MAX_RESOLUTION)
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
