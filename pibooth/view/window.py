@@ -296,7 +296,7 @@ class PiWindow(object):
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.PrintBackground())
         if pil_image:
-            self._update_foreground(pil_image, self.CENTER)
+            self._update_foreground(pil_image, self.LEFT)
 
     @contextlib.contextmanager
     def flash(self, count):
