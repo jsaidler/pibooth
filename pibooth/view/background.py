@@ -297,8 +297,16 @@ class CaptureBackground(Background):
 
     def resize(self, screen):
         Background.resize(self, screen)
+        if self._need_update:
+            size = (self._rect.width * 0.10, self._rect.height * 0.10)
+            self.add_shutter_icon  = pictures.get_pygame_image('add_shutter_speed.png',  size, vflip=False, color=self._text_color)    
+            self.add_shutter_icon_pos = (self._rect.width ** 0.01, self._rect.height ** 0.15)
+            self.reduce_shutter_icon  = pictures.get_pygame_image('reduce_shutter_speed.png',  size, vflip=False, color=self._text_color)    
+            self.reduce_shutter_icon_pos = (self._rect.width ** 0.01, int(self._rect.height * 0.85 - self.print_icon.get_rect().height))
+        
     def resize_texts(self):
         return None  
+    
     def paint(self, screen):
         Background.paint(self, screen)
 
