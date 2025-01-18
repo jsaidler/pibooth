@@ -137,8 +137,9 @@ class RpiCamera(BaseCamera):
             else:
                 # Flip again because flipped once at init
                 flip = True
-        self._cam.start_preview(resolution=(rect.width, rect.height), hflip=flip,
-                                fullscreen=False, window=tuple(rect))
+        self._cam.start_preview(hflip=flip,
+                                fullscreen=False,
+                                window=tuple(rect))
 
     def stop_preview(self):
         """Stop the preview.
