@@ -63,7 +63,7 @@ class RpiCamera(BaseCamera):
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
-        self._cam.zoom = (0.0,0.0556,1.0,0.9443) #proporção 4x6
+        self._cam.zoom = (0.0,0.0562,1.0,0.8874) #proporção 4x6
         self._shutter_values = np.array([15, 30, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840, 900, 960, 1020])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800])
 
@@ -85,7 +85,6 @@ class RpiCamera(BaseCamera):
         size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
-        LOGGER.info("As proporções de zoom são %s e %s", self._cam.zoom[2], self._cam.zoom[3])
         res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size)
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
