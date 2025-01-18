@@ -295,31 +295,31 @@ class PiWindow(object):
         if pil_image:
             self._update_foreground(pil_image, self.CENTER)
 
-    @contextlib.contextmanager
-    def flash(self, count):
-        """Flash the window content.
-        """
-        if count < 1:
-            raise ValueError("The flash counter shall be greater than 0")
+    # @contextlib.contextmanager
+    # def flash(self, count):
+    #     """Flash the window content.
+    #     """
+    #     if count < 1:
+    #         raise ValueError("The flash counter shall be greater than 0")
 
-        for i in range(count):
-            self.surface.fill((255, 255, 255))
-            if self._current_foreground:
-                # Flash only the background, keep foreground at the top
-                self._update_foreground(*self._current_foreground)
-            pygame.event.pump()
-            pygame.display.update()
-            time.sleep(0.02)
-            if i == count - 1:
-                yield  # Let's do actions before end of flash
-                self.update()
-                pygame.event.pump()
-                pygame.display.update()
-            else:
-                self.update()
-                pygame.event.pump()
-                pygame.display.update()
-                time.sleep(0.02)
+    #     for i in range(count):
+    #         self.surface.fill((255, 255, 255))
+    #         if self._current_foreground:
+    #             # Flash only the background, keep foreground at the top
+    #             self._update_foreground(*self._current_foreground)
+    #         pygame.event.pump()
+    #         pygame.display.update()
+    #         time.sleep(0.02)
+    #         if i == count - 1:
+    #             yield  # Let's do actions before end of flash
+    #             self.update()
+    #             pygame.event.pump()
+    #             pygame.display.update()
+    #         else:
+    #             self.update()
+    #             pygame.event.pump()
+    #             pygame.display.update()
+    #             time.sleep(0.02)
 
     def set_capture_number(self, current_nbr, total_nbr):
         """Set the current number of captures taken.
@@ -337,17 +337,12 @@ class PiWindow(object):
     def set_print_number(self, current_nbr=None, ready=None):
         """Set the current number of tasks in the printer queue.
         """
-        # update = False
-
         if current_nbr is not None:
             self._print_number = current_nbr
-            # update = True
 
         if ready is not None and self._print_failure != (not ready):
             self._print_failure = not ready
-        #     update = True
-
-        # if update:
+        
         self._update_background(self._current_background)
         self._update_print_number()
         if self._current_foreground:
