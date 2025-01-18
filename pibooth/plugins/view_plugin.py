@@ -63,7 +63,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_choose_enter(self, app, win):
         LOGGER.info("Show picture choice (nothing selected)")
-        win.set_print_number(0, False)  # Hide printer status
+        # win.set_print_number(0, False)  # Hide printer status
         win.show_choice(app.capture_choices)
                        
     @pibooth.hookimpl

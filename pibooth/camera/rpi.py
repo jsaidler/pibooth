@@ -83,7 +83,8 @@ class RpiCamera(BaseCamera):
             elif index > max_shutter_index:
                 index = max_shutter_index
         else:
-            index = np.absolute(self._shutter_values - self._cam.exposure_speed).argmin()
+            #shutter_speed e exposure_speed são valores inteiros medidos em microsegundos.
+            index = np.absolute(self._shutter_values - 1000000/self._cam.exposure_speed).argmin()
         speed = self._shutter_values[index]
         self._cam.shutter_speed = int(1000000/speed)
         LOGGER.info("Current shutter speed is 1/%s", int(1000000/self._cam.shutter_speed))
