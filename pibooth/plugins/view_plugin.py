@@ -2,6 +2,7 @@
 
 import pibooth
 import pygame # type: ignore
+from pibooth import camera
 from pibooth.utils import LOGGER, get_crash_message, PoolingTimer
 
 
@@ -82,6 +83,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_preview_enter(self, app, win):
         win.show_capture()
+        app.camera.preview(win)
         self.count += 1
         win.set_capture_number(self.count, app.capture_nbr)
 
