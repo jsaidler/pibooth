@@ -339,19 +339,19 @@ class PiWindow(object):
         """
         # update = False
 
-        # if current_nbr is not None and self._print_number != current_nbr:
-        #     self._print_number = current_nbr
-        #     update = True
+        if current_nbr is not None:
+            self._print_number = current_nbr
+            # update = True
 
-        # if ready is not None and self._print_failure != (not ready):
-        #     self._print_failure = not ready
+        if ready is not None and self._print_failure != (not ready):
+            self._print_failure = not ready
         #     update = True
 
         # if update:
         self._update_background(self._current_background)
+        self._update_print_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
-        self._update_print_number()
         pygame.display.update()
 
     def toggle_fullscreen(self):
