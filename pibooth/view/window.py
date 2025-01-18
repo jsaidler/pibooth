@@ -84,7 +84,7 @@ class PiWindow(object):
                         (192, 0, 224, 0, 240, 0, 248, 0, 252, 0, 254, 0, 255, 0, 255,
                          128, 255, 192, 255, 224, 254, 0, 239, 0, 207, 0, 135, 128, 7, 128, 3, 0))
 
-    def _update_foreground(self, pil_image, pos=CENTER, resize=True, x_offset = 0, y_offset = 0, border = False, border_color = None):
+    def _update_foreground(self, pil_image, pos=CENTER, resize=True, x_offset = 0, y_offset = 0):
         """Show a PIL image on the foreground.
         Only one is bufferized to avoid memory leak.
         """
@@ -119,11 +119,6 @@ class PiWindow(object):
             outlines = pygame.Surface(image_size_max, pygame.SRCALPHA, 32)
             pygame.draw.rect(outlines, pygame.Color(255, 0, 0), outlines.get_rect(), 2)
             self.surface.blit(outlines, self._pos_map[pos](outlines))
-            
-        if border:
-            borders = pygame.Surface(image_size_max, pygame.SRCALPHA, 32)
-            pygame.draw.rect(borders, pygame.Color(border_color if border_color is not None else (255,255,255)), borders.get_rect(), 10)
-            self.surface.blit(borders, self._pos_map[pos](borders))
         
         final_pos = (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset)
         
