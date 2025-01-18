@@ -6,6 +6,7 @@
 import os
 import time
 import contextlib
+from tkinter import Y
 import pygame # type: ignore
 from pygame import gfxdraw # type: ignore
 from PIL import Image # type: ignore
@@ -258,7 +259,7 @@ class PiWindow(object):
             self._update_background(background.IntroBackground())
 
         if pil_image:
-            self._update_foreground(pil_image, self.RIGHT)
+            self._update_foreground(pil_image, self.RIGHT, x_offset= -25)
         elif self._current_foreground:
             self._buffered_images.pop(id(self._current_foreground[0]), None)
             self._current_foreground = None
@@ -298,7 +299,7 @@ class PiWindow(object):
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.PrintBackground())
         if pil_image:
-            self._update_foreground(pil_image, self.CENTER, x_offset=-50)
+            self._update_foreground(pil_image, self.CENTER, x_offset=-40)
 
     def set_capture_number(self, current_nbr, total_nbr):
         """Set the current number of captures taken.
