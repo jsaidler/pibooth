@@ -348,9 +348,9 @@ class PiWindow(object):
         #     update = True
 
         # if update:
-        #     self._update_background(self._current_background)
-        #     if self._current_foreground:
-        #         self._update_foreground(*self._current_foreground)
+        self._update_background(self._current_background)
+        if self._current_foreground:
+            self._update_foreground(*self._current_foreground)
         self._update_print_number()
         pygame.display.update()
 
