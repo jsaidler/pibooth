@@ -266,6 +266,9 @@ class PiWindow(object):
         """
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.ChooseBackground(choices))
+        
+    def show_capture(self):
+        self._update_background(background.CaptureBackground())
 
     def show_image(self, pil_image=None, pos=FULLSCREEN):
         """Show PIL image as it (no resize).
@@ -328,7 +331,7 @@ class PiWindow(object):
             raise ValueError("Total number of captures shall be greater than 0")
 
         self._capture_number = (current_nbr, total_nbr)
-        self._update_background(background.CaptureBackground())
+        # self._update_background(background.CaptureBackground())
         self._update_capture_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
@@ -343,7 +346,7 @@ class PiWindow(object):
         if ready is not None and self._print_failure != (not ready):
             self._print_failure = not ready
         
-        self._update_background(self._current_background)
+        # self._update_background(self._current_background)
         self._update_print_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
