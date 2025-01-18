@@ -131,8 +131,8 @@ class PiWindow(object):
         self._current_background.set_text_color(self.text_color)
         self._current_background.resize(self.surface)
         self._current_background.paint(self.surface)
-        self._update_capture_number()
-        self._update_print_number()
+        # self._update_capture_number()
+        # self._update_print_number()
 
     def _update_capture_number(self):
         """Update the captures counter displayed.
@@ -234,9 +234,9 @@ class PiWindow(object):
         """
         if self._current_background:
             self._update_background(self._current_background)
-        else:
-            self._update_capture_number()
-            self._update_print_number()
+        # else:
+        #     self._update_capture_number()
+        #     self._update_print_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
 
@@ -329,6 +329,7 @@ class PiWindow(object):
 
         self._capture_number = (current_nbr, total_nbr)
         self._update_background(background.CaptureBackground())
+        self._update_capture_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
@@ -348,6 +349,7 @@ class PiWindow(object):
 
         if update:
             self._update_background(self._current_background)
+            self._update_print_number()
             if self._current_foreground:
                 self._update_foreground(*self._current_foreground)
             pygame.display.update()
