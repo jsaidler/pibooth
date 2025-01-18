@@ -85,7 +85,8 @@ class RpiCamera(BaseCamera):
         size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
-        res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size, "outer")
+        LOGGER.info("As proporções de zoom são %s e %s", self._cam.zoom[2], self._cam.zoom[3])
+        res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size)
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
     def set_shutter(self, index = None):
