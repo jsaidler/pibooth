@@ -309,6 +309,8 @@ class CaptureBackground(Background):
     
     def paint(self, screen):
         Background.paint(self, screen)
+        screen.blit(self.add_shutter_icon, self.add_shutter_icon_pos)
+        screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
 
 class ProcessingBackground(Background):
 
