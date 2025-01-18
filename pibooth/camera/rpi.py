@@ -76,7 +76,7 @@ class RpiCamera(BaseCamera):
         capture_data.seek(0)
         return Image.open(capture_data)
     
-    def get_rect(self, max_size=None):
+    def get_rect(self, max_size=None, x_offset = 0, y_offset = 0):
         """Return a Rect object (as defined in pygame) for resizing preview and images
         in order to fit to the defined window.
         """
@@ -87,7 +87,7 @@ class RpiCamera(BaseCamera):
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
         res = sizing.new_size_keep_aspect_ratio(self._cam.resolution, size)
         LOGGER.info("Janela do preview é %s", res)
-        return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
+        return pygame.Rect(rect.centerx - res[0] // 2 + x_offset, rect.centery - res[1] // 2 + y_offset, res[0], res[1])
     
     def set_shutter(self, index = None):
         max_shutter_index = len(self._shutter_values) - 1
@@ -129,7 +129,7 @@ class RpiCamera(BaseCamera):
             return
 
         self._window = window
-        rect = self.get_rect(self._cam.resolution)
+        rect = self.get_rect(self._cam.resolution, y_offset=-25)
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
