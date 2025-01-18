@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
+import pygame
 import subprocess
 import numpy as np  # type: ignore
 from io import BytesIO
@@ -11,6 +12,7 @@ except ImportError:
     picamera = None  # picamera is optional
 from pibooth.language import get_translated_text
 from pibooth.camera.base import BaseCamera
+from pibooth.pictures import sizing
 from pibooth.utils import LOGGER
 
 
@@ -74,6 +76,17 @@ class RpiCamera(BaseCamera):
         # "Rewind" the stream to the beginning so we can read its content
         capture_data.seek(0)
         return Image.open(capture_data)
+    
+    def get_rect(self, max_size=None):
+        """Return a Rect object (as defined in pygame) for resizing preview and images
+        in order to fit to the defined window.
+        """
+        rect = self._window.get_rect(absolute=True)
+        size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
+        if max_size:
+            size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
+        res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size)
+        return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
     def set_shutter(self, index = None):
         max_shutter_index = len(self._shutter_values) - 1
