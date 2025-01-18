@@ -55,7 +55,7 @@ class RpiCamera(BaseCamera):
         self._cam.video_stabilization = True
         self._cam.vflip = True
         self._cam.hflip = self.capture_flip
-        self._cam.resolution = self._cam.MAX_RESOLUTION
+        self._cam.resolution = self.resolution
         self._cam.iso = self.iso
         self._cam.rotation = self.preview_rotation
         #drc_strength, na prática, reduz as altas luzes e aumenta as sombras.
