@@ -139,7 +139,8 @@ class RpiCamera(BaseCamera):
                 flip = True
         self._cam.start_preview(hflip=flip,
                                 fullscreen=False,
-                                window=tuple(rect))
+                                window=tuple(rect),
+                                crop=(0,0,0,0))
 
     def stop_preview(self):
         """Stop the preview.
