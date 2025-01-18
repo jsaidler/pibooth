@@ -55,7 +55,7 @@ class RpiCamera(BaseCamera):
         self._cam.video_stabilization = True
         self._cam.vflip = True
         self._cam.hflip = self.capture_flip
-        self._cam.resolution = self.resolution
+        self._cam.resolution = self._cam.MAX_RESOLUTION
         self._cam.iso = self.iso
         self._cam.rotation = self.preview_rotation
         #drc_strength, na prática, reduz as altas luzes e aumenta as sombras.
@@ -81,11 +81,11 @@ class RpiCamera(BaseCamera):
         in order to fit to the defined window.
         """
         rect = self._window.get_rect(absolute=True)
-        size = (rect.width, rect.height - 2 * self._border)
-        LOGGER.info("Imagem: %s, Tela: %s",self.resolution, size)
+        size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
+        LOGGER.info("Imagem: %s, Tela: %s", self._cam.resolution, size)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
-        res = sizing.new_size_keep_aspect_ratio(self.resolution, size)
+        res = sizing.new_size_keep_aspect_ratio(self._cam.resolution, size)
         LOGGER.info("Janela do preview é %s", res)
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
@@ -129,7 +129,7 @@ class RpiCamera(BaseCamera):
             return
 
         self._window = window
-        rect = self.get_rect(self.resolution)
+        rect = self.get_rect(self._cam.resolution)
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
