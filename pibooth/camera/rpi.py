@@ -81,7 +81,7 @@ class RpiCamera(BaseCamera):
         in order to fit to the defined window.
         """
         rect = self._window.get_rect(absolute=True)
-        size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
+        size = (rect.width, rect.height - 2 * self._border)
         LOGGER.info("Imagem: %s, Tela: %s",self.resolution, size)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
