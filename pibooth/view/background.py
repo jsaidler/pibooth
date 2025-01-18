@@ -300,9 +300,9 @@ class CaptureBackground(Background):
         if self._need_update:
             size = (self._rect.width * 0.10, self._rect.height * 0.10)
             self.add_shutter_icon  = pictures.get_pygame_image('add_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.add_shutter_icon_pos = (int(self._rect.width * 0.95), int(self._rect.height * 0.4 - self.add_shutter_icon.get_rect().height))
+            self.add_shutter_icon_pos = (int(self._rect.width * 0.05), int(self._rect.height * 0.4 - self.add_shutter_icon.get_rect().height))
             self.reduce_shutter_icon  = pictures.get_pygame_image('reduce_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.reduce_shutter_icon_pos = (int(self._rect.width * 0.95), int(self._rect.height * 0.6))
+            self.reduce_shutter_icon_pos = (int(self._rect.width * 0.05), int(self._rect.height * 0.6))
             self.add_iso_icon  = pictures.get_pygame_image('add_iso.png',  size, vflip=False, color=self._text_color)    
             self.add_iso_icon_pos = (int(self._rect.width * 0.95 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.4 - self.add_iso_icon.get_rect().height))
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
