@@ -129,7 +129,7 @@ class RpiCamera(BaseCamera):
             return
 
         self._window = window
-        rect = self.get_rect(self._cam.MAX_RESOLUTION)
+        rect = self.get_rect(self.resolution)
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
