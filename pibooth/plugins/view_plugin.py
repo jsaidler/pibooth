@@ -106,7 +106,8 @@ class ViewPlugin(object):
         return 'preview'
 
     @pibooth.hookimpl
-    def state_processing_enter(self, win):
+    def state_processing_enter(self,app, win):
+        app.camera.stop_preview()
         win.show_work_in_progress()
 
     @pibooth.hookimpl
