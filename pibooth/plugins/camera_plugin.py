@@ -86,7 +86,7 @@ class CameraPlugin(object):
     #         app.camera.stop_preview()
 
     @pibooth.hookimpl
-    def state_capture_do(self, cfg, app, win):
+    def state_capture_do(self, cfg, app):
         effects = cfg.gettyped('PICTURE', 'captures_effects')
         if not isinstance(effects, (list, tuple)):
             # Same effect for all captures
@@ -109,5 +109,5 @@ class CameraPlugin(object):
     #         app.camera.stop_preview()
 
     @pibooth.hookimpl
-    def state_processing_enter(self, app):
+    def state_processing_enter(self):
         self.count = 0

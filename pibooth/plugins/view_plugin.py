@@ -98,6 +98,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_capture_do(self, app, win):
         win.set_capture_number(self.count, app.capture_nbr)
+        win.flash(2)
 
     @pibooth.hookimpl
     def state_capture_validate(self, app):
