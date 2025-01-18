@@ -139,12 +139,11 @@ class RpiCamera(BaseCamera):
                 flip = True
                 
         borders = pygame.Surface(tuple(rect)[-2:], pygame.SRCALPHA, 32)
-        LOGGER.info("O retângulo do preview é %s", tuple(rect))
         pygame.draw.rect(borders, pygame.Color(255,255,255), borders.get_rect(), 10)
         self._window.surface.blit(borders, tuple(rect)[:2])
-        # self._cam.start_preview(hflip=flip,
-        #                         fullscreen=False,
-        #                         window=tuple(rect))
+        self._cam.start_preview(hflip=flip,
+                                fullscreen=False,
+                                window=tuple(rect))
 
     def stop_preview(self):
         """Stop the preview.
