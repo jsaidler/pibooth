@@ -100,8 +100,7 @@ class CameraPlugin(object):
                 app.capture_nbr, effects))
 
         LOGGER.info("Take a capture")
-        with win.flash(2):
-            app.camera.capture(effect)
+        app.camera.capture(effect)
         self.count += 1
 
     # @pibooth.hookimpl

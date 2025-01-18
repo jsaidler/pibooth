@@ -137,6 +137,10 @@ class RpiCamera(BaseCamera):
             else:
                 # Flip again because flipped once at init
                 flip = True
+                
+        borders = pygame.Surface(tuple(rect)[:-2], pygame.SRCALPHA, 32)
+        pygame.draw.rect(borders, pygame.Color(255,255,255), borders.get_rect(), 10)
+        self.surface.blit(borders, tuple(rect)[:2])
         self._cam.start_preview(hflip=flip,
                                 fullscreen=False,
                                 window=tuple(rect))
