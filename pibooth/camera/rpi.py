@@ -63,10 +63,10 @@ class RpiCamera(BaseCamera):
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
-        self._cam.zoom = ((1.0 - self.resolution[0] / self._cam.MAX_RESOLUTION[0]) / 2,
-                          (1.0 - self.resolution[1] / self._cam.MAX_RESOLUTION[1]) / 2,
-                          self.resolution[0] / self._cam.MAX_RESOLUTION[0],
-                          self.resolution[1] / self._cam.MAX_RESOLUTION[1]) #proporção 4x6
+        # self._cam.zoom = ((1.0 - self.resolution[0] / self._cam.MAX_RESOLUTION[0]) / 2,
+        #                   (1.0 - self.resolution[1] / self._cam.MAX_RESOLUTION[1]) / 2,
+        #                   self.resolution[0] / self._cam.MAX_RESOLUTION[0],
+        #                   self.resolution[1] / self._cam.MAX_RESOLUTION[1]) #proporção 4x6
         self._shutter_values = np.array([15, 30, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840, 900, 960, 1020])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800])
 
