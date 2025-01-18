@@ -80,10 +80,10 @@ class CameraPlugin(object):
             self._iso -= 1
             app.camera.set_iso(self._iso)
 
-    @pibooth.hookimpl
-    def state_preview_exit(self, cfg, app):
-        if cfg.getboolean('WINDOW', 'preview_stop_on_capture'):
-            app.camera.stop_preview()
+    # @pibooth.hookimpl
+    # def state_preview_exit(self, cfg, app):
+    #     if cfg.getboolean('WINDOW', 'preview_stop_on_capture'):
+    #         app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_capture_do(self, cfg, app, win):
@@ -103,10 +103,10 @@ class CameraPlugin(object):
         app.camera.capture(effect)
         self.count += 1
 
-    @pibooth.hookimpl
-    def state_capture_exit(self, cfg, app):
-        if not cfg.getboolean('WINDOW', 'preview_stop_on_capture'):
-            app.camera.stop_preview()
+    # @pibooth.hookimpl
+    # def state_capture_exit(self, cfg, app):
+    #     if not cfg.getboolean('WINDOW', 'preview_stop_on_capture'):
+    #         app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_processing_enter(self, app):
