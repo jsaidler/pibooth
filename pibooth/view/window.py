@@ -254,7 +254,6 @@ class PiWindow(object):
             self._update_background(background.IntroWithPrintBackground())
         else:
             self._update_background(background.IntroBackground())
-            self.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
 
         if pil_image:
             self._update_foreground(pil_image, self.RIGHT)
