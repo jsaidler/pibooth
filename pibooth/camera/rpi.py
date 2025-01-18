@@ -31,8 +31,8 @@ def get_rpi_camera_proxy(port=None):
         stdout, _stderr = process.communicate()
         if stdout and u'detected=1' in stdout.decode('utf-8'):
             if port is not None:
-                return picamera.PiCamera(camera_num=port)
-            return picamera.PiCamera()
+                return picamera.PiCamera(camera_num=port, sensor_mode=2)
+            return picamera.PiCamera(sensor_mode=2)
     except OSError:
         pass
     return None
@@ -63,7 +63,10 @@ class RpiCamera(BaseCamera):
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
-        self._cam.zoom = (0.0,0.0562,1.0,0.8874) #proporção 4x6
+        self._cam.zoom = ((1.0 - self.resolution[0] / self._cam.MAX_RESOLUTION[0]) / 2,
+                          (1.0 - self.resolution[1] / self._cam.MAX_RESOLUTION[1]) / 2,
+                          self.resolution[0] / self._cam.MAX_RESOLUTION[0],
+                          self.resolution[1] / self._cam.MAX_RESOLUTION[1]) #proporção 4x6
         self._shutter_values = np.array([15, 30, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840, 900, 960, 1020])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800])
 
@@ -85,6 +88,7 @@ class RpiCamera(BaseCamera):
         size = (rect.width - 2 * self._border, rect.height - 2 * self._border)
         if max_size:
             size = (min(size[0], max_size[0]), min(size[1], max_size[1]))
+        LO
         res = sizing.new_size_keep_aspect_ratio((self.resolution[0] * self._cam.zoom[2], self.resolution[1] * self._cam.zoom[3]), size)
         return pygame.Rect(rect.centerx - res[0] // 2, rect.centery - res[1] // 2, res[0], res[1])
     
