@@ -116,6 +116,7 @@ class RpiCamera(BaseCamera):
 
         self._window = window
         rect = self.get_rect(self._cam.MAX_RESOLUTION)
+        LOGGER.info("a resolução do preview é %s", self._cam.MAX_RESOLUTION)
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
