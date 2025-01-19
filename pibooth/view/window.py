@@ -316,7 +316,7 @@ class PiWindow(object):
     def _update_iso(self):
         width = int(self.surface.get_size()[0] * 0.03)
         font = pygame.font.Font(fonts.CURRENT, width)
-        label = font.render(f"auto" if self._iso == 0 else self._iso, True, self.text_color)
+        label = font.render(str("auto") if self._iso == 0 else self._iso, True, self.text_color)
                
         x = int(self.surface.get_size()[0] * 0.97 - label.get_rect().width)
         y = int(self.surface.get_size()[1] * 0.45 - label.get_rect().height // 2)
