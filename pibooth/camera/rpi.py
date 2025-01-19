@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import time
+from tkinter import NO
 import pygame
 import subprocess
 import numpy as np  # type: ignore
@@ -107,7 +108,7 @@ class RpiCamera(BaseCamera):
     def set_auto_shutter(self):
         self._cam.shutter_speed = 0
     
-    def set_iso(self, index):
+    def set_iso(self, index = None):
         max_iso_index = len(self._iso_values) - 1
         if index is not None:
             if index < 0:
