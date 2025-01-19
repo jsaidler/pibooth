@@ -103,7 +103,7 @@ class RpiCamera(BaseCamera):
         speed = self._shutter_values[index]
         self._cam.shutter_speed = int(1000000/speed)
         LOGGER.info("Current shutter speed is 1/%s", int(1000000/self._cam.shutter_speed))
-        return (index, self._cam.shutter_speed)
+        return (index, int(1000000/self._cam.shutter_speed))
     
     def set_auto_shutter(self):
         self._cam.shutter_speed = 0

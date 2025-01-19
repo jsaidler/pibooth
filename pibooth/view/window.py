@@ -330,12 +330,12 @@ class PiWindow(object):
         pygame.display.update()
         
     def set_shutter_speed(self, speed):
-        width = int(self.surface.get_size()[0] * 0.05)
+        width = int(self.surface.get_size()[0] * 0.03)
         x = int(self.surface.get_size()[0] * 0.03)
         y = int(self.surface.get_size()[1] * 0.5)
 
         font = pygame.font.Font(fonts.CURRENT, width)
-        label = font.render(str(speed), True, self.text_color)
+        label = font.render(f"1/{speed}", True, self.text_color)
         self.surface.blit(label,(x,y))
         
         if self._current_foreground:
