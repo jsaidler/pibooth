@@ -18,6 +18,9 @@ class ViewPlugin(object):
         self.count = 0
         # Seconds to display the failed message
         self.failed_view_timer = PoolingTimer(3)
+        self._shutter_speed = None
+        self._iso = None
+        
 
     @pibooth.hookimpl
     def state_failsafe_enter(self, win):
@@ -86,6 +89,13 @@ class ViewPlugin(object):
         app.camera.preview(win)
         self.count += 1
         win.set_capture_number(self.count, app.capture_nbr)
+        self._shutter_speed = app.shutter_speed
+        self._iso = app.iso
+        
+    @pibooth.hookimpl
+    def state_preview_do(self, app, win):
+        if self._shutter_speed != app.shutter_speed:
+           self._shutter_speed = win.set_shutter_speed(app.shutter_speed)
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):

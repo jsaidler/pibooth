@@ -54,6 +54,10 @@ class PiApplication(object):
     :type capture_date: str
     :attr capture_choices: possible choices of captures numbers.
     :type capture_choices: tuple
+    :attr shutter_speed: current shutter speed
+    :type shutter_speed: int
+    :attr iso: current iso value
+    :type iso: int
     :attr previous_picture: picture generated during last sequence
     :type previous_picture: :py:class:`PIL.Image`
     :attr previous_animated: infinite list of picture to display during animation
@@ -124,6 +128,8 @@ class PiApplication(object):
         self.previous_picture = None
         self.previous_animated = None
         self.previous_picture_file = None
+        self.shutter_speed = None
+        self.iso = None
 
         self.count = Counters(self._config.join_path("counters.pickle"),
                               taken=0, printed=0, forgotten=0,

@@ -328,6 +328,20 @@ class PiWindow(object):
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
+        
+    def set_shutter_speed(self, speed):
+        width = self.surface.get_size()[1] * 0.05
+        x = self.surface.get_size()[0] * 0.03
+        y = self.surface.get_size()[1] * 0.5
+
+        font = pygame.font.Font(fonts.CURRENT, width)
+        label = font.render(str(speed), True, self.text_color)
+        self.surface.blit(label,(x,y))
+        
+        if self._current_foreground:
+            self._update_foreground(*self._current_foreground)
+        pygame.display.update()
+        return speed
 
     def toggle_fullscreen(self):
         """Set window to full screen or initial size.
