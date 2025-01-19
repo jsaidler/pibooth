@@ -72,6 +72,8 @@ class PiWindow(object):
         self._print_number = 0
         self._print_failure = False
         self._capture_number = (0, 4)  # (current, max)
+        self._shutter_speed = 0
+        self._iso = 0
 
         self._pos_map = {self.CENTER: self._center_pos,
                          self.RIGHT: self._right_pos,
@@ -309,28 +311,45 @@ class PiWindow(object):
 
         self._capture_number = (current_nbr, total_nbr)
         # self._update_background(background.CaptureBackground())
-        self._update_capture_number()
-        if self._current_foreground:
-            self._update_foreground(*self._current_foreground)
-        pygame.display.update()
-        
-        
-    def set_shutter_speed(self, speed):
-        self._update_background(self._current_background)
-        
+        self._update_preview_window()
+    
+    def _update_iso(self):
         width = int(self.surface.get_size()[0] * 0.03)
         font = pygame.font.Font(fonts.CURRENT, width)
-        label = font.render(f"1/{speed}", True, self.text_color)
+        label = font.render(str(self._iso), True, self.text_color)
+               
+        x = int(self.surface.get_size()[0] * 0.97 - label.get_rect().width)
+        y = int(self.surface.get_size()[1] * 0.45 - label.get_rect().height // 2)
+
+        self.surface.blit(label,(x,y))
+        
+    def set_iso(self, iso):
+        self.iso = iso
+        self._update_preview_window()
+        return iso
+    
+    def _update_shutter_speed(self):
+        width = int(self.surface.get_size()[0] * 0.03)
+        font = pygame.font.Font(fonts.CURRENT, width)
+        label = font.render(f"1/{self._shutter_speed}", True, self.text_color)
                
         x = int(self.surface.get_size()[0] * 0.03)
         y = int(self.surface.get_size()[1] * 0.45 - label.get_rect().height // 2)
 
         self.surface.blit(label,(x,y))
         
+    def set_shutter_speed(self, speed):
+        self._shutter_speed = speed
+        self._update_preview_window()
+        return speed
+    
+    def _update_preview_window(self):
+        self._update_background(self._current_background)
+        self._update_capture_number()
+        self._update_shutter_speed()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
-        return speed
 
     def set_print_number(self, current_nbr=None, ready=None):
         """Set the current number of tasks in the printer queue.
