@@ -98,7 +98,7 @@ class RpiCamera(BaseCamera):
             elif index > max_shutter_index:
                 index = max_shutter_index
             speed = self._shutter_values[index]
-            self._cam.shutter_speed = 1000000/speed
+            self._cam.shutter_speed = 1000000//speed
         else:
             #shutter_speed e exposure_speed são valores inteiros medidos em microsegundos.
             index = np.absolute(self._shutter_values - 1000000/self._cam.exposure_speed).argmin()
