@@ -313,21 +313,7 @@ class PiWindow(object):
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
-
-    def set_print_number(self, current_nbr=None, ready=None):
-        """Set the current number of tasks in the printer queue.
-        """
-        if current_nbr is not None:
-            self._print_number = current_nbr
-
-        if ready is not None and self._print_failure != (not ready):
-            self._print_failure = not ready
         
-        self._update_background(self._current_background)
-        self._update_print_number()
-        if self._current_foreground:
-            self._update_foreground(*self._current_foreground)
-        pygame.display.update()
         
     def set_shutter_speed(self, speed):
         self._update_background(self._current_background)
@@ -345,6 +331,21 @@ class PiWindow(object):
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
         return speed
+
+    def set_print_number(self, current_nbr=None, ready=None):
+        """Set the current number of tasks in the printer queue.
+        """
+        if current_nbr is not None:
+            self._print_number = current_nbr
+
+        if ready is not None and self._print_failure != (not ready):
+            self._print_failure = not ready
+        
+        self._update_background(self._current_background)
+        self._update_print_number()
+        if self._current_foreground:
+            self._update_foreground(*self._current_foreground)
+        pygame.display.update()
 
     def toggle_fullscreen(self):
         """Set window to full screen or initial size.
