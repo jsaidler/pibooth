@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os.path as osp
+from pibooth.utils import LOGGER
 import pygame # type: ignore
 
 from pibooth import fonts, pictures
@@ -304,6 +305,7 @@ class CaptureBackground(Background):
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
             
+            LOGGER.info("O retângulo do fundo é %s", self._rect)
             self.border_thickness = 15
             self.borders = pygame.Surface((self._rect[2] + self.border_thickness * 2,self._rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
             pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
@@ -317,7 +319,7 @@ class CaptureBackground(Background):
         screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
         screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
-        screen.blit(self.borders, (self._rect[0] - self.border_thickness,self._rect[1] - self.border_thickness))
+        screen.blit(self.borders, (self._rect[0] - self.border_thickness, self._rect[1] - self.border_thickness))
 
 class ProcessingBackground(Background):
 
