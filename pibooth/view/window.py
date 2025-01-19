@@ -114,16 +114,16 @@ class PiWindow(object):
                 self._buffered_images.pop(id(self._current_foreground[0]), None)
             LOGGER.debug("Add to buffer the image '%s'", image_name)
             self._buffered_images[image_name] = (image_size_max, image)
-
-        self._current_foreground = (pil_image, pos, resize)
+        
+        final_pos = (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset)
+        
+        self._current_foreground = (pil_image, final_pos, resize)
 
         if self.debug and resize:
             # Build rectangle around picture area for debuging purpose
             outlines = pygame.Surface(image_size_max, pygame.SRCALPHA, 32)
             pygame.draw.rect(outlines, pygame.Color(255, 0, 0), outlines.get_rect(), 2)
             self.surface.blit(outlines, self._pos_map[pos](outlines))
-        
-        final_pos = (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset)
         
         return self.surface.blit(image, final_pos)
 
