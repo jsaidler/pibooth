@@ -115,7 +115,7 @@ class PiWindow(object):
             LOGGER.debug("Add to buffer the image '%s'", image_name)
             self._buffered_images[image_name] = (image_size_max, image)
 
-        # self._current_foreground = (pil_image, pos, resize)
+        self._current_foreground = (pil_image, pos, resize)
 
         if self.debug and resize:
             # Build rectangle around picture area for debuging purpose
