@@ -102,7 +102,7 @@ class RpiCamera(BaseCamera):
         else:
             #shutter_speed e exposure_speed são valores inteiros medidos em microsegundos.
             index = np.absolute(self._shutter_values - 1000000/self._cam.exposure_speed).argmin()
-        return (index, int(1000000/self._cam.exposure_speed))
+        return (index, int(1000000/self._cam.shutter_speed))
     
     def set_auto_shutter(self):
         self._cam.shutter_speed = 0
