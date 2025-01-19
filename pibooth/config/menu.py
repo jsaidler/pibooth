@@ -21,11 +21,11 @@ THEME_WHITE = pgm.themes.Theme(
     scrollbar_slider_color=(35, 149, 135),
     selection_color=(29, 120, 107),
     title_background_color=(35, 149, 135),
-    title_font=fonts.get_filename("Monoid-Regular"),
+    title_font=fonts.get_filename("BebasNeue-Regular"),
     title_font_size=33,
     title_font_color=(255, 255, 255),
     widget_margin=(0, 20),
-    widget_font=fonts.get_filename("Monoid-Retina"),
+    widget_font=fonts.get_filename("BebasNeue-Regular"),
     widget_font_size=30,
     widget_font_color=(0, 0, 0),
 )
