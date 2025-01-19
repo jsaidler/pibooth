@@ -324,7 +324,7 @@ class PiWindow(object):
         self.surface.blit(label,(x,y))
         
     def set_iso(self, iso):
-        self.iso = iso
+        self._iso = iso
         self._update_preview_window()
         return iso
     
