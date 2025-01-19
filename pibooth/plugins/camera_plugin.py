@@ -70,16 +70,16 @@ class CameraPlugin(object):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-LEFT':
             self._shutter += 1
-            app.shutter_speed = app.camera.set_shutter(self._shutter)[1]
+            self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
         elif touch_point == 'MIDDLE-BOTTOM-LEFT':
             self._shutter -= 1
-            app.shutter_speed = app.camera.set_shutter(self._shutter)[1]
+            self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
         elif touch_point == 'MIDDLE-TOP-RIGHT':
             self._iso += 1
-            app.iso = app.camera.set_iso(self._iso)[1]
+            self._iso, app.iso = app.camera.set_iso(self._iso)
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             self._iso -= 1
-            app.iso = app.camera.set_iso(self._iso)[1]
+            self._iso, app.iso = app.camera.set_iso(self._iso)
 
     # @pibooth.hookimpl
     # def state_preview_exit(self, cfg, app):
