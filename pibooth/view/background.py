@@ -286,24 +286,24 @@ class ChooseBackground(Background):
 
 class CaptureBackground(Background):
 
-    def __init__(self, rect):
+    def __init__(self, preview_rect):
         Background.__init__(self, "capture")      
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_back = True
-        self._preview_rect = rect
+        self._preview_rect = preview_rect
 
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            size = (self._preview_rect.width * 0.10, self._preview_rect.height * 0.10)
+            size = (self._rect.width * 0.10, self._rect.height * 0.10)
             self.add_shutter_icon  = pictures.get_pygame_image('add_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.add_shutter_icon_pos = (int(self._preview_rect.width * 0.02), int(self._preview_rect.height * 0.35 - self.add_shutter_icon.get_rect().height))
+            self.add_shutter_icon_pos = (int(self._rect.width * 0.02), int(self._rect.height * 0.35 - self.add_shutter_icon.get_rect().height))
             self.reduce_shutter_icon  = pictures.get_pygame_image('reduce_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.reduce_shutter_icon_pos = (int(self._preview_rect.width * 0.02), int(self._preview_rect.height * 0.55))
+            self.reduce_shutter_icon_pos = (int(self._rect.width * 0.02), int(self._rect.height * 0.55))
             self.add_iso_icon  = pictures.get_pygame_image('add_iso.png',  size, vflip=False, color=self._text_color)    
-            self.add_iso_icon_pos = (int(self._preview_rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._preview_rect.height * 0.35 - self.add_iso_icon.get_rect().height))
+            self.add_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.35 - self.add_iso_icon.get_rect().height))
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
-            self.reduce_iso_icon_pos = (int(self._preview_rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._preview_rect.height * 0.55))
+            self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
             
             LOGGER.info("O retângulo do fundo é %s", self._preview_rect)
             self.border_thickness = 15
