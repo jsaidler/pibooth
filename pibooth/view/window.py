@@ -312,7 +312,7 @@ class PiWindow(object):
 
         self._capture_number = (current_nbr, total_nbr)
         # self._update_background(background.CaptureBackground())
-        self._update_preview_window()
+        # self._update_preview_window()
     
     def _update_iso(self):
         width = int(self.surface.get_size()[0] * 0.03)
@@ -326,7 +326,7 @@ class PiWindow(object):
         
     def set_iso(self, iso):
         self._iso = iso
-        self._update_preview_window()
+        # self._update_preview_window()
         return iso
     
     def _update_shutter_speed(self):
@@ -341,14 +341,14 @@ class PiWindow(object):
         
     def set_shutter_speed(self, speed):
         self._shutter_speed = speed
-        self._update_preview_window()
+        # self._update_preview_window()
         return speed
     
     def _update_preview_window(self):
         self._update_background(self._current_background)
-        # self._update_capture_number()
-        # self._update_shutter_speed()
-        # self._update_iso()
+        self._update_capture_number()
+        self._update_shutter_speed()
+        self._update_iso()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
