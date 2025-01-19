@@ -319,8 +319,10 @@ class CaptureBackground(Background):
     
     def paint(self, screen):
         Background.paint(self, screen)
+        screen.blit(self.auto_shutter_icon, self.auto_shutter_icon_pos)
         screen.blit(self.add_shutter_icon, self.add_shutter_icon_pos)
         screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
+        screen.blit(self.auto_iso_icon, self.auto_iso_icon_pos)
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
         screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
         screen.blit(self.borders, (self._preview_rect[0] - self.border_thickness, self._preview_rect[1] - self.border_thickness))
