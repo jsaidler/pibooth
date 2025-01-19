@@ -323,7 +323,7 @@ class PiWindow(object):
         if ready is not None and self._print_failure != (not ready):
             self._print_failure = not ready
         
-        # self._update_background(self._current_background)
+        self._update_background(self._current_background)
         self._update_print_number()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
@@ -338,6 +338,7 @@ class PiWindow(object):
         label = font.render(f"1/{speed}", True, self.text_color)
         self.surface.blit(label,(x,y))
         
+        self._update_background(self._current_background)
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
