@@ -270,8 +270,8 @@ class PiWindow(object):
         self._capture_number = (0, self._capture_number[1])
         self._update_background(background.ChooseBackground(choices))
         
-    def show_capture(self):
-        self._update_background(background.CaptureBackground())
+    def show_capture(self, rect):
+        self._update_background(background.CaptureBackground(rect))
 
     def show_image(self, pil_image=None, pos=FULLSCREEN):
         """Show PIL image as it (no resize).
@@ -333,11 +333,12 @@ class PiWindow(object):
         self._update_background(self._current_background)
         
         width = int(self.surface.get_size()[0] * 0.03)
-        x = int(self.surface.get_size()[0] * 0.03)
-        y = int(self.surface.get_size()[1] * 0.5)
-
         font = pygame.font.Font(fonts.CURRENT, width)
         label = font.render(f"1/{speed}", True, self.text_color)
+               
+        x = int(self.surface.get_size()[0] * 0.03)
+        y = int(self.surface.get_size()[1] * 0.45 - label.get_rect().height // 2)
+
         self.surface.blit(label,(x,y))
         
         if self._current_foreground:

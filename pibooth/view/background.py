@@ -6,11 +6,6 @@ import pygame # type: ignore
 from pibooth import fonts, pictures
 from pibooth.language import get_translated_text
 
-ARROW_TOP = 'top'
-ARROW_BOTTOM = 'bottom'
-ARROW_HIDDEN = 'hidden'
-ARROW_TOUCH = 'touchscreen'
-
 def multiline_text_to_surfaces(text, color, rect, align='center'):
     """Return a list of surfaces corresponding to each line of the text.
     The surfaces are next to each others in order to fit the given rect.
@@ -290,10 +285,11 @@ class ChooseBackground(Background):
 
 class CaptureBackground(Background):
 
-    def __init__(self):
+    def __init__(self, rect):
         Background.__init__(self, "capture")      
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_back = True
+        self._rect = rect
 
     def resize(self, screen):
         Background.resize(self, screen)
@@ -307,6 +303,11 @@ class CaptureBackground(Background):
             self.add_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.35 - self.add_iso_icon.get_rect().height))
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
+            
+            border_thickness = 15
+            borders = pygame.Surface((tuple(self._rect)[2] + border_thickness * 2,tuple(self._rect)[3] + border_thickness * 2), pygame.SRCALPHA, 32)
+            pygame.draw.rect(borders, pygame.Color(255,255,255), borders.get_rect(), border_thickness)
+            self._window.surface.blit(borders, (tuple(self._rect)[0] - border_thickness,tuple(self._rect)[1] - border_thickness))
         
     def resize_texts(self):
         return None  
