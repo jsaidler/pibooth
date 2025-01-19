@@ -64,7 +64,7 @@ class RpiCamera(BaseCamera):
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         self._cam.still_stats = True
-        self._shutter_values = np.array([15, 30, 60, 120, 240, 480, 960, 1920, 3840])
+        self._shutter_values = np.array([15, 30, 60, 120, 180, 240, 300, 360, 480, 600, 780, 960, 1200, 1500, 1920, 2400, 3060, 3840, 4860])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800])
 
     def _post_process_capture(self, capture_data):
