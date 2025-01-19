@@ -304,10 +304,9 @@ class CaptureBackground(Background):
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
             
-            border_thickness = 15
-            borders = pygame.Surface((tuple(self._rect)[2] + border_thickness * 2,tuple(self._rect)[3] + border_thickness * 2), pygame.SRCALPHA, 32)
-            pygame.draw.rect(borders, pygame.Color(255,255,255), borders.get_rect(), border_thickness)
-            self._window.surface.blit(borders, (tuple(self._rect)[0] - border_thickness,tuple(self._rect)[1] - border_thickness))
+            self.border_thickness = 15
+            self.borders = pygame.Surface((tuple(self._rect)[2] + self.border_thickness * 2,tuple(self._rect)[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
+            pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
         
     def resize_texts(self):
         return None  
@@ -318,6 +317,7 @@ class CaptureBackground(Background):
         screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
         screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
+        screen.blit(self.borders, (tuple(self._rect)[0] - self.border_thickness,tuple(self._rect)[1] - self.border_thickness))
 
 class ProcessingBackground(Background):
 
