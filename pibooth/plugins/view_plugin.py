@@ -36,6 +36,7 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_enter(self, app, win):
+        app.camera.stop_preview()
         LOGGER.info("Access state_wait_enter")
         win.show_intro(app.previous_picture, app.printer.is_ready())
         win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
@@ -116,13 +117,10 @@ class ViewPlugin(object):
         if self.count >= app.capture_nbr:
             return 'processing'
         return 'preview'
-    
-    @pibooth.hookimpl
-    def state_cature_exit(self, app):
-        app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
+        app.camera.stop_preview()
         win.show_work_in_progress()
 
     @pibooth.hookimpl
