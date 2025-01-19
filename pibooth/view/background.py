@@ -290,24 +290,24 @@ class CaptureBackground(Background):
         Background.__init__(self, "capture")      
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_back = True
-        self._rect = rect
+        self._preview_rect = rect
 
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            size = (self._rect.width * 0.10, self._rect.height * 0.10)
+            size = (self._preview_rect.width * 0.10, self._preview_rect.height * 0.10)
             self.add_shutter_icon  = pictures.get_pygame_image('add_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.add_shutter_icon_pos = (int(self._rect.width * 0.02), int(self._rect.height * 0.35 - self.add_shutter_icon.get_rect().height))
+            self.add_shutter_icon_pos = (int(self._preview_rect.width * 0.02), int(self._preview_rect.height * 0.35 - self.add_shutter_icon.get_rect().height))
             self.reduce_shutter_icon  = pictures.get_pygame_image('reduce_shutter_speed.png',  size, vflip=False, color=self._text_color)    
-            self.reduce_shutter_icon_pos = (int(self._rect.width * 0.02), int(self._rect.height * 0.55))
+            self.reduce_shutter_icon_pos = (int(self._preview_rect.width * 0.02), int(self._preview_rect.height * 0.55))
             self.add_iso_icon  = pictures.get_pygame_image('add_iso.png',  size, vflip=False, color=self._text_color)    
-            self.add_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.35 - self.add_iso_icon.get_rect().height))
+            self.add_iso_icon_pos = (int(self._preview_rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._preview_rect.height * 0.35 - self.add_iso_icon.get_rect().height))
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
-            self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
+            self.reduce_iso_icon_pos = (int(self._preview_rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._preview_rect.height * 0.55))
             
-            LOGGER.info("O retângulo do fundo é %s", self._rect)
+            LOGGER.info("O retângulo do fundo é %s", self._preview_rect)
             self.border_thickness = 15
-            self.borders = pygame.Surface((self._rect[2] + self.border_thickness * 2,self._rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
+            self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
             pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
         
     def resize_texts(self):
@@ -319,7 +319,7 @@ class CaptureBackground(Background):
         screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
         screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
-        screen.blit(self.borders, (self._rect[0] - self.border_thickness, self._rect[1] - self.border_thickness))
+        screen.blit(self.borders, (self._preview_rect[0] - self.border_thickness, self._preview_rect[1] - self.border_thickness))
 
 class ProcessingBackground(Background):
 
