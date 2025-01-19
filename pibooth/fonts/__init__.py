@@ -108,4 +108,4 @@ def get_pygame_font(text, font_name, max_width, max_height):
     return pygame.font.Font(get_filename(font_name), start)
 
 
-CURRENT = get_filename('BebasNeue-Regular')  # Dynamically set at startup
+CURRENT = get_filename('bebas-neue-regular-webfont')  # Dynamically set at startup
