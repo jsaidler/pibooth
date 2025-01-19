@@ -106,7 +106,7 @@ class RpiCamera(BaseCamera):
     
     def set_auto_shutter(self):
         self._cam.shutter_speed = 0
-        return (0, int(1000000/self._cam.exposure_speed))
+        return (0, 0)
     
     def set_iso(self, index = None):
         max_iso_index = len(self._iso_values) - 1

@@ -331,7 +331,7 @@ class PiWindow(object):
     def _update_shutter_speed(self):
         width = int(self.surface.get_size()[0] * 0.03)
         font = pygame.font.Font(fonts.CURRENT, width)
-        label = font.render(f"1/{self._shutter_speed}", True, self.text_color)
+        label = font.render('auto' if self._shutter_speed == 0 else f"1/{self._shutter_speed}", True, self.text_color)
                
         x = int(self.surface.get_size()[0] * 0.03)
         y = int(self.surface.get_size()[1] * 0.45 - label.get_rect().height // 2)
