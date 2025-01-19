@@ -330,7 +330,7 @@ class PiWindow(object):
         pygame.display.update()
         
     def set_shutter_speed(self, speed):
-        width = self.surface.get_size()[1] * 0.05
+        width = self.surface.get_size()[0] * 0.05
         x = self.surface.get_size()[0] * 0.03
         y = self.surface.get_size()[1] * 0.5
 

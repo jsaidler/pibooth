@@ -47,7 +47,6 @@ class CameraPlugin(object):
         app.capture_date = None
         app.capture_nbr = None
         app.camera.drop_captures()  # Flush previous captures
-        self._shutter = app.camera.set_shutter()[0]
 
     @pibooth.hookimpl
     def state_wait_enter(self, app):
@@ -62,6 +61,8 @@ class CameraPlugin(object):
         LOGGER.info("Show preview before next capture")
         if not app.capture_date:
             app.capture_date = time.strftime("%Y-%m-%d-%H-%M-%S")
+        app.shutter_speed = app.camera.set_shutter()[1]
+        app.iso = app.camera.set_iso()[1]
 
     @pibooth.hookimpl
     def state_preview_do(self, app, events):
