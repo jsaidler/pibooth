@@ -85,7 +85,9 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_enter(self, app, win):
-        win.show_capture(app.camera.preview(win))
+        preview_area = app.camera.get_preview_area(win)
+        win.show_capture(preview_area)
+        app.camera.preview(preview_area)
         self.count += 1
         win.set_capture_number(self.count, app.capture_nbr)
         self._shutter_speed = app.shutter_speed

@@ -121,16 +121,19 @@ class RpiCamera(BaseCamera):
     
     def set_auto_iso(self):
         self._cam.iso = 0
+        
+    def get_preview_area(self, window):
+        self._window = window
+        rect = self.get_rect(self._cam.resolution, y_offset=-25)
+        return tuple(rect)
 
-    def preview(self, window, flip=True):
+    def preview(self, area, flip=True):
         """Display a preview on the given Rect (flip if necessary).
         """
         if self._cam.preview is not None:
             # Already running
             return
-
-        self._window = window
-        rect = self.get_rect(self._cam.resolution, y_offset=-25)
+                
         if self._cam.hflip:
             if flip:
                 # Don't flip again, already done at init
@@ -141,8 +144,7 @@ class RpiCamera(BaseCamera):
                 
         self._cam.start_preview(hflip=flip,
                                 fullscreen=False,
-                                window=tuple(rect))
-        return tuple(rect)
+                                window=area)
 
     def stop_preview(self):
         """Stop the preview.
