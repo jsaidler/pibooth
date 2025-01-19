@@ -309,7 +309,6 @@ class CaptureBackground(Background):
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.55))
             
-            LOGGER.info("O retângulo do fundo é %s", self._preview_rect)
             self.border_thickness = 15
             self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
             pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
