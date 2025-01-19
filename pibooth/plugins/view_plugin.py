@@ -90,13 +90,13 @@ class ViewPlugin(object):
         app.camera.preview(preview_area)
         self.count += 1
         win.set_capture_number(self.count, app.capture_nbr)
-        self._shutter_speed = app.shutter_speed
-        self._iso = app.iso
         
     @pibooth.hookimpl
     def state_preview_do(self, app, win):
         if self._shutter_speed != app.shutter_speed:
            self._shutter_speed = win.set_shutter_speed(app.shutter_speed)
+        if self._iso != app.iso:
+           self._iso = win.set_iso(app.iso)
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):
