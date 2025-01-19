@@ -61,8 +61,6 @@ class CameraPlugin(object):
         LOGGER.info("Show preview before next capture")
         if not app.capture_date:
             app.capture_date = time.strftime("%Y-%m-%d-%H-%M-%S")
-        app.shutter_speed = app.camera.set_shutter()[1]
-        app.iso = app.camera.set_iso()[1]
 
     @pibooth.hookimpl
     def state_preview_do(self, app, events):

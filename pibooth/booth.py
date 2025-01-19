@@ -128,8 +128,8 @@ class PiApplication(object):
         self.previous_picture = None
         self.previous_animated = None
         self.previous_picture_file = None
-        self.shutter_speed = None
-        self.iso = None
+        self.shutter_speed = 0
+        self.iso = 0
 
         self.count = Counters(self._config.join_path("counters.pickle"),
                               taken=0, printed=0, forgotten=0,
