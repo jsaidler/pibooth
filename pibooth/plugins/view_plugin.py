@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import time
 import pibooth
 import pygame # type: ignore
 from pibooth import camera
@@ -115,10 +116,13 @@ class ViewPlugin(object):
         if self.count >= app.capture_nbr:
             return 'processing'
         return 'preview'
+    
+    @pibooth.hookimpl
+    def state_cature_exit(self, app):
+        app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
-        app.camera.stop_preview()
         win.show_work_in_progress()
 
     @pibooth.hookimpl
