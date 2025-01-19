@@ -69,7 +69,7 @@ class CameraPlugin(object):
         pygame.event.pump()  # Before blocking actions
         touch_point = app.touch_screen_points(events)
         if touch_point == 'TOP-LEFT':
-            self._shutter, app.shutter_speed = app.camera.set_auto_shutter(self._shutter)
+            self._shutter, app.shutter_speed = app.camera.set_auto_shutter()
         if touch_point == 'MIDDLE-TOP-LEFT':
             self._shutter += 1
             self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
@@ -77,7 +77,7 @@ class CameraPlugin(object):
             self._shutter -= 1
             self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
         elif touch_point == 'TOP-RIGHT':
-            self._iso, app.iso = app.camera.set_auto_iso(self._iso)
+            self._iso, app.iso = app.camera.set_auto_iso()
         elif touch_point == 'MIDDLE-TOP-RIGHT':
             self._iso += 1
             self._iso, app.iso = app.camera.set_iso(self._iso)
