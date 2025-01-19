@@ -142,7 +142,7 @@ class RpiCamera(BaseCamera):
         self._cam.start_preview(hflip=flip,
                                 fullscreen=False,
                                 window=tuple(rect))
-        return rect
+        return tuple(rect)
 
     def stop_preview(self):
         """Stop the preview.
