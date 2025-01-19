@@ -36,10 +36,10 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_enter(self, app, win):
-        app.camera.stop_preview()
         LOGGER.info("Access state_wait_enter")
         win.show_intro(app.previous_picture, app.printer.is_ready())
         win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
+        app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_wait_do(self, app, win, events):
