@@ -97,16 +97,16 @@ class RpiCamera(BaseCamera):
                 index = 0
             elif index > max_shutter_index:
                 index = max_shutter_index
+            speed = self._shutter_values[index]
+            self._cam.shutter_speed = int(1000000/speed)
         else:
             #shutter_speed e exposure_speed são valores inteiros medidos em microsegundos.
             index = np.absolute(self._shutter_values - 1000000/self._cam.exposure_speed).argmin()
-        speed = self._shutter_values[index]
-        self._cam.shutter_speed = int(1000000/speed)
-        LOGGER.info("Current shutter speed is 1/%s", int(1000000/self._cam.shutter_speed))
-        return (index, int(1000000/self._cam.shutter_speed))
+        return (index, int(1000000/self._cam.exposure_speed))
     
     def set_auto_shutter(self):
         self._cam.shutter_speed = 0
+        return (0, int(1000000/self._cam.exposure_speed))
     
     def set_iso(self, index = None):
         max_iso_index = len(self._iso_values) - 1
@@ -116,11 +116,11 @@ class RpiCamera(BaseCamera):
             elif index > max_iso_index:
                 index = max_iso_index
             self._cam.iso = self._iso_values[index]
-        LOGGER.info("Current ISO value is %s", self._cam.iso)
         return (index, self._cam.iso)
     
     def set_auto_iso(self):
         self._cam.iso = 0
+        return (0,0)
         
     def get_preview_area(self, window):
         self._window = window
