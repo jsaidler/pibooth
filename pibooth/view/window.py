@@ -346,9 +346,9 @@ class PiWindow(object):
     
     def _update_preview_window(self):
         self._update_background(self._current_background)
-        self._update_capture_number()
-        self._update_shutter_speed()
-        self._update_iso()
+        # self._update_capture_number()
+        # self._update_shutter_speed()
+        # self._update_iso()
         if self._current_foreground:
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
