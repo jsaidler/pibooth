@@ -309,7 +309,7 @@ class CaptureBackground(Background):
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.reduce_iso_icon.get_rect().width), int(self._rect.height * 0.55))
             self.wb_mode_icon  = pictures.get_pygame_image('wb_mode.png',  size, vflip=False, color=self._text_color)    
-            self.wb_mode_icon_pos = (int(self._rect.width * 0.33 - self.wb_mode_icon.get_rect().width//2), int(self._rect.height * 0.02 - self.wb_mode_icon.get_rect().height))
+            self.wb_mode_icon_pos = (int(self._rect.width * 0.33 - self.wb_mode_icon.get_rect().width//2), int(self._rect.height * 0.98 - self.wb_mode_icon.get_rect().height))
             
             self.border_thickness = 15
             self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
