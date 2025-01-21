@@ -98,6 +98,8 @@ class ViewPlugin(object):
            self._shutter_speed = win.set_shutter_speed(app.shutter_speed)
         if self._iso != app.iso:
            self._iso = win.set_iso(app.iso)
+        if self._white_balance != app.white_balance:
+           self._white_balance = win.set_white_balance(app.white_balance)
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):

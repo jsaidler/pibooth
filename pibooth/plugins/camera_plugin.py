@@ -83,7 +83,7 @@ class CameraPlugin(object):
             self._iso -= 1
             self._iso, app.iso = app.camera.set_iso(self._iso)
         elif touch_point == 'CENTER-BOTTOM-LEFT':
-            app.camera.set_white_balance()
+            app.white_balance = app.camera.set_white_balance()
 
     # @pibooth.hookimpl
     # def state_preview_exit(self, cfg, app):

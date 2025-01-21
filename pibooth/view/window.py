@@ -74,6 +74,7 @@ class PiWindow(object):
         self._capture_number = (0, 4)  # (current, max)
         self._shutter_speed = 0
         self._iso = 0
+        self._white_balance = 'auto'
 
         self._pos_map = {self.CENTER: self._center_pos,
                          self.RIGHT: self._right_pos,
@@ -343,6 +344,21 @@ class PiWindow(object):
         self._shutter_speed = speed
         self._update_preview_window()
         return speed
+    
+    def _update_white_balance(self):
+        width = int(self.surface.get_size()[0] * 0.05)
+        font = pygame.font.Font(fonts.CURRENT, width)
+        label = font.render(self._white_balance, True, self.text_color)
+               
+        x = int(self.surface.get_size()[0] * 0.5 - width)
+        y = int(self.surface.get_size()[1] * 0.99 - label.get_rect().height)
+
+        self.surface.blit(label,(x,y))
+        
+    def set_white_balance(self, white_balance):
+        self._white_balance = white_balance
+        self._update_preview_window()
+        return white_balance
     
     def _update_preview_window(self):
         self._update_background(self._current_background)
