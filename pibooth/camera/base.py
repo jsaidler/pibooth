@@ -85,6 +85,9 @@ class BaseCamera(object):
     
     def set_auto_iso(self):
         raise NotImplementedError
+    
+    def set_white_balance(self):
+        raise NotImplementedError
 
     def preview(self, window, flip=True):
         """Setup the preview.

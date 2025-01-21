@@ -66,6 +66,8 @@ class RpiCamera(BaseCamera):
         self._cam.still_stats = True
         self._shutter_values = np.array([15, 30, 60, 120, 180, 240, 300, 360, 480, 600, 780, 960, 1200, 1500, 1920, 2400, 3060, 3840, 4860])
         self._iso_values = np.array([100, 200, 320, 400, 640, 800])
+        self._white_balance_values = ['auto', 'sunlight', 'cloudy', 'shade', 'tungsten', 'fluorescent', 'incandescent', 'flash', 'horizon']
+        self._current_white_balance_value = 0
 
     def _post_process_capture(self, capture_data):
         """Rework capture data.
@@ -121,6 +123,19 @@ class RpiCamera(BaseCamera):
     def set_auto_iso(self):
         self._cam.iso = 0
         return (0,0)
+    
+    def set_white_balance(self, value = None):
+        if value is None:
+            self._current_white_balance_value += 1
+            if self._current_white_balance_value >= len(self._white_balance_values):
+                self._current_white_balance_value = 0
+            self._cam.awb_mode = self._white_balance_values[self._current_white_balance_value]
+            return self._cam.awb_mode
+        
+        if value is not None and (value >= len(self._white_balance_values) or value < 0):
+            value = 0
+            self._cam.awb_mode = self._white_balance_values[value]
+            return self._cam.awb_mode          
         
     def get_preview_area(self, window):
         self._window = window
