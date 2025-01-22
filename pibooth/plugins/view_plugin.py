@@ -115,8 +115,8 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_capture_validate(self, app):
-        if self.capture_count >= app.capture_nbr:
-            return 'processing'
+        # if self.capture_count >= app.capture_nbr:
+        #     return 'processing'
         return 'preview'
 
     @pibooth.hookimpl
