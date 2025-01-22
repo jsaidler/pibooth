@@ -283,10 +283,8 @@ class PiWindow(object):
         if not pil_image:
             # Clear the currently displayed image
             if self._current_foreground:
-                LOGGER.info(id(self._current_foreground[0]))
                 _, image = self._buffered_images.pop(id(self._current_foreground[0]))
-                LOGGER.info(self._current_foreground)
-                _, pos, _ = self._current_foreground
+                _, pos, _, _, _ = self._current_foreground
                 self._current_foreground = None
                 image.fill((0, 0, 0))
                 return self.surface.blit(image, self._pos_map[pos](image))
