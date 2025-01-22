@@ -60,7 +60,7 @@ class RpiCamera(BaseCamera):
         self._cam.iso = self.iso
         self._cam.rotation = self.preview_rotation
         #drc_strength, na prática, reduz as altas luzes e aumenta as sombras.
-        # self._cam.drc_strength = 'high'
+        self._cam.drc_strength = 'high'
         self._cam.meter_mode = 'matrix'
         self._cam.sharpness = 33
         # self._cam.still_stats = True
