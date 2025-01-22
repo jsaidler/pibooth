@@ -354,7 +354,7 @@ class PiWindow(object):
         wb_mode_size = (self.surface.get_size()[0] * 0.10, self.surface.get_size()[1] * 0.10)
         wb_mode_icon  = pictures.get_pygame_image('wb_mode.png',  wb_mode_size, vflip=False, color=self.text_color)    
         wb_mode_icon_pos = (int(label_position[0] - wb_mode_icon.get_rect().width - 10),
-                            int(label_position[1] - wb_mode_icon.get_rect().height//2))
+                            int(label_position[1] + wb_mode_icon.get_rect().height//2))
         
 
         self.surface.blit(label, label_position)        
