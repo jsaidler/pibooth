@@ -16,7 +16,7 @@ class ViewPlugin(object):
 
     def __init__(self, plugin_manager):
         self._pm = plugin_manager
-        self.count = 0
+        self.capture_count = 0
         # Seconds to display the failed message
         self.failed_view_timer = PoolingTimer(3)
         self._shutter_speed = None
@@ -46,8 +46,8 @@ class ViewPlugin(object):
         if not app.printer.is_installed():
             return None
         
-        touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
-        if touch_point:
+        event = app.find_print_status_event(events)
+        if event:
             win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
 
     @pibooth.hookimpl
@@ -64,7 +64,6 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_exit(self, win):
-        self.count = 0
         win.show_image(None)  # Clear currently displayed image
 
     @pibooth.hookimpl
@@ -90,8 +89,8 @@ class ViewPlugin(object):
         preview_area = app.camera.get_preview_area(win)
         win.show_capture(preview_area)
         app.camera.preview(preview_area)
-        self.count += 1
-        win.set_capture_number(self.count, app.capture_nbr)
+        self.capture_count += 1
+        win.set_capture_number(self.capture_count, app.capture_nbr)
         
     @pibooth.hookimpl
     def state_preview_do(self, app, win):
@@ -112,16 +111,17 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_capture_do(self, app, win):
-        win.set_capture_number(self.count, app.capture_nbr)
+        win.set_capture_number(self.capture_count, app.capture_nbr)
 
     @pibooth.hookimpl
     def state_capture_validate(self, app):
-        if self.count >= app.capture_nbr:
+        if self.capture_count >= app.capture_nbr:
             return 'processing'
         return 'preview'
 
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
+        self.capture_count = 0
         app.camera.stop_preview()
         win.show_work_in_progress()
 
