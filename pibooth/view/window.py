@@ -350,11 +350,11 @@ class PiWindow(object):
         font = pygame.font.Font(fonts.CURRENT, font_size)
         label = font.render(self._white_balance, True, self.text_color)
         label_position = (int(self.surface.get_size()[0] * 0.25),
-                          int(self.surface.get_size()[1] * 0.94 - label.get_rect().height//2))
+                          int(self.surface.get_size()[1] * 0.95 - label.get_rect().height//2))
         wb_mode_size = (self.surface.get_size()[0] * 0.10, self.surface.get_size()[1] * 0.10)
         wb_mode_icon  = pictures.get_pygame_image('wb_mode.png',  wb_mode_size, vflip=False, color=self.text_color)    
         wb_mode_icon_pos = (int(label_position[0] - wb_mode_icon.get_rect().width - 10),
-                            int(self.surface.get_size()[1] * 0.94 - wb_mode_icon.get_rect().height//2))
+                            int(self.surface.get_size()[1] * 0.95 - wb_mode_icon.get_rect().height//2))
         
 
         self.surface.blit(label, label_position)        
