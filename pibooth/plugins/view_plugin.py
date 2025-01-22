@@ -21,6 +21,7 @@ class ViewPlugin(object):
         self.failed_view_timer = PoolingTimer(3)
         self._shutter_speed = None
         self._iso = None
+        self._white_balance = None
         
 
     @pibooth.hookimpl
