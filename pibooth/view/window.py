@@ -346,7 +346,7 @@ class PiWindow(object):
         return speed
     
     def _update_white_balance(self):
-        width = int(self.surface.get_size()[0] * 0.05)
+        width = int(self.surface.get_size()[0] * 0.03)
         font = pygame.font.Font(fonts.CURRENT, width)
         label = font.render(self._white_balance, True, self.text_color)
                
