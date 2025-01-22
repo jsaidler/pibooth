@@ -65,7 +65,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_wait_exit(self, win):
         self.count = 0
-        # win.show_image(None)  # Clear currently displayed image
+        win.show_image(None)  # Clear currently displayed image
 
     @pibooth.hookimpl
     def state_choose_enter(self, app, win):
