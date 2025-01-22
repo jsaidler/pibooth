@@ -39,7 +39,7 @@ class ViewPlugin(object):
     def state_wait_enter(self, app, win):
         win.show_intro(app.previous_picture, app.printer.is_ready())
         win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
-        # app.camera.stop_preview()
+        app.camera.stop_preview()
 
     @pibooth.hookimpl
     def state_wait_do(self, app, win, events):
@@ -70,7 +70,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_choose_enter(self, app, win):
         LOGGER.info("Show picture choice (nothing selected)")
-        # win.set_print_number(0, False)  # Hide printer status
+        win.set_print_number(0, False)  # Hide printer status
         win.show_choice(app.capture_choices)
                        
     @pibooth.hookimpl
