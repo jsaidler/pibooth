@@ -308,8 +308,6 @@ class CaptureBackground(Background):
             self.add_iso_icon_pos = (int(self._rect.width * 0.98 - self.add_iso_icon.get_rect().width), int(self._rect.height * 0.35 - self.add_iso_icon.get_rect().height))
             self.reduce_iso_icon  = pictures.get_pygame_image('reduce_iso.png',  size, vflip=False, color=self._text_color)    
             self.reduce_iso_icon_pos = (int(self._rect.width * 0.98 - self.reduce_iso_icon.get_rect().width), int(self._rect.height * 0.55))
-            self.wb_mode_icon  = pictures.get_pygame_image('wb_mode.png',  size, vflip=False, color=self._text_color)    
-            self.wb_mode_icon_pos = (int(self._rect.width * 0.33 - self.wb_mode_icon.get_rect().width//2), int(self._rect.height * 0.99 - self.wb_mode_icon.get_rect().height))
             
             self.border_thickness = 15
             self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
@@ -325,8 +323,7 @@ class CaptureBackground(Background):
         screen.blit(self.reduce_shutter_icon, self.reduce_shutter_icon_pos)
         screen.blit(self.auto_iso_icon, self.auto_iso_icon_pos)
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
-        screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)        
-        screen.blit(self.wb_mode_icon, self.wb_mode_icon_pos)
+        screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
         screen.blit(self.borders, (self._preview_rect[0] - self.border_thickness, self._preview_rect[1] - self.border_thickness))
 
 class ProcessingBackground(Background):

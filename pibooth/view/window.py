@@ -346,14 +346,19 @@ class PiWindow(object):
         return speed
     
     def _update_white_balance(self):
-        width = int(self.surface.get_size()[0] * 0.03)
-        font = pygame.font.Font(fonts.CURRENT, width)
+        font_size = int(self.surface.get_size()[0] * 0.03)
+        font = pygame.font.Font(fonts.CURRENT, font_size)
         label = font.render(self._white_balance, True, self.text_color)
-               
-        x = int(self.surface.get_size()[0] * 0.5 - width)
-        y = int(self.surface.get_size()[1] * 0.99 - label.get_rect().height)
+        label_position = (int(self.surface.get_size()[0] * 0.33),
+                          int(self.surface.get_size()[1] * 0.97 - label.get_rect().height//2))
+        wb_mode_size = (self.surface.get_size()[0] * 0.10, self.surface.get_size()[1] * 0.10)
+        wb_mode_icon  = pictures.get_pygame_image('wb_mode.png',  wb_mode_size, vflip=False, color=self.text_color)    
+        wb_mode_icon_pos = (int(label_position[0] - wb_mode_icon.get_rect().width - 10),
+                            int(label_position[1] - wb_mode_icon.get_rect().height//2))
+        
 
-        self.surface.blit(label,(x,y))
+        self.surface.blit(label, label_position)        
+        self.surface.blit(wb_mode_icon, wb_mode_icon_pos)
         
     def set_white_balance(self, white_balance):
         self._white_balance = white_balance
