@@ -328,11 +328,9 @@ class CaptureBackground(Background):
         
 class ConfirmBackground(Background):
 
-    def __init__(self, preview_rect):
+    def __init__(self):
         Background.__init__(self, "confirm")        
         self._logo_backgrounf_image = "logo_alpha.png"
-        self._preview_rect = preview_rect
-
 
     def resize(self, screen):
         Background.resize(self, screen)
@@ -344,9 +342,6 @@ class ConfirmBackground(Background):
             self.no_print_icon  = pictures.get_pygame_image('delete.png',  size, vflip=False, color=self._text_color)    
             self.no_print_icon_pos = (int((self._rect.width * 0.99) - self.no_print_icon.get_rect().width),
                                     int(self._rect.height * 0.55))
-            self.border_thickness = 15
-            self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
-            pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
 
     def paint(self, screen):
         Background.paint(self, screen)
