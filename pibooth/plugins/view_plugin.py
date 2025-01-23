@@ -135,12 +135,12 @@ class ViewPlugin(object):
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             app.camera.drop_last_capture()
             self.capture_count -= 1
+            win.set_capture_number(self.capture_count, app.capture_nbr)
             return 'preview'
 
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
         self.capture_count = 0
-        # app.camera.stop_preview()
         win.show_work_in_progress()
 
     @pibooth.hookimpl
