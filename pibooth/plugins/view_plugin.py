@@ -125,7 +125,7 @@ class ViewPlugin(object):
         win.show_confirm(self._preview_area, app.previous_picture)
     
     @pibooth.hookimpl
-    def state_confirm_do(self, app, events):
+    def state_confirm_validate(self, app, events):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-RIGHT':
             if self.capture_count >= app.capture_nbr:
