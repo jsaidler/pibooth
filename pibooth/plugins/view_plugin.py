@@ -119,7 +119,8 @@ class ViewPlugin(object):
         return 'confirm'
     
     @pibooth.hookimpl
-    def state_confirm_enter(self, app, win):
+    def state_confirm_enter(self, app, win):        
+        app.camera.stop_preview()
         LOGGER.info("Display the last cpatured picture")
         win.show_confirm(self._preview_area, app.previous_picture)
     
@@ -138,7 +139,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
         self.capture_count = 0
-        app.camera.stop_preview()
+        # app.camera.stop_preview()
         win.show_work_in_progress()
 
     @pibooth.hookimpl
