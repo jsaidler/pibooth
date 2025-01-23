@@ -352,7 +352,7 @@ class ConfirmBackground(Background):
         Background.paint(self, screen)
         screen.blit(self.print_icon, self.print_icon_pos)
         screen.blit(self.no_print_icon, self.no_print_icon_pos)
-        pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
+        screen.blit(self.borders, (self._preview_rect[0] - self.border_thickness, self._preview_rect[1] - self.border_thickness))
 
 class ProcessingBackground(Background):
 
