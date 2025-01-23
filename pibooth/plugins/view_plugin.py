@@ -115,9 +115,18 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_capture_validate(self, app):
-        # if self.capture_count >= app.capture_nbr:
-        #     return 'processing'
-        return 'preview'
+        return 'confirm'
+    
+    @pibooth.hookimpl
+    def state_confirm_do(self, app, events):
+        touch_point = app.touch_screen_points(events)
+        if touch_point == 'MIDDLE-TOP-RIGHT':
+            if self.capture_count >= app.capture_nbr:
+                return 'processing'
+            else:
+                return 'previw'
+        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+            return 'preview'
 
     @pibooth.hookimpl
     def state_processing_enter(self,app, win):
