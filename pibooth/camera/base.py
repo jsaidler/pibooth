@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from webbrowser import get
 import pygame
 from PIL import Image, ImageDraw
 
@@ -112,11 +113,22 @@ class BaseCamera(object):
             images.append(self._post_process_capture(data))
         self.drop_captures()
         return images
+    
+    def get_latest_capture(self):
+        if len(self._captures) > 0:
+            return self._post_process_capture(self._captures[-1])
+        else:
+            return None
 
     def drop_captures(self):
         """Delete all buffered captures.
         """
         self._captures.clear()
+        
+    def drop_last_capture(self):
+        """Delete latest buffered capture.
+        """
+        self._captures.pop()
 
     def quit(self):
         """Close the camera driver, it's definitive.

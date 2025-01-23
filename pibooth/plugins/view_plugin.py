@@ -121,7 +121,7 @@ class ViewPlugin(object):
     def state_confirm_enter(self, app, win):        
         app.camera.stop_preview()
         LOGGER.info("Display the last cpatured picture")
-        win.show_confirm(self._preview_area, app.previous_picture)
+        win.show_confirm(self._preview_area, app.camera.get_latest_capture())
     
     @pibooth.hookimpl
     def state_confirm_validate(self, app, win, events):
@@ -133,6 +133,7 @@ class ViewPlugin(object):
             else:
                 return 'preview'
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+            app.camera.drop_latest_capture()
             self.capture_count -= 1
             return 'preview'
 
