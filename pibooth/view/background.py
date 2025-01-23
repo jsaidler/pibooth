@@ -338,10 +338,10 @@ class ConfirmBackground(Background):
         Background.resize(self, screen)
         if self._need_update:
             size = (self._rect.width * 0.18, self._rect.height * 0.18)
-            self.print_icon  = pictures.get_pygame_image('print.png',  size, vflip=False, color=self._text_color)    
+            self.print_icon  = pictures.get_pygame_image('accept.png',  size, vflip=False, color=self._text_color)    
             self.print_icon_pos = (int((self._rect.width * 0.99) - self.print_icon.get_rect().width),
                                 int((self._rect.height * 0.45 - self.print_icon.get_rect().height)))
-            self.no_print_icon  = pictures.get_pygame_image('no_print.png',  size, vflip=False, color=self._text_color)    
+            self.no_print_icon  = pictures.get_pygame_image('delete.png',  size, vflip=False, color=self._text_color)    
             self.no_print_icon_pos = (int((self._rect.width * 0.99) - self.no_print_icon.get_rect().width),
                                     int(self._rect.height * 0.55))
             self.border_thickness = 15

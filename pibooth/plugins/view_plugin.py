@@ -122,7 +122,7 @@ class ViewPlugin(object):
     def state_confirm_enter(self, app, win):        
         app.camera.stop_preview()
         LOGGER.info("Display the last captured picture")
-        win.show_confirm(self._preview_area, app.camera.get_last_capture())
+        win.show_confirm(app.camera.get_last_capture())
     
     @pibooth.hookimpl
     def state_confirm_validate(self, app, win, events):
