@@ -91,6 +91,7 @@ class ViewPlugin(object):
         win.show_capture(self._preview_area)
         app.camera.preview(self._preview_area)
         self.capture_count += 1
+        win.set_capture_number(self.capture_count, app.capture_nbr)
         
     @pibooth.hookimpl
     def state_preview_do(self, app, win):
@@ -128,7 +129,6 @@ class ViewPlugin(object):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-RIGHT':
             if self.capture_count >= app.capture_nbr:
-                win.set_capture_number(self.capture_count, app.capture_nbr)
                 return 'processing'
             else:
                 return 'preview'
