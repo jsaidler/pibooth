@@ -136,6 +136,7 @@ class ViewPlugin(object):
             app.camera.drop_last_capture()
             self.capture_count -= 1
             win.set_capture_number(self.capture_count, app.capture_nbr)
+            win.show_image(None)  # Clear currently displayed image
             return 'preview'
 
     @pibooth.hookimpl
