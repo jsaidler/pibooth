@@ -118,14 +118,20 @@ class ViewPlugin(object):
         return 'confirm'
     
     @pibooth.hookimpl
+    def state_confirm_enter(self, app, win):
+        LOGGER.info("Display the last cpatured picture")
+        win.show_confirm(app.previous_picture)
+    
+    @pibooth.hookimpl
     def state_confirm_do(self, app, events):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-RIGHT':
             if self.capture_count >= app.capture_nbr:
                 return 'processing'
             else:
-                return 'previw'
+                return 'preview'
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+            self.capture_count -= 1
             return 'preview'
 
     @pibooth.hookimpl

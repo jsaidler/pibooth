@@ -290,6 +290,14 @@ class PiWindow(object):
                 return self.surface.blit(image, self._pos_map[pos](image))
         else:
             return self._update_foreground(pil_image, pos)
+    
+    def show_confirm(self, pil_image=None):
+        """Show print view (image resized on the left).
+        """
+        self._capture_number = (0, self._capture_number[1])
+        self._update_background(background.ConfirmBackground())
+        if pil_image:
+            self._update_foreground(pil_image, self.CENTER, x_offset=-40)
 
     def show_work_in_progress(self):
         """Show wait view.

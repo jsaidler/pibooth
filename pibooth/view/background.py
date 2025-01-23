@@ -325,6 +325,32 @@ class CaptureBackground(Background):
         screen.blit(self.add_iso_icon, self.add_iso_icon_pos)
         screen.blit(self.reduce_iso_icon, self.reduce_iso_icon_pos)
         screen.blit(self.borders, (self._preview_rect[0] - self.border_thickness, self._preview_rect[1] - self.border_thickness))
+        
+class ConfirmBackground(Background):
+
+    def __init__(self):
+        Background.__init__(self, "confirm")        
+        self._logo_backgrounf_image = "logo_alpha.png"
+
+    def resize(self, screen):
+        Background.resize(self, screen)
+        if self._need_update:
+            size = (self._rect.width * 0.18, self._rect.height * 0.18)
+            self.print_icon  = pictures.get_pygame_image('print.png',  size, vflip=False, color=self._text_color)    
+            self.print_icon_pos = (int((self._rect.width * 0.99) - self.print_icon.get_rect().width),
+                                int((self._rect.height * 0.45 - self.print_icon.get_rect().height)))
+            self.no_print_icon  = pictures.get_pygame_image('no_print.png',  size, vflip=False, color=self._text_color)    
+            self.no_print_icon_pos = (int((self._rect.width * 0.99) - self.no_print_icon.get_rect().width),
+                                    int(self._rect.height * 0.55))
+            self.border_thickness = 15
+            self.borders = pygame.Surface((self._preview_rect[2] + self.border_thickness * 2,self._preview_rect[3] + self.border_thickness * 2), pygame.SRCALPHA, 32)
+            pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
+
+    def paint(self, screen):
+        Background.paint(self, screen)
+        screen.blit(self.print_icon, self.print_icon_pos)
+        screen.blit(self.no_print_icon, self.no_print_icon_pos)
+        pygame.draw.rect(self.borders, pygame.Color(255,255,255), self.borders.get_rect(), self.border_thickness)
 
 class ProcessingBackground(Background):
 
