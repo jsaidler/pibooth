@@ -328,9 +328,11 @@ class CaptureBackground(Background):
         
 class ConfirmBackground(Background):
 
-    def __init__(self):
+    def __init__(self, preview_rect):
         Background.__init__(self, "confirm")        
         self._logo_backgrounf_image = "logo_alpha.png"
+        self._preview_rect = preview_rect
+
 
     def resize(self, screen):
         Background.resize(self, screen)

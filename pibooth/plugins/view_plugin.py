@@ -22,6 +22,7 @@ class ViewPlugin(object):
         self._shutter_speed = None
         self._iso = None
         self._white_balance = None
+        self._preview_area = None
         
 
     @pibooth.hookimpl
@@ -86,9 +87,9 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_enter(self, app, win):
-        preview_area = app.camera.get_preview_area(win)
-        win.show_capture(preview_area)
-        app.camera.preview(preview_area)
+        self._preview_area = app.camera.get_preview_area(win)
+        win.show_capture(self._preview_area)
+        app.camera.preview(self._preview_area)
         self.capture_count += 1
         win.set_capture_number(self.capture_count, app.capture_nbr)
         
@@ -120,7 +121,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_confirm_enter(self, app, win):
         LOGGER.info("Display the last cpatured picture")
-        win.show_confirm(app.previous_picture)
+        win.show_confirm(self._preview_area, app.previous_picture)
     
     @pibooth.hookimpl
     def state_confirm_do(self, app, events):

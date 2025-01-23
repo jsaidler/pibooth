@@ -3,6 +3,7 @@
 """Pibooth view management.
 """
 
+from cmath import rect
 import os
 import time
 import contextlib
@@ -291,11 +292,11 @@ class PiWindow(object):
         else:
             return self._update_foreground(pil_image, pos)
     
-    def show_confirm(self, pil_image=None):
+    def show_confirm(self, rect, pil_image=None):
         """Show print view (image resized on the left).
         """
         self._capture_number = (0, self._capture_number[1])
-        self._update_background(background.ConfirmBackground())
+        self._update_background(background.ConfirmBackground(rect))
         if pil_image:
             self._update_foreground(pil_image, self.CENTER, x_offset=-40)
 
