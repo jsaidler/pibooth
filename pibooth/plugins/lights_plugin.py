@@ -54,7 +54,7 @@ class LightsPlugin(object):
             app.leds.capture.off()
 
     @pibooth.hookimpl
-    def state_chosen_exit(self, app):
+    def state_confirm_exit(self, app):
         app.leds.off()
 
     @pibooth.hookimpl
