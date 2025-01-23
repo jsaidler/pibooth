@@ -114,7 +114,7 @@ class BaseCamera(object):
         self.drop_captures()
         return images
     
-    def get_latest_capture(self):
+    def get_last_capture(self):
         if len(self._captures) > 0:
             return self._post_process_capture(self._captures[-1])
         else:
