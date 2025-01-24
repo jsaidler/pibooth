@@ -90,8 +90,7 @@ class ViewPlugin(object):
         self._preview_area = app.camera.get_preview_area(win)
         win.show_capture(self._preview_area)
         app.camera.preview(self._preview_area)
-        self.capture_count += 1
-        win.set_capture_number(self.capture_count, app.capture_nbr)
+        # win.set_capture_number(self.capture_count, app.capture_nbr)
         
     @pibooth.hookimpl
     def state_preview_do(self, app, win):
@@ -110,9 +109,9 @@ class ViewPlugin(object):
         elif touch_point == 'CENTER-LEFT' or  touch_point == 'CENTER-RIGHT':
             return 'capture'
 
-    @pibooth.hookimpl
-    def state_capture_do(self, app, win):
-        win.set_capture_number(self.capture_count, app.capture_nbr)
+    # @pibooth.hookimpl
+    # def state_capture_do(self, app, win):
+    #     win.set_capture_number(self.capture_count, app.capture_nbr)
 
     @pibooth.hookimpl
     def state_capture_validate(self, app):
@@ -128,18 +127,19 @@ class ViewPlugin(object):
     def state_confirm_validate(self, app, win, events):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-RIGHT':
+            self.capture_count += 1
             if self.capture_count >= app.capture_nbr:
                 return 'processing'
             else:
                 return 'preview'
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             app.camera.drop_last_capture()
-            self.capture_count -= 1
-            win.set_capture_number(self.capture_count, app.capture_nbr)
+            # self.capture_count -= 1
             return 'preview'
     
     @pibooth.hookimpl
-    def state_confirm_exit(self, win):        
+    def state_confirm_exit(self, win):     
+        win.set_capture_number(self.capture_count, app.capture_nbr)
         win.show_image(None)  # Clear currently displayed image
 
     @pibooth.hookimpl
