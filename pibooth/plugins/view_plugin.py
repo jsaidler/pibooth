@@ -16,7 +16,7 @@ class ViewPlugin(object):
 
     def __init__(self, plugin_manager):
         self._pm = plugin_manager
-        self.capture_count = 0
+        self.capture_count = 1
         # Seconds to display the failed message
         self.failed_view_timer = PoolingTimer(3)
         self._shutter_speed = None
@@ -90,7 +90,7 @@ class ViewPlugin(object):
         self._preview_area = app.camera.get_preview_area(win)
         win.show_capture(self._preview_area)
         app.camera.preview(self._preview_area)
-        # win.set_capture_number(self.capture_count, app.capture_nbr)
+        win.set_capture_number(self.capture_count, app.capture_nbr)
         
     @pibooth.hookimpl
     def state_preview_do(self, app, win):
@@ -134,12 +134,10 @@ class ViewPlugin(object):
                 return 'preview'
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             app.camera.drop_last_capture()
-            # self.capture_count -= 1
             return 'preview'
     
     @pibooth.hookimpl
-    def state_confirm_exit(self, win):     
-        win.set_capture_number(self.capture_count, app.capture_nbr)
+    def state_confirm_exit(self, win, app):
         win.show_image(None)  # Clear currently displayed image
 
     @pibooth.hookimpl
