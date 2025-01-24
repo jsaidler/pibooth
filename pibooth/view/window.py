@@ -128,16 +128,13 @@ class PiWindow(object):
             pygame.draw.rect(outlines, pygame.Color(255, 0, 0), outlines.get_rect(), 2)
             self.surface.blit(outlines, self._pos_map[pos](outlines))
         
-        
-        final_pos = (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset)
-        
         if border:
             border_thickness = 15
             border = pygame.Surface((image.get_rect().width + border_thickness * 2,image.get_rect().height + border_thickness * 2), pygame.SRCALPHA, 32)
             pygame.draw.rect(border, pygame.Color(255, 255, 255), border.get_rect(), border_thickness)
-            self.surface.blit(border, final_pos)        
+            self.surface.blit(border, (self._pos_map[pos](image)[0] + x_offset - border_thickness, self._pos_map[pos](image)[1] + y_offset - border_thickness))
         
-        return self.surface.blit(image, final_pos)
+        return self.surface.blit(image, (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset))
 
     def _update_background(self, bkgd):
         """Show image on the background.
