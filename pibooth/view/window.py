@@ -297,7 +297,7 @@ class PiWindow(object):
                 image.fill((0, 0, 0))
                 return self.surface.blit(image, self._pos_map[pos](image))
         else:
-            return self._update_foreground(pil_image, pos)
+            return self._update_foreground(pil_image, pos, border=True)
     
     def show_confirm(self, pil_image=None):
         """Show print view (image resized on the left).
