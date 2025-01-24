@@ -127,10 +127,10 @@ class ViewPlugin(object):
     def state_confirm_validate(self, app, win, events):
         touch_point = app.touch_screen_points(events)
         if touch_point == 'MIDDLE-TOP-RIGHT':
-            if self.capture_count >= app.capture_nbr:
+            self.capture_count += 1
+            if self.capture_count > app.capture_nbr:
                 return 'processing'
             else:
-                self.capture_count += 1
                 return 'preview'
         elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
             app.camera.drop_last_capture()
