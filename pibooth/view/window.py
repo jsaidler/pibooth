@@ -129,9 +129,10 @@ class PiWindow(object):
             self.surface.blit(outlines, self._pos_map[pos](outlines))
         
         if border:
-            outlines = pygame.Surface(image_size_max, pygame.SRCALPHA, 32)
-            pygame.draw.rect(outlines, pygame.Color(255, 0, 0), outlines.get_rect(), 15)
-            self.surface.blit(outlines, self._pos_map[pos](outlines))
+            border_thickness = 15
+            border = pygame.Surface((image.get_rect().width + border_thickness * 2,image.get_rect().height + border_thickness * 2), pygame.SRCALPHA, 32)
+            pygame.draw.rect(border, pygame.Color(255, 255, 255), border.get_rect(), border_thickness)
+            self.surface.blit(border, self._pos_map[pos](border))
         
         final_pos = (self._pos_map[pos](image)[0] + x_offset, self._pos_map[pos](image)[1] + y_offset)
         
