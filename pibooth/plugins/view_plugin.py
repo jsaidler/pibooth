@@ -142,7 +142,7 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_processing_enter(self, app, win):
-        self.capture_count = 0
+        self.capture_count = 1
         win.show_work_in_progress()
 
     @pibooth.hookimpl
