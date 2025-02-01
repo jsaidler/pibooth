@@ -33,7 +33,7 @@ class PrinterPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_do(self, cfg, app, events):
-        touch_point = app.touch_screen_points(events) == 'BOTTOM-RIGHT'
+        interaction = app.user_interaction(events) == 'TOUCH-BOTTOM-RIGHT'
         if touch_point and app.previous_picture_file and app.printer.is_installed():
 
             if app.count.remaining_duplicates <= 0:
@@ -64,6 +64,6 @@ class PrinterPlugin(object):
 
     @pibooth.hookimpl
     def state_print_do(self, cfg, app, events):
-        touch_point = app.touch_screen_points(events) == 'MIDDLE-TOP-RIGHT'
+        interaction = app.user_interaction(events) == 'TOUCH-MIDDLE-TOP-RIGHT'
         if touch_point and app.previous_picture_file:
             self.print_picture(cfg, app)

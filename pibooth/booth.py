@@ -138,12 +138,16 @@ class PiApplication(object):
 
         self.camera = self._pm.hook.pibooth_setup_camera(cfg=self._config)
 
+        # self.buttons = ButtonBoard(capture="BOARD" + config.get('CONTROLS', 'picture_btn_pin'),
+        #                            printer="BOARD" + config.get('CONTROLS', 'print_btn_pin'),
+        #                            hold_time=config.getfloat('CONTROLS', 'debounce_delay'),
+        #                            pull_up=True)
+        
         self.buttons = ButtonBoard(capture="BOARD" + config.get('CONTROLS', 'picture_btn_pin'),
-                                   printer="BOARD" + config.get('CONTROLS', 'print_btn_pin'),
                                    hold_time=config.getfloat('CONTROLS', 'debounce_delay'),
                                    pull_up=True)
         self.buttons.capture.when_held = self._on_button_capture_held
-        self.buttons.printer.when_held = self._on_button_printer_held
+        # self.buttons.printer.when_held = self._on_button_printer_held
 
         self.leds = LEDBoard(capture="BOARD" + config.get('CONTROLS', 'picture_led_pin'),
                              printer="BOARD" + config.get('CONTROLS', 'print_led_pin'))
@@ -202,58 +206,46 @@ class PiApplication(object):
         # Reset the print counter (in case of max_pages is reached)
         self.printer.max_pages = self._config.getint('PRINTER', 'max_pages')
 
-    def _on_button_capture_held(self):
-        """Called when the capture button is pressed.
-        """
-        if all(self.buttons.value):
-            self.buttons.capture.hold_repeat = True
-            if self._multipress_timer.elapsed() == 0:
-                self._multipress_timer.start()
-            if self._multipress_timer.is_timeout():
-                # Capture was held while printer was pressed
-                if self._menu and self._menu.is_shown():
-                    # Convert HW button events to keyboard events for menu
-                    event = self._menu.create_back_event()
-                    LOGGER.debug("BUTTONDOWN: generate MENU-ESC event")
-                else:
-                    event = pygame.event.Event(BUTTONDOWN, capture=1, printer=1,
-                                               button=self.buttons)
-                    LOGGER.debug("BUTTONDOWN: generate DOUBLE buttons event")
-                self.buttons.capture.hold_repeat = False
-                self._multipress_timer.reset()
-                pygame.event.post(event)
-        else:
-            # Capture was held but printer not pressed
-            if self._menu and self._menu.is_shown():
-                # Convert HW button events to keyboard events for menu
-                event = self._menu.create_next_event()
-                LOGGER.debug("BUTTONDOWN: generate MENU-NEXT event")
-            else:
-                event = pygame.event.Event(BUTTONDOWN, capture=1, printer=0,
-                                           button=self.buttons.capture)
-                LOGGER.debug("BUTTONDOWN: generate CAPTURE button event")
-            self.buttons.capture.hold_repeat = False
-            self._multipress_timer.reset()
-            pygame.event.post(event)
+    # def _on_button_capture_held(self):
+    #     """Called when the capture button is pressed.
+    #     """
+    #     if all(self.buttons.value):
+    #         self.buttons.capture.hold_repeat = True
+    #         if self._multipress_timer.elapsed() == 0:
+    #             self._multipress_timer.start()
+    #         if self._multipress_timer.is_timeout():
+    #             # Capture was held while printer was pressed
+    #             if self._menu and self._menu.is_shown():
+    #                 # Convert HW button events to keyboard events for menu
+    #                 event = self._menu.create_back_event()
+    #                 LOGGER.debug("BUTTONDOWN: generate MENU-ESC event")
+    #             else:
+    #                 event = pygame.event.Event(BUTTONDOWN, capture=1, printer=1,
+    #                                            button=self.buttons)
+    #                 LOGGER.debug("BUTTONDOWN: generate DOUBLE buttons event")
+    #             self.buttons.capture.hold_repeat = False
+    #             self._multipress_timer.reset()
+    #             pygame.event.post(event)
+    #     else:
+    #         # Capture was held but printer not pressed
+    #         if self._menu and self._menu.is_shown():
+    #             # Convert HW button events to keyboard events for menu
+    #             event = self._menu.create_next_event()
+    #             LOGGER.debug("BUTTONDOWN: generate MENU-NEXT event")
+    #         else:
+    #             event = pygame.event.Event(BUTTONDOWN, capture=1, printer=0,
+    #                                        button=self.buttons.capture)
+    #             LOGGER.debug("BUTTONDOWN: generate CAPTURE button event")
+    #         self.buttons.capture.hold_repeat = False
+    #         self._multipress_timer.reset()
+    #         pygame.event.post(event)
 
-    def _on_button_printer_held(self):
+    def _on_button_capture_held(self):
         """Called when the printer button is pressed.
         """
-        if all(self.buttons.value):
-            # Printer was held while capture was pressed
-            # but don't do anything here, let capture_held handle it instead
-            pass
-        else:
-            # Printer was held but capture not pressed
-            if self._menu and self._menu.is_shown():
-                # Convert HW button events to keyboard events for menu
-                event = self._menu.create_click_event()
-                LOGGER.debug("BUTTONDOWN: generate MENU-APPLY event")
-            else:
-                event = pygame.event.Event(BUTTONDOWN, capture=0, printer=1,
-                                           button=self.buttons.printer)
-                LOGGER.debug("BUTTONDOWN: generate PRINTER event")
-            pygame.event.post(event)
+        event = pygame.event.Event(BUTTONDOWN, capture=1, button=self.buttons.capture)
+        LOGGER.debug("BUTTONDOWN: generate PRINTER event")
+        pygame.event.post(event)
 
     @property
     def picture_filename(self):
@@ -372,7 +364,7 @@ class PiApplication(object):
                 return event
         return None
     
-    def touch_screen_points(self, events):
+    def user_interaction(self, events):
         window_area = self._window.get_rect()
         top_left = pygame.Rect(0, 0, window_area.width * 0.15, window_area.height * 0.15) 
         middle_top_left = pygame.Rect(0, window_area.height * 0.15, window_area.width * 0.15, window_area.height * 0.35)
@@ -393,33 +385,36 @@ class PiApplication(object):
             if event.type == pygame.FINGERUP:
                 pos = get_event_pos(self._window.display_size, event)
                 if top_left.collidepoint(pos):
-                    return 'TOP-LEFT'
+                    return 'TOUCH-TOP-LEFT'
                 elif top_right.collidepoint(pos):
-                    return 'TOP-RIGHT'
+                    return 'TOUCH-TOP-RIGHT'
                 elif middle_top_left.collidepoint(pos):
-                    return 'MIDDLE-TOP-LEFT'
+                    return 'TOUCH-MIDDLE-TOP-LEFT'
                 elif middle_bottom_left.collidepoint(pos):
-                    return 'MIDDLE-BOTTOM-LEFT'                
+                    return 'TOUCH-MIDDLE-BOTTOM-LEFT'                
                 elif center_top_left.collidepoint(pos):
-                    return 'CENTER-TOP-LEFT'
+                    return 'TOUCH-CENTER-TOP-LEFT'
                 elif center_left.collidepoint(pos):
-                    return 'CENTER-LEFT'
+                    return 'TOUCH-CENTER-LEFT'
                 elif center_bottom_left.collidepoint(pos):
-                    return 'CENTER-BOTTOM-LEFT'
+                    return 'TOUCH-CENTER-BOTTOM-LEFT'
                 elif center_top_right.collidepoint(pos):
-                    return 'CENTER-TOP-RIGHT'
+                    return 'TOUCH-CENTER-TOP-RIGHT'
                 elif center_right.collidepoint(pos):
-                    return 'CENTER-RIGHT'
+                    return 'TOUCH-CENTER-RIGHT'
                 elif center_bottom_right.collidepoint(pos):
-                    return 'CENTER-BOTTOM-RIGHT'
+                    return 'TOUCH-CENTER-BOTTOM-RIGHT'
                 elif middle_top_right.collidepoint(pos):
-                    return 'MIDDLE-TOP-RIGHT'
+                    return 'TOUCH-MIDDLE-TOP-RIGHT'
                 elif middle_bottom_right.collidepoint(pos):
-                    return 'MIDDLE-BOTTOM-RIGHT'
+                    return 'TOUCH-MIDDLE-BOTTOM-RIGHT'
                 elif bottom_left.collidepoint(pos):
-                    return 'BOTTOM-LEFT'
+                    return 'TOUCH-BOTTOM-LEFT'
                 elif bottom_right.collidepoint(pos):
-                    return 'BOTTOM-RIGHT'
+                    return 'TOUCH-BOTTOM-RIGHT'
+            elif event.type == BUTTONDOWN:
+                if event.capture:
+                    return 'CAPTURE'
         return None    
 
     def main_loop(self):

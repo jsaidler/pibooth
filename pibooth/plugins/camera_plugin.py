@@ -65,24 +65,24 @@ class CameraPlugin(object):
     @pibooth.hookimpl
     def state_preview_do(self, app, events):
         pygame.event.pump()  # Before blocking actions
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'TOP-LEFT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-TOP-LEFT':
             self._shutter, app.shutter_speed = app.camera.set_auto_shutter()
-        if touch_point == 'MIDDLE-TOP-LEFT':
+        if interaction == 'TOUCH-MIDDLE-TOP-LEFT':
             self._shutter += 1
             self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
-        elif touch_point == 'MIDDLE-BOTTOM-LEFT':
+        elif interaction == 'TOUCH-MIDDLE-BOTTOM-LEFT':
             self._shutter -= 1
             self._shutter, app.shutter_speed = app.camera.set_shutter(self._shutter)
-        elif touch_point == 'TOP-RIGHT':
+        elif interaction == 'TOUCH-TOP-RIGHT':
             self._iso, app.iso = app.camera.set_auto_iso()
-        elif touch_point == 'MIDDLE-TOP-RIGHT':
+        elif interaction == 'TOUCH-MIDDLE-TOP-RIGHT':
             self._iso += 1
             self._iso, app.iso = app.camera.set_iso(self._iso)
-        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+        elif interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
             self._iso -= 1
             self._iso, app.iso = app.camera.set_iso(self._iso)
-        elif touch_point == 'CENTER-BOTTOM-LEFT':
+        elif interaction == 'TOUCH-CENTER-BOTTOM-LEFT':
             app.white_balance = app.camera.set_white_balance()
 
     # @pibooth.hookimpl

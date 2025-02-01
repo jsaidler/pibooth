@@ -53,14 +53,14 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_wait_validate(self, app, events):
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'CENTER-LEFT' or touch_point == 'MIDDLE-TOP-LEFT' or touch_point == 'MIDDLE-BOTTOM-LEFT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-CENTER-LEFT' or interaction == 'TOUCH-MIDDLE-TOP-LEFT' or interaction == 'TOUCH-MIDDLE-BOTTOM-LEFT':
             if len(app.capture_choices) > 1:
                 return 'choose'
             else:
                 return 'preview'
             #A impressão é controlada pelo state_wait_do
-        elif touch_point == 'TOP-LEFT':
+        elif interaction == 'TOUCH-TOP-LEFT':
             exit(0)
 
     @pibooth.hookimpl
@@ -75,14 +75,14 @@ class ViewPlugin(object):
                        
     @pibooth.hookimpl
     def state_choose_validate(self, app, events):
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'CENTER-LEFT' or touch_point == 'MIDDLE-TOP-LEFT' or touch_point == 'MIDDLE-BOTTOM-LEFT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-CENTER-LEFT' or interaction == 'TOUCH-MIDDLE-TOP-LEFT' or interaction == 'TOUCH-MIDDLE-BOTTOM-LEFT':
             app.capture_nbr = app.capture_choices[0]
             return 'preview'
-        elif touch_point == 'CENTER-RIGHT'or touch_point == 'MIDDLE-TOP-RIGHT' or touch_point == 'MIDDLE-BOTTOM-RIGHT':
+        elif interaction == 'TOUCH-CENTER-RIGHT'or interaction == 'TOUCH-MIDDLE-TOP-RIGHT' or interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
             app.capture_nbr = app.capture_choices[1]
             return 'preview'
-        elif touch_point == 'BOTTOM-LEFT':
+        elif interaction == 'TOUCH-BOTTOM-LEFT':
             return 'wait'
 
     @pibooth.hookimpl
@@ -103,10 +103,10 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_preview_validate(self, app, events):
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'BOTTOM-LEFT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-BOTTOM-LEFT':
             return 'wait'
-        elif touch_point == 'CENTER-LEFT' or  touch_point == 'CENTER-RIGHT':
+        elif interaction == 'TOUCH-CENTER-LEFT' or  interaction == 'TOUCH-CENTER-RIGHT' or  interaction == 'CAPTURE':
             return 'capture'
 
     # @pibooth.hookimpl
@@ -125,14 +125,14 @@ class ViewPlugin(object):
     
     @pibooth.hookimpl
     def state_confirm_validate(self, app, win, events):
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'MIDDLE-TOP-RIGHT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-MIDDLE-TOP-RIGHT' or  interaction == 'CAPTURE':
             self.capture_count += 1
             if self.capture_count > app.capture_nbr:
                 return 'processing'
             else:
                 return 'preview'
-        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+        elif interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
             app.camera.drop_last_capture()
             return 'preview'
     
@@ -141,7 +141,7 @@ class ViewPlugin(object):
         win.show_image(None)  # Clear currently displayed image
 
     @pibooth.hookimpl
-    def state_processing_enter(self,app, win):
+    def state_processing_enter(self, app, win):
         self.capture_count = 0
         win.show_work_in_progress()
 
@@ -159,9 +159,9 @@ class ViewPlugin(object):
 
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
-        touch_point = app.touch_screen_points(events)
-        if touch_point == 'MIDDLE-TOP-RIGHT':
+        interaction = app.user_interaction(events)
+        if interaction == 'TOUCH-MIDDLE-TOP-RIGHT':
             win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
             return 'wait'
-        elif touch_point == 'MIDDLE-BOTTOM-RIGHT':
+        elif interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
             return 'wait'
