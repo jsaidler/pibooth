@@ -23,18 +23,18 @@ class LightsPlugin(object):
             app.leds.capture.blink(on_time=self.blink_time, off_time=self.blink_time)
             app.leds.printer.off()
 
-    @pibooth.hookimpl
-    def state_wait_do(self, app, events):
-        if app.find_print_event(events) and app.previous_picture_file and app.printer.is_ready():
-            if app.count.remaining_duplicates <= 0:
-                app.leds.printer.off()
-            else:
-                app.leds.printer.on()
-                time.sleep(1)  # Just to let the LED switched on
-                app.leds.blink(on_time=self.blink_time, off_time=self.blink_time)
+    # @pibooth.hookimpl
+    # def state_wait_do(self, app, events):
+    #     if app.find_print_event(events) and app.previous_picture_file and app.printer.is_ready():
+    #         if app.count.remaining_duplicates <= 0:
+    #             app.leds.printer.off()
+    #         else:
+    #             app.leds.printer.on()
+    #             time.sleep(1)  # Just to let the LED switched on
+    #             app.leds.blink(on_time=self.blink_time, off_time=self.blink_time)
 
-        if not app.previous_picture_file and app.leds.printer._controller:  # _controller == blinking
-            app.leds.printer.off()
+    #     if not app.previous_picture_file and app.leds.printer._controller:  # _controller == blinking
+    #         app.leds.printer.off()
 
     @pibooth.hookimpl
     def state_wait_exit(self, app):
@@ -61,11 +61,11 @@ class LightsPlugin(object):
     def state_print_enter(self, app):
         app.leds.blink(on_time=self.blink_time, off_time=self.blink_time)
 
-    @pibooth.hookimpl
-    def state_print_do(self, app, events):
-        if app.find_print_event(events):
-            app.leds.printer.on()
-            app.leds.capture.off()
+    # @pibooth.hookimpl
+    # def state_print_do(self, app, events):
+    #     if app.find_print_event(events):
+    #         app.leds.printer.on()
+    #         app.leds.capture.off()
 
     @pibooth.hookimpl
     def state_finish_enter(self, app):

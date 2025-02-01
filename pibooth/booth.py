@@ -269,8 +269,8 @@ class PiApplication(object):
         for event in events:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 return event
-            if event.type == BUTTONDOWN and event.capture and event.printer:
-                return event
+            # if event.type == BUTTONDOWN and event.capture and event.printer:
+            #     return event
             if event.type == pygame.FINGERDOWN:
                 # Press but not release
                 self._fingerdown_events.append(event)
@@ -316,21 +316,21 @@ class PiApplication(object):
                 return event
         return None
 
-    def find_print_event(self, events):
-        """Return the first found event if found in the list.
-        """
-        for event in events:
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_e\
-                    and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                return event
-            if (event.type == pygame.MOUSEBUTTONUP and event.button in (1, 2, 3)) or event.type == pygame.FINGERUP:
-                pos = get_event_pos(self._window.display_size, event)
-                rect = self._window.get_rect()
-                if pygame.Rect(rect.width // 2, 0, rect.width // 2, rect.height).collidepoint(pos):
-                    return event
-            if event.type == BUTTONDOWN and event.printer:
-                return event
-        return None
+    # def find_print_event(self, events):
+    #     """Return the first found event if found in the list.
+    #     """
+    #     for event in events:
+    #         if event.type == pygame.KEYDOWN and event.key == pygame.K_e\
+    #                 and pygame.key.get_mods() & pygame.KMOD_CTRL:
+    #             return event
+    #         if (event.type == pygame.MOUSEBUTTONUP and event.button in (1, 2, 3)) or event.type == pygame.FINGERUP:
+    #             pos = get_event_pos(self._window.display_size, event)
+    #             rect = self._window.get_rect()
+    #             if pygame.Rect(rect.width // 2, 0, rect.width // 2, rect.height).collidepoint(pos):
+    #                 return event
+    #         if event.type == BUTTONDOWN and event.printer:
+    #             return event
+    #     return None
 
     def find_print_status_event(self, events):
         """Return the first found event if found in the list.
