@@ -262,19 +262,21 @@ class ChooseBackground(Background):
         self.choices = choices
         self.layout0 = None
         self.layout0_pos = None
-        self.layout1 = None
-        self.layout1_pos = None
+        # self.layout1 = None
+        # self.layout1_pos = None
         self._logo_backgrounf_image = "logo_alpha.png"
         self._show_back = True
 
     def resize(self, screen):
         Background.resize(self, screen)
         if self._need_update:
-            size = (self._rect.width * 0.44, self._rect.height)
+            # size = (self._rect.width * 0.44, self._rect.height)
+            size = (self._rect.width * 0.88, self._rect.height)
             self.layout0  = pictures.get_pygame_image("layout{0}.png".format( self.choices[0]),  size, vflip=False, color=self._text_color)    
+            # self.layout0_pos = (int(self._rect.width * 0.03), self._rect.height * 0.5 - self.layout0.get_rect().height * 0.5)
             self.layout0_pos = (int(self._rect.width * 0.03), self._rect.height * 0.5 - self.layout0.get_rect().height * 0.5)
-            self.layout1  = pictures.get_pygame_image("layout{0}.png".format( self.choices[1]),  size, vflip=False, color=self._text_color)    
-            self.layout1_pos = (int(self._rect.width * 0.53), self._rect.height * 0.5 - self.layout1.get_rect().height * 0.5)
+            # self.layout1  = pictures.get_pygame_image("layout{0}.png".format( self.choices[1]),  size, vflip=False, color=self._text_color)    
+            # self.layout1_pos = (int(self._rect.width * 0.53), self._rect.height * 0.5 - self.layout1.get_rect().height * 0.5)
             
     def resize_texts(self):
         return None
@@ -282,7 +284,7 @@ class ChooseBackground(Background):
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.layout0, self.layout0_pos)
-        screen.blit(self.layout1, self.layout1_pos)
+        # screen.blit(self.layout1, self.layout1_pos)
 
 class CaptureBackground(Background):
 

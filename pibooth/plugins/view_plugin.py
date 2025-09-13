@@ -80,7 +80,8 @@ class ViewPlugin(object):
             app.capture_nbr = app.capture_choices[0]
             return 'preview'
         elif interaction == 'TOUCH-CENTER-RIGHT'or interaction == 'TOUCH-MIDDLE-TOP-RIGHT' or interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
-            app.capture_nbr = app.capture_choices[1]
+            # app.capture_nbr = app.capture_choices[1]            
+            app.capture_nbr = app.capture_choices[0]
             return 'preview'
         elif interaction == 'TOUCH-BOTTOM-LEFT':
             return 'wait'
