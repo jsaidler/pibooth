@@ -46,7 +46,6 @@ class PiWindow(object):
                  can_forget=True,
                  debug=False):
         self.__size = size
-        self.app = application
         self.debug = debug
         self.bg_color = color
         self.text_color = text_color
