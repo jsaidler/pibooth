@@ -229,7 +229,7 @@ class IntroWithPrintBackground(IntroBackground):
         IntroBackground.__init__(self)
         self.print_icon = None
         self.print_icon_pos = None
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
         self._show_exit = True
 
     def __str__(self):
@@ -264,7 +264,7 @@ class ChooseBackground(Background):
         self.layout0_pos = None
         # self.layout1 = None
         # self.layout1_pos = None
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
         self._show_back = True
 
     def resize(self, screen):
@@ -290,7 +290,7 @@ class CaptureBackground(Background):
 
     def __init__(self, preview_rect):
         Background.__init__(self, "capture")      
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
         self._show_back = True
         self._preview_rect = preview_rect
 
@@ -332,7 +332,7 @@ class ConfirmBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "confirm")        
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
 
     def resize(self, screen):
         Background.resize(self, screen)
@@ -369,7 +369,7 @@ class PrintBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "print")        
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
 
     def resize(self, screen):
         Background.resize(self, screen)
@@ -391,5 +391,5 @@ class OopsBackground(Background):
 
     def __init__(self):
         Background.__init__(self, "oops")
-        self._logo_backgrounf_image = "logo_alpha.png"
+        self._logo_backgrounf_image = ""
         self._show_exit = True
