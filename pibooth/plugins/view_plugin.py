@@ -156,7 +156,7 @@ class ViewPlugin(object):
     def state_print_enter(self, app, win):
         LOGGER.info("Display the final picture")
         win.show_print(app.previous_picture)
-        win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
+        # win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
 
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
