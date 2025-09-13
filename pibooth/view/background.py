@@ -284,7 +284,7 @@ class ChooseBackground(Background):
     def paint(self, screen):
         Background.paint(self, screen)
         screen.blit(self.layout0, self.layout0_pos)
-        # screen.blit(self.layout1, self.layout1_pos)
+        screen.blit(self.layout1, self.layout1_pos)
 
 class CaptureBackground(Background):
 
