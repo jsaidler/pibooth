@@ -72,6 +72,7 @@ class PiWindow(object):
         self._current_background = None
         self._current_foreground = None
         self._print_number = 0
+        self._printed_number = self.app.count[1]
         self._print_failure = False
         self._capture_number = (0, 4)  # (current, max)
         self._shutter_speed = 0
@@ -168,8 +169,8 @@ class PiWindow(object):
     def _update_print_number(self):
         """Update the number of files in the printer queue.
         """
-        if not self._print_number and not self._print_failure:
-            return  # Dont show counter: no file in queue, no failure
+        # if not self._print_number and not self._print_failure:
+        #     return  # Dont show counter: no file in queue, no failure
 
         smaller = self.surface.get_size()[1] if self.surface.get_size(
         )[1] < self.surface.get_size()[0] else self.surface.get_size()[0]
