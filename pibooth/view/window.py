@@ -73,7 +73,6 @@ class PiWindow(object):
         self._current_background = None
         self._current_foreground = None
         self._print_number = 0
-        self._printed_number = self.app.count[1]
         self._print_failure = False
         self._capture_number = (0, 4)  # (current, max)
         self._shutter_speed = 0
