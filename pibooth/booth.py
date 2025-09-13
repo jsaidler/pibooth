@@ -99,9 +99,9 @@ class PiApplication(object):
 
         title = 'Pibooth v{}'.format(pibooth.__version__)
         if not isinstance(init_size, str):
-            self._window = PiWindow(title, init_size, color=init_color, text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
+            self._window = PiWindow(title, init_size, counters = self.count, color=init_color, text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
         else:
-            self._window = PiWindow(title, color=init_color,
+            self._window = PiWindow(title, color=init_color,counters = self.count,
                                     text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
 
         self._menu = None

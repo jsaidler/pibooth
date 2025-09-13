@@ -37,7 +37,7 @@ class PiWindow(object):
     LEFT = 'left'
     FULLSCREEN = 'fullscreen'
 
-    def __init__(self, title,
+    def __init__(self, title, counters=None,
                  size=(800, 480),
                  color=(0, 0, 0),
                  text_color=(255, 255, 255),
@@ -46,6 +46,7 @@ class PiWindow(object):
                  can_forget=True,
                  debug=False):
         self.__size = size
+        self.app = application
         self.debug = debug
         self.bg_color = color
         self.text_color = text_color
@@ -73,6 +74,7 @@ class PiWindow(object):
         self._current_background = None
         self._current_foreground = None
         self._print_number = 0
+        self._printed_number = counters[1]
         self._print_failure = False
         self._capture_number = (0, 4)  # (current, max)
         self._shutter_speed = 0
@@ -182,7 +184,7 @@ class PiWindow(object):
             else:
                 image = pictures.get_pygame_image('printer.png', (side, side), color=self.text_color)
             font = pygame.font.Font(fonts.CURRENT, side)
-            label = font.render(str(self._print_number), True, self.text_color)
+            label = font.render(str(self._print_number) + ' / ' + str(self._printed_number), True, self.text_color)
 
             height = max((image.get_rect().height, label.get_rect().height)) + 20
             bg = pygame.Surface((image.get_rect().width + label.get_rect().width + side + 10, height))
