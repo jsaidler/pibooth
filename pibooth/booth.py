@@ -88,6 +88,37 @@ class PiApplication(object):
                 shutil.rmtree(savedir)
             if not osp.isdir(savedir):
                 os.makedirs(savedir)
+
+        # Create window of (width, height)
+        init_size = self._config.gettyped('WINDOW', 'size')
+        init_debug = self._config.getboolean('GENERAL', 'debug')
+        init_color = self._config.gettyped('WINDOW', 'background')
+        init_text_color = self._config.gettyped('WINDOW', 'text_color')
+        if not isinstance(init_color, (tuple, list)):
+            init_color = self._config.getpath('WINDOW', 'background')
+
+        title = 'Pibooth v{}'.format(pibooth.__version__)
+        if not isinstance(init_size, str):
+            self._window = PiWindow(title, init_size, color=init_color, text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
+        else:
+            self._window = PiWindow(title, color=init_color,
+                                    text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
+
+        self._menu = None
+        self._multipress_timer = PoolingTimer(config.getfloat('CONTROLS', 'multi_press_delay'), False)
+        self._fingerdown_events = []
+
+        # Define states of the application
+        self._machine = StateMachine(self._pm, self._config, self, self._window)
+        self._machine.add_state('wait')
+        self._machine.add_state('choose')
+        self._machine.add_state('preview')
+        self._machine.add_state('capture')
+        self._machine.add_state('confirm')
+        self._machine.add_state('processing')
+        self._machine.add_state('print')
+        self._machine.add_state('finish')
+
         # ---------------------------------------------------------------------
         # Variables shared with plugins
         # Change them may break plugins compatibility
@@ -126,35 +157,6 @@ class PiApplication(object):
                                config.gettyped('PRINTER', 'printer_options'),
                                self.count)
         # ---------------------------------------------------------------------
-        # Create window of (width, height)
-        init_size = self._config.gettyped('WINDOW', 'size')
-        init_debug = self._config.getboolean('GENERAL', 'debug')
-        init_color = self._config.gettyped('WINDOW', 'background')
-        init_text_color = self._config.gettyped('WINDOW', 'text_color')
-        if not isinstance(init_color, (tuple, list)):
-            init_color = self._config.getpath('WINDOW', 'background')
-
-        title = 'Pibooth v{}'.format(pibooth.__version__)
-        if not isinstance(init_size, str):
-            self._window = PiWindow(title, init_size, counters = self.count, color=init_color, text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
-        else:
-            self._window = PiWindow(title, color=init_color,counters = self.count,
-                                    text_color=init_text_color, can_forget=self.can_forget, debug=init_debug)
-
-        self._menu = None
-        self._multipress_timer = PoolingTimer(config.getfloat('CONTROLS', 'multi_press_delay'), False)
-        self._fingerdown_events = []
-
-        # Define states of the application
-        self._machine = StateMachine(self._pm, self._config, self, self._window)
-        self._machine.add_state('wait')
-        self._machine.add_state('choose')
-        self._machine.add_state('preview')
-        self._machine.add_state('capture')
-        self._machine.add_state('confirm')
-        self._machine.add_state('processing')
-        self._machine.add_state('print')
-        self._machine.add_state('finish')
 
     def _initialize(self):
         """Restore the application with initial parameters defined in the

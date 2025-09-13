@@ -37,7 +37,7 @@ class PiWindow(object):
     LEFT = 'left'
     FULLSCREEN = 'fullscreen'
 
-    def __init__(self, title, counters=None,
+    def __init__(self, title,
                  size=(800, 480),
                  color=(0, 0, 0),
                  text_color=(255, 255, 255),
@@ -73,7 +73,7 @@ class PiWindow(object):
         self._current_background = None
         self._current_foreground = None
         self._print_number = 0
-        self._printed_number = counters['printed']
+        self._printed_number = 0
         self._print_failure = False
         self._capture_number = (0, 4)  # (current, max)
         self._shutter_speed = 0
@@ -390,11 +390,14 @@ class PiWindow(object):
             self._update_foreground(*self._current_foreground)
         pygame.display.update()
 
-    def set_print_number(self, current_nbr=None, ready=None):
+    def set_print_number(self, current_nbr=None, printed_nbr=None, ready=None):
         """Set the current number of tasks in the printer queue.
         """
         if current_nbr is not None:
             self._print_number = current_nbr
+            
+        if printed_nbr is not None:
+        self._print_number = printed_nbr
 
         if ready is not None and self._print_failure != (not ready):
             self._print_failure = not ready

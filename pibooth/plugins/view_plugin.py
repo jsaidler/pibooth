@@ -39,7 +39,7 @@ class ViewPlugin(object):
     @pibooth.hookimpl
     def state_wait_enter(self, app, win):
         win.show_intro(app.previous_picture, app.printer.is_ready())
-        win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
+        win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
         app.camera.stop_preview()
 
     @pibooth.hookimpl
@@ -49,7 +49,7 @@ class ViewPlugin(object):
         
         event = app.find_print_status_event(events)
         if event:
-            win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
+            win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
 
     @pibooth.hookimpl
     def state_wait_validate(self, app, events):
@@ -156,13 +156,13 @@ class ViewPlugin(object):
     def state_print_enter(self, app, win):
         LOGGER.info("Display the final picture")
         win.show_print(app.previous_picture)
-        win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
+        win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
 
     @pibooth.hookimpl
     def state_print_validate(self, app, win, events):
         interaction = app.user_interaction(events)
         if interaction == 'TOUCH-MIDDLE-TOP-RIGHT':
-            win.set_print_number(len(app.printer.get_all_tasks()), app.printer.is_ready())
+            win.set_print_number(len(app.printer.get_all_tasks()), app.count['printed'], app.printer.is_ready())
             return 'wait'
         elif interaction == 'TOUCH-MIDDLE-BOTTOM-RIGHT':
             return 'wait'
