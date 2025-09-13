@@ -397,7 +397,7 @@ class PiWindow(object):
             self._print_number = current_nbr
             
         if printed_nbr is not None:
-        self._print_number = printed_nbr
+            self._print_number = printed_nbr
 
         if ready is not None and self._print_failure != (not ready):
             self._print_failure = not ready
