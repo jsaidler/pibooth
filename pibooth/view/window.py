@@ -8,6 +8,7 @@ from operator import truediv
 import os
 import time
 import contextlib
+import pibooth
 from tkinter import Y
 import pygame # type: ignore
 from pygame import gfxdraw # type: ignore
